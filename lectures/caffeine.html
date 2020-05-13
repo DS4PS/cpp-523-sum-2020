@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Building a Regression Model</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="textbook.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">PROG EVAL I</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://ds4ps.org/cpp-523-fall-2019/">
+    <span class="fa fa-github fa-2x"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Building a Regression Model</h1>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#effect-of-caffeine-on-heart-rate"><span class="toc-section-number">1</span> Effect of Caffeine on Heart Rate</a><ul>
+<li><a href="#diy-regression"><span class="toc-section-number">1.1</span> DIY Regression</a></li>
+<li><a href="#the-conditional-mean"><span class="toc-section-number">1.2</span> The Conditional Mean</a></li>
+<li><a href="#regression-as-a-prediction-of-y"><span class="toc-section-number">1.3</span> Regression as a Prediction of Y</a></li>
+</ul></li>
+<li><a href="#the-regression-model"><span class="toc-section-number">2</span> The Regression Model</a></li>
+<li><a href="#the-variance-of-y"><span class="toc-section-number">3</span> The Variance of Y</a><ul>
+<li><a href="#the-standard-deviation"><span class="toc-section-number">3.1</span> The Standard Deviation</a></li>
+</ul></li>
+<li><a href="#r-squared-explaining-variance"><span class="toc-section-number">4</span> R-Squared: Explaining Variance</a><ul>
+<li><a href="#sums-of-squares"><span class="toc-section-number">4.1</span> Sums of Squares</a></li>
+<li><a href="#tabulating-sums-of-square-deviations"><span class="toc-section-number">4.2</span> Tabulating Sums of Square Deviations</a></li>
+<li><a href="#residual-standard-error"><span class="toc-section-number">4.3</span> Residual Standard Error</a></li>
+</ul></li>
+</ul>
+</div>
+
+<p><br>
+<br></p>
+<div class="tip">
+<p><br></p>
+<p>KEY TAKE-AWAYS:</p>
+<h3 id="a-regression-is-a-fancy-average-ave-of-y-conditional-on-level-of-x.">A regression is a fancy average (ave of Y conditional on level of X).</h3>
+<p>Formula for the regression:</p>
+<p><span class="math inline">\(Y = b_0 + b_1 X + e\)</span></p>
+<p><span class="math inline">\(b_1 = cov(x,y) / var(x)\)</span></p>
+<p><span class="math inline">\(\bar{y} = b_0 + b_1 \bar{x}\)</span></p>
+<h3 id="variance-measures-distances-from-data-points-to-the-mean.">Variance measures distances from data points to the mean.</h3>
+<ul>
+<li><span class="math inline">\(y_i\)</span> = a data point</li>
+<li><span class="math inline">\(\bar{y}\)</span> = the mean of Y</li>
+<li><span class="math inline">\(y_i - \bar{y}\)</span> = distance to the mean = a deviation</li>
+<li><span class="math inline">\(var(y) = \frac{ \sum{ ( deviations )^2 }}{n-1}\)</span></li>
+</ul>
+<h3 id="variance-can-be-decomposed-into-an-explained-and-residual-component.">Variance can be decomposed into an explained and residual component.</h3>
+<ul>
+<li><span class="math inline">\(var(y) = \frac{ Total SS } { (n-1) } = \frac{ Explained SS } { (n-1) } + \frac{ Residual SS } { (n-1) }\)</span></li>
+</ul>
+<p>Each sum of squares calculation has the same format: <span class="math inline">\(SS = \sum{ ( \star )^2 }\)</span>
+Where the distance calculated in each case (the <span class="math inline">\(\star\)</span> above) is:</p>
+<ul>
+<li>Total SS (variance): <span class="math inline">\(y_i - \bar{y}\)</span> <code>(deviations)</code><br />
+</li>
+<li>Residual or Error SS: <span class="math inline">\(y_i - \hat{y}\)</span> <code>(residuals)</code><br />
+</li>
+<li>Regression or Explained SS: <span class="math inline">\(\hat{y} - \bar{y}\)</span> <code>(gain in predictive accuracy)</code></li>
+</ul>
+<p>We then calculate the “variance explained” by the model as:</p>
+<p><span class="math inline">\(R^2 = \frac{ Explained SS } { Total SS }\)</span></p>
+<p><br></p>
+</div>
+<p><br></p>
+<div id="effect-of-caffeine-on-heart-rate" class="section level1">
+<h1><span class="header-section-number">1</span> Effect of Caffeine on Heart Rate</h1>
+<p>We are interested in understanding the effect that caffeine has on heart rate. We have designed a study with 100 participants and randomly assigned dosages of caffeine between 0 and 500 mg. We are now trying to determine whether caffeine raises heart rate significantly.</p>
+<p>The relationship looks as follows:</p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-3-1.png" width="864" /></p>
+<div id="diy-regression" class="section level2">
+<h2><span class="header-section-number">1.1</span> DIY Regression</h2>
+<p>It looks as though heart rate does increase with the level of caffeine administered. But by how much?</p>
+<p>One simplistic way we can analyze the data is by splitting it into several ranges of treatment and calculating the average heart rate for each group:</p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-4-1.png" width="864" /></p>
+</div>
+<div id="the-conditional-mean" class="section level2">
+<h2><span class="header-section-number">1.2</span> The Conditional Mean</h2>
+<p>Either way, what we are doing here is basically a mathematically imprecise do-it-yourself regression model. Although this is a fairly blunt way to analyze the data, it is actually not too far off from our more mathematically elegant regression line:</p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-7-1.png" width="864" /></p>
+<p>This does demonstrate an important point, however. The regression model is a <strong>conditional mean</strong>: it gives you the average heart rate of a subject conditional on how much caffeine they consumed.</p>
+<p>In other words, if you tell me the caffeine intake of the subject, I can give you a good guess of their heart rate.</p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-8-1.png" width="864" /></p>
+<center>
+The models give us a guess for what the heart rate will be for subjects within a specific treatment group (level of caffeine). Both models return similar results.
+</center>
+<table style="text-align:center">
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+ave.caffeine
+</td>
+<td>
+ave.heart
+</td>
+<td>
+regression.model
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+1
+</td>
+<td>
+25
+</td>
+<td>
+81
+</td>
+<td>
+74
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+2
+</td>
+<td>
+75
+</td>
+<td>
+76
+</td>
+<td>
+78
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+3
+</td>
+<td>
+125
+</td>
+<td>
+84
+</td>
+<td>
+82
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+4
+</td>
+<td>
+175
+</td>
+<td>
+76
+</td>
+<td>
+86
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+5
+</td>
+<td>
+225
+</td>
+<td>
+90
+</td>
+<td>
+90
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+6
+</td>
+<td>
+275
+</td>
+<td>
+93
+</td>
+<td>
+95
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+7
+</td>
+<td>
+325
+</td>
+<td>
+98
+</td>
+<td>
+99
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+8
+</td>
+<td>
+375
+</td>
+<td>
+116
+</td>
+<td>
+103
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+9
+</td>
+<td>
+425
+</td>
+<td>
+103
+</td>
+<td>
+107
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+10
+</td>
+<td>
+475
+</td>
+<td>
+113
+</td>
+<td>
+111
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+</table>
+<p><br>
+<br></p>
+<div class="tip">
+<p><br></p>
+<p>The regression line represents the average value of Y conditional on each level of X.</p>
+<p>In other words, a regression is just a fancy average.</p>
+<p><br></p>
+</div>
+<p><br></p>
+</div>
+<div id="regression-as-a-prediction-of-y" class="section level2">
+<h2><span class="header-section-number">1.3</span> Regression as a Prediction of Y</h2>
+<p>Another way to think about a regression line is a set of predictions for where we expect Y to be based upon an observed value of X. I am guessing the value of Y based upon information I have on X.</p>
+<p>If we have no information on an individual, then our best guess of their level of Y will be the population mean of Y. It is a very crude way to make a prediction, but it is far better than selecting a number at random.</p>
+<p>If we only have information about an individual regarding X, then the predicted value of Y conditional on X is our best guess of what the outcome measure might be for that individual.</p>
+<p>The strength of our regression model is to some extend a measure of how much our prediction of the true value of Y for an individual improves over simply using the population mean.</p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-10-1.png" width="864" /></p>
+<p>When we cover hypothesis testing, we will see that the null hypothesis in regression models is actually just that we can’t improve our predictions about Y by using information on X. Using the population mean of Y to predict the outcome is just as good as using the regression model.</p>
+<p>The quality of the regression is a function of the strength of the relationship between X and Y in the data. If the correlation is weak, i.e. close to zero, then the regression will not do any better than just using the mean of Y as the best guess for where a random data point will fall.</p>
+<p>If the correlation is strong, the regression provides a lot of information relative to just using the population mean. We will have more accurate predictions using the conditional mean (relative to X) rather than just the mean of Y.</p>
+<center>
+<strong>Does the regression do a better job than the mean at predicting Y?</strong>
+</center>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-11-1.png" width="864" /></p>
+</div>
+</div>
+<div id="the-regression-model" class="section level1">
+<h1><span class="header-section-number">2</span> The Regression Model</h1>
+<div id="formula-for-the-slope" class="section level3">
+<h3><span class="header-section-number">2.0.1</span> Formula for the Slope</h3>
+<p>Our regression <strong>line</strong> can be written as:</p>
+<blockquote>
+<p><span class="math inline">\(Y = b_0 + b_1 X\)</span></p>
+</blockquote>
+<p>The regression <strong>model</strong> needs to include the residual <em>e</em>.</p>
+<blockquote>
+<p><span class="math inline">\(Y = b_0 + b_1 X + e\)</span></p>
+</blockquote>
+<p>The slope of a regression line can be calculated as a ratio of the covariance of X and Y to the variance of X.</p>
+<blockquote>
+<p><span class="math inline">\(b_1 = cov(x,y) / var(x)\)</span></p>
+</blockquote>
+<p>If you give it some thought, this is a pretty intuitive formula. When X varies by one unit, how much do we expect Y to covary?</p>
+</div>
+<div id="formula-for-the-intercept" class="section level3">
+<h3><span class="header-section-number">2.0.2</span> Formula for the Intercept</h3>
+<p>Finding the intercept of the regression is a little tricky because after solving for <span class="math inline">\(b_1\)</span> we have three unknown variables (X, Y, and <span class="math inline">\(b_0\)</span> ) and only one equation. We need to draw upon the fact that the OLS regression line always passes through the mean of X and the mean of Y, giving us two known values.</p>
+<blockquote>
+<p><span class="math inline">\(\bar{y} = b_0 + b_1 \bar{x}\)</span></p>
+</blockquote>
+<p><span class="math inline">\(b_1\)</span> = cov(caffeine,heart.rate) / var(caffeine) = <strong>0.084</strong></p>
+<p><span class="math inline">\(\bar{y}\)</span> = 90</p>
+<p><span class="math inline">\(\bar{x}\)</span> = 219</p>
+<p>90 = <span class="math inline">\(b_0\)</span> + 0.08 <span class="math inline">\(\cdot\)</span> 219
+= <strong>71.47</strong></p>
+<p>The regression model gives us a very clear estimate of the “average effect” of one mg of caffeine on heart rate.</p>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+heart.rate
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+caffeine
+</td>
+<td>
+0.084<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.014)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+71.470<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.503)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.282
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+18.755 (df = 98)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+</div>
+<div id="the-y-hat-calculation" class="section level3">
+<h3><span class="header-section-number">2.0.3</span> The Y-hat Calculation</h3>
+<p>We use the notation <span class="math inline">\(\hat{y}\)</span> to represent predicted values of Y using the regression model.</p>
+<p>Consequently, we will sometimes use <span class="math inline">\(\hat{y}\)</span> as shorthand for the set points that represents the regression line.</p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-13-1.png" width="864" /></p>
+<p>We can calculate <span class="math inline">\(\hat{y}\)</span> for each input X in our model (caffeine in this case) using the regression formula now that we know <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span>.</p>
+<table style="width:42%;">
+<caption><strong>yhat = 71.47 + (0.084)(X)</strong></caption>
+<colgroup>
+<col width="11%" />
+<col width="11%" />
+<col width="8%" />
+<col width="11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">b0</th>
+<th align="center">b1</th>
+<th align="center">X</th>
+<th align="center">yhat</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">71.47</td>
+<td align="center">0.084</td>
+<td align="center">100</td>
+<td align="center">79.87</td>
+</tr>
+<tr class="even">
+<td align="center">71.47</td>
+<td align="center">0.084</td>
+<td align="center">200</td>
+<td align="center">88.27</td>
+</tr>
+<tr class="odd">
+<td align="center">71.47</td>
+<td align="center">0.084</td>
+<td align="center">300</td>
+<td align="center">96.67</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="the-variance-of-y" class="section level1">
+<h1><span class="header-section-number">3</span> The Variance of Y</h1>
+<p>Let’s consider the study population before they received the treatment in order to examine the distribution of heart rates through the population - the variance of heart rate.</p>
+<p>The solid red line represents the population mean, and the dotted red lines fall one standard deviation from the mean in either direction.</p>
+<p>What does a <strong>standard deviation</strong> actually mean, though?</p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-16-1.png" width="864" /></p>
+<p>If we return to the scatterplot view of the data, we can present the same information using datapoints instead of a density plot. The solid red line represents the population mean, and the dotted red lines fall one standard deviation from the mean in either direction.</p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-17-1.png" width="864" /></p>
+<div id="the-standard-deviation" class="section level2">
+<h2><span class="header-section-number">3.1</span> The Standard Deviation</h2>
+<p>In very simple (and not mathematically correct) terms, the standard deviation is the <strong>“average” distance from each data point to the mean</strong>.</p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-18-1.png" width="864" /></p>
+<p>We use the term “average” loosely because the standard deviation actually measures <strong>squared deviations</strong> from the mean to calculate variance, then take the <strong>square root of the sum</strong> to get the measures back to the original units.</p>
+<p>The <strong>standard deviation</strong> would be a true average if we had used the absolute value of distances from the mean, but the intuition is the same.</p>
+<p><br></p>
+<div class="tip">
+<p><br></p>
+<p>The STANDARD deviation measures the TYPICAL or AVERAGE deviation.</p>
+<p>A DEVIATION is the distance between a data point and the mean.</p>
+<p><br></p>
+</div>
+<p><br></p>
+<p>Let’s drill down to the first ten observations to examine this a little closer:</p>
+<p><span class="math inline">\(deviation_i = y_i - \bar{y}\)</span></p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-19-1.png" width="864" /></p>
+<p>Distance from the mean of Y for all ten cases:</p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-20-1.png" width="864" /></p>
+<table style="width:78%;">
+<colgroup>
+<col width="8%" />
+<col width="18%" />
+<col width="12%" />
+<col width="18%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">ID</th>
+<th align="center">Heart_Rate</th>
+<th align="center">Mean_Y</th>
+<th align="center">Deviations</th>
+<th align="center">Devs_Squared</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">40.04</td>
+<td align="center">63.28</td>
+<td align="center">-23</td>
+<td align="center">529</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">45.25</td>
+<td align="center">63.28</td>
+<td align="center">-18</td>
+<td align="center">324</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">48.66</td>
+<td align="center">63.28</td>
+<td align="center">-15</td>
+<td align="center">225</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">41.03</td>
+<td align="center">63.28</td>
+<td align="center">-22</td>
+<td align="center">484</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">84.39</td>
+<td align="center">63.28</td>
+<td align="center">21</td>
+<td align="center">441</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="center">73.78</td>
+<td align="center">63.28</td>
+<td align="center">10</td>
+<td align="center">100</td>
+</tr>
+<tr class="odd">
+<td align="center">7</td>
+<td align="center">73.47</td>
+<td align="center">63.28</td>
+<td align="center">10</td>
+<td align="center">100</td>
+</tr>
+<tr class="even">
+<td align="center">8</td>
+<td align="center">69.78</td>
+<td align="center">63.28</td>
+<td align="center">6</td>
+<td align="center">36</td>
+</tr>
+<tr class="odd">
+<td align="center">9</td>
+<td align="center">92.87</td>
+<td align="center">63.28</td>
+<td align="center">30</td>
+<td align="center">900</td>
+</tr>
+<tr class="even">
+<td align="center">10</td>
+<td align="center">63.57</td>
+<td align="center">63.28</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">SUM</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center">0</td>
+<td align="center">3139</td>
+</tr>
+</tbody>
+</table>
+<div id="variance-as-a-sum-of-squared-deviations" class="section level3">
+<h3><span class="header-section-number">3.1.1</span> Variance as a Sum of Squared Deviations</h3>
+<p>We calculate the variance as follows:</p>
+<p><span class="math inline">\(var(y) = \frac{ \sum{ (y_i - \bar{y})^2 } } { (n-1) }\)</span></p>
+<p>Note that this entire formula is organized around the deviations <span class="math inline">\(y_i - \bar{y}\)</span>.</p>
+<p>Also note that in the formula we are dividing a sum by N, so the variance is an average of sorts:</p>
+<p><span class="math inline">\(var(y) = \frac{ \sum{ \star } } { n }\)</span></p>
+<p>Oddly, it’s an average of squared deviations.</p>
+</div>
+<div id="the-mean-as-a-fulcrum" class="section level3">
+<h3><span class="header-section-number">3.1.2</span> The Mean as a Fulcrum</h3>
+<p>Why don’t we use the average of the deviations?</p>
+<p>The answer to this lies in the table above. Note that the sum of the deviations is zero. The average of zero is pretty meaningless.</p>
+<p>More importantly, <strong>why will the sum of the deviations always add to zero?</strong></p>
+<p><img src="figures/seesaw.jpg" /></p>
+<p>You can think about the mean as a seesaw fulcrum. You place the fulcrum in the exact spot that it will balance all of the weight on both sides of the levers. The mean is the geometric center of the data that balances the distance between observations on all sides.</p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-22-1.png" width="384" /></p>
+<table style="width:40%;">
+<caption><strong>Summing Deviations</strong></caption>
+<colgroup>
+<col width="6%" />
+<col width="12%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">y</th>
+<th align="center">mean.y</th>
+<th align="center">dev.y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">10</td>
+<td align="center">-5</td>
+</tr>
+<tr class="even">
+<td align="center">16</td>
+<td align="center">10</td>
+<td align="center">6</td>
+</tr>
+<tr class="odd">
+<td align="center">6</td>
+<td align="center">10</td>
+<td align="center">-4</td>
+</tr>
+<tr class="even">
+<td align="center">14</td>
+<td align="center">10</td>
+<td align="center">4</td>
+</tr>
+<tr class="odd">
+<td align="center">4</td>
+<td align="center">10</td>
+<td align="center">-6</td>
+</tr>
+<tr class="even">
+<td align="center">15</td>
+<td align="center">10</td>
+<td align="center">5</td>
+</tr>
+<tr class="odd">
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"><strong>SUM=ZERO</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Recall again the variance formula:</p>
+<p><span class="math inline">\(var(y) = \frac{ \sum{ (y_i - \bar{y})^2 } } { (n-1) }\)</span></p>
+<p>The reason we cannot measure variance use the average of the deviations (a more intuitive measure) is the deviations <span class="math inline">\(y_i - \bar{y}\)</span> are distances to the mean, and because the mean is the exact center of gravity of the data the sum of the deviations will mathematically always be zero.</p>
+<p>Since squaring terms ensures they are always positive, the quickest fix to this problem is to use the sum of squared deviations <span class="math inline">\((y_i - \bar{y})^2\)</span>.</p>
+<p><br></p>
+<p><img src="https://media0.giphy.com/media/oEnlkgqdspU1a/giphy.gif" /></p>
+<center>
+Lebron James finding the average of the basketball.
+</center>
+</div>
+<div id="fixing-units-the-standard-deviation" class="section level3">
+<h3><span class="header-section-number">3.1.3</span> Fixing Units: The Standard Deviation</h3>
+<p>Since we have to square the deviations to ensure they are all positive values, we now have very odd units: heart-rate-squared.</p>
+<p>When is the last time your doctor asked about your squared heart rate, your teacher cared about your squared test score, or your retirement advisor asked about your squared income?</p>
+<p>The <strong>standard deviation</strong> applies the square root to variance to fix the interpretation problem:</p>
+<p><span class="math inline">\(stdev(y) = \sqrt{ var(y) }\)</span></p>
+<p>We are now back to our original units!</p>
+<p>Again, when you hear the term “standard” you should think of “average” or “typical”.</p>
+<p>It’s not exactly an average because you are taking squared roots of squared deviations (that’s a mouthful), but compared to the mean of the absolute values of the deviations (another mouthful) the metrics are not that far off:</p>
+<p><strong>Standard Deviation:</strong> 17.5</p>
+<p><strong>Average Absolute Values of Deviations:</strong> 14.5</p>
+</div>
+</div>
+</div>
+<div id="r-squared-explaining-variance" class="section level1">
+<h1><span class="header-section-number">4</span> R-Squared: Explaining Variance</h1>
+<p>Now that we are comfortable with the idea of measuring deviations, and variance being the sum of the squared deviations, we are ready to tackle the idea of “explaining” variance.</p>
+<p>It is important to first note that one nuance worth paying attention to is the subtle difference between the deviations from the mean that comprise the TOTAL VARIANCE calculation, and the residual terms that comprise the REGESSION or EXPLAINED VARIANCE calculation.</p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-24-1.png" width="1152" /></p>
+<p>The variance of the regression will always be smaller than the total variance because the regression line is chosen so it is closer to the data points.</p>
+<div id="sums-of-squares" class="section level2">
+<h2><span class="header-section-number">4.1</span> Sums of Squares</h2>
+<p>What is actually happening here is the decomposition of the TOTAL variance into an EXPLAINED and a RESIDUAL component.</p>
+<p>Before we start the calculations, note that TOTAL SS divided by (n-1) is actually just the variance of Y. We are working with Sums of Squares for the calculations, but they are conceptually almost identical to the variance of the dependent variable, just easier to calculate.</p>
+</div>
+<div id="tabulating-sums-of-square-deviations" class="section level2">
+<h2><span class="header-section-number">4.2</span> Tabulating Sums of Square Deviations</h2>
+<p>In order to see how we are able to divide the variance into an explained portion and an unexplained portion we need a trick:</p>
+<p><strong>Note that A - B + B - C is the same as A - C.</strong></p>
+<blockquote>
+<p><strong>A - C = A - C</strong></p>
+<p><strong>A - B + B - C = A - C</strong></p>
+<p><strong>(A-B) + (B-C) = A - C</strong></p>
+</blockquote>
+<p>Now take a look at the equations to calculate SUMS OF SQUARES:</p>
+<p>TOTAL SS = <span class="math inline">\(\sum{ (y_i - \bar{y})^2 }\)</span></p>
+<p>RESIDUAL SS = <span class="math inline">\(\sum{ (y_i - \hat{y})^2 }\)</span></p>
+<p>EXPLAINED SS = <span class="math inline">\(\sum{ ( \hat{y} - \bar{y})^2 }\)</span></p>
+<p>Recall that <span class="math inline">\(\hat{y}\)</span> represents the predicted values of Y, which is another way of saying the regression line. So what we are doing here is inserting the regression line between the mean of Y and the observed values of Y.</p>
+<p>The trick to partitioning the variance is to split the deviation <span class="math inline">\((y_i - \bar{y})\)</span> into two parts by inserting a point in the middle:</p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-25-1.png" width="384" /></p>
+<p>The regression line (<span class="math inline">\(\hat{y}\)</span>) serves the same role as B:</p>
+<p>A - B + B - C = A - C</p>
+<blockquote>
+<p><span class="math inline">\(y_i - \hat{y} + \hat{y} - \bar{y} = y_i - \bar{y}\)</span></p>
+<p><span class="math inline">\((y_i - \hat{y}) + (\hat{y} - \bar{y}) = y_i - \bar{y}\)</span></p>
+<p><span class="math inline">\((RSS) + (ESS) = TOTAL \ SS\)</span></p>
+</blockquote>
+<p>Ultimately this trick allows us to split the variance into explained (ESS) and unxplained residual (RSS) components.</p>
+<div id="explained-variance" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Explained Variance</h3>
+<p>The statement above is the same as saying the TOTAL VARIANCE of Y can be decomposed into an EXPLAINED portion of the variance and an UNEXPLAINED portion of the variance.</p>
+<p>Thus <span class="math inline">\(R^2 = Regression \ SS / Total SS\)</span>, or <span class="math inline">\(R^2\)</span> is measuring the explained portion of the variance of the dependent variable in the model.</p>
+<p>Visually it would look something like this:</p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-26-1.png" width="864" /></p>
+<center>
+This models has an <span class="math inline">\(R^2\)</span> of 0.282, so the blue segments account for about 28% of the residuals.
+</center>
+<p><br>
+<br></p>
+<div class="tip">
+<p><br></p>
+<p>PARTITIONING THE VARIANCE of our outcome Y means splitting it into EXPLAINED and UNEXPLAINED portions.</p>
+<p>The total variance is calculated from DEVIATIONS of data points to the MEAN OF Y.</p>
+<p>We partition it by inserting the regression line between the data point and the mean.</p>
+<p>The UNEXPLAINED portion is calculated from the RESIDUALS, the distance between the regression line (the predicted values of Y) and observed values.</p>
+<p><span class="math inline">\(R^2\)</span> is the proportion of TOTAL VARIANCE OF Y accounted for by the regression.</p>
+<p><br></p>
+</div>
+<p><br></p>
+<p>Note that we have a variance of both X and Y in our model. When we are explaining variance or partitioning variance, it is always with respect to the outcome. That is the variance we are trying to explain.</p>
+<p>Total SS: 47977</p>
+<p>Explained SS: 13507</p>
+<p>Residual SS: 34470</p>
+<p>We will find these values in an ANOVA table:</p>
+<table style="width:92%;">
+<caption>Analysis of Variance Model</caption>
+<colgroup>
+<col width="22%" />
+<col width="6%" />
+<col width="12%" />
+<col width="13%" />
+<col width="13%" />
+<col width="22%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">Df</th>
+<th align="center">Sum Sq</th>
+<th align="center">Mean Sq</th>
+<th align="center">F value</th>
+<th align="center">Pr(&gt;F)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>caffeine</strong></td>
+<td align="center">1</td>
+<td align="center">13507</td>
+<td align="center">13507</td>
+<td align="center">38.4</td>
+<td align="center">0.00000001361</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>Residuals</strong></td>
+<td align="center">98</td>
+<td align="center">34470</td>
+<td align="center">351.7</td>
+<td align="center">NA</td>
+<td align="center">NA</td>
+</tr>
+</tbody>
+</table>
+<p>The caffeine Sum Sq here is the Explained portion, and the Residual Sum Sq is the unexplained portion.</p>
+<p>The TOTAL SS can be tabulated by adding the Residual SS and Explained SS.</p>
+</div>
+</div>
+<div id="residual-standard-error" class="section level2">
+<h2><span class="header-section-number">4.3</span> Residual Standard Error</h2>
+<p>It’s also worth noting that the Residual Standard Error in the regression model is just the standard deviation of the residuals.</p>
+<p><span class="math inline">\(Residual \ Std \ Error = \sqrt{ \frac{Residual SS}{ (n-1)} }\)</span></p>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+heart.rate
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+caffeine
+</td>
+<td>
+0.084<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.014)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+71.470<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.503)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.282
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+18.755 (df = 98)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-30-1.png" width="864" /></p>
+<p><br></p>
+<div class="tip">
+<p><br></p>
+<p>The Residual Standard Error measures the “average” residual in the model, or the typical amount we can expect to be wrong if we are predicting a level of Y using our regression model.</p>
+<p><br></p>
+</div>
+<p><br></p>
+<p><br></p>
+</div>
+</div>
+
+<div class="footer">
+<div class="row"  align="center">
+
+  Designed by <a href=http://ds4ps.github.io target="_blank">DS4PS</a><br>
+  Powered by <a href=http://jekyllrb.com target="_blank">Jekyll</a>
+
+</div>
+</div>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

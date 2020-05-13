@@ -1,0 +1,1026 @@
+---
+title: "Building a Regression Model"
+output:
+  html_document:
+    theme: readable
+    highlight: tango
+    toc: true
+    self_contained: false
+    number_sections: true
+    css: textbook.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=F, fig.width=9, fig.height=6, warning=F, message=F )
+```
+
+
+```{r}
+library( stargazer )
+library( pander )
+library( dplyr )
+```
+
+
+
+```{r, echo=F}
+dat <- 
+structure(list(caffeine = c(320.78657974489, 204.762143199332, 
+460.468665347435, 225.710971979424, 457.136312266812, 13.1775442278013, 
+170.969654223882, 128.038750728592, 388.565812492743, 148.027310613543, 
+128.729215008207, 235.667948145419, 35.1435731863603, 113.297758391127, 
+57.3732610791922, 39.9893616558984, 220.443549682386, 491.212779539637, 
+481.918572913855, 398.797751637176, 270.868101739325, 227.887853514403, 
+105.517098680139, 115.319474018179, 295.549898175523, 129.119025659747, 
+378.701823879965, 275.773034663871, 48.8126637646928, 75.2531978068873, 
+72.8928972966969, 495.28410541825, 13.0461587104946, 303.367173182778, 
+51.060299621895, 254.712800960988, 93.7106728088111, 253.610945539549, 
+192.587757366709, 294.332663528621, 460.372022702359, 291.778963059187, 
+406.451043440029, 383.766523795202, 303.781759459525, 266.891154809855, 
+142.739448696375, 62.0942353270948, 241.982037201524, 183.678396162577, 
+354.010452283546, 475.784285110421, 153.559489990585, 410.362537368201, 
+427.608042606153, 22.9700598865747, 431.889208150096, 238.07019344531, 
+60.8526171417907, 327.947845216841, 113.779274979606, 230.094960425049, 
+443.116803769954, 396.664506755769, 22.8902720846236, 33.8958110660315, 
+331.32565242704, 114.436748553999, 296.156467753462, 165.085852728225, 
+499.651512713172, 354.395903763361, 1.5848942566663, 384.866981068626, 
+100.115584325977, 344.749627634883, 374.926729826257, 119.163559516892, 
+476.483388920315, 292.391637456603, 399.729033815674, 467.301251250319, 
+38.296460872516, 331.800814950839, 493.717333651148, 126.165533089079, 
+19.7181096300483, 492.810985655524, 66.4253812283278, 88.0953661398962, 
+241.39740539249, 318.042521947064, 493.48953505978, 49.7673434438184, 
+346.841395949014, 0.654351082630455, 383.712967857718, 159.989772830158, 
+479.006422450766, 97.6987896719947), heart.rate = c(116.566391543331, 
+61.9338353686546, 123.636704242586, 86.1295876265869, 144.79442601178, 
+64.3170853884426, 52.8451284350571, 89.3601749949057, 110.060996342887, 
+80.9699310026113, 58.4546229083941, 72.4318220115224, 70.9104072569639, 
+98.959001175288, 65.8744392190261, 54.170053105323, 87.3166470670555, 
+122.09414688938, 119.919478062229, 130.07561484954, 121.712582002753, 
+85.648785490404, 103.466813405427, 78.4050236127545, 81.0712893220854, 
+62.6567803716679, 95.1443421410481, 97.3691619802898, 71.8451116666001, 
+78.7903436143205, 78.5392141931586, 126.867556609316, 63.7105187861475, 
+128.009994745085, 81.3493046955634, 67.0534350715073, 70.9009644688094, 
+101.142646109262, 77.111791521277, 101.389840707027, 118.121399259835, 
+120.329660335427, 91.5466756949411, 102.201369895008, 83.9865092454855, 
+69.4775465376213, 43.8671441590931, 77.4990622830763, 101.809687852049, 
+97.3142188504306, 72.0610843562775, 88.2270285919862, 58.9972702024013, 
+91.1591983711203, 109.888680197596, 81.9569739349399, 90.5693757190095, 
+87.3166470670555, 92.5532051769264, 109.821001481785, 64.2227207371593, 
+67.2353196088586, 101.880688403301, 105.861936864071, 84.5241397593696, 
+98.8525249174282, 80.8416407508655, 84.1137642627299, 121.33760277186, 
+64.8308836403586, 108.513367885528, 64.4662707746345, 73.8910854853889, 
+89.8141930496964, 58.511649744559, 83.427917103433, 110.633473156251, 
+87.3166470670555, 102.373287004409, 74.0408941870034, 84.7332324773358, 
+119.549805158076, 78.4817668706172, 95.7216662206359, 123.18490516061, 
+67.3128000090545, 87.3166470670555, 135.44141432096, 69.3644243566673, 
+68.6268075882925, 92.8761250728386, 111.942471434924, 120.935797479426, 
+91.0243689092499, 100.138417492221, 57.9731787356145, 96.5251789400834, 
+98.8573991276317, 94.1252020979882, 57.7206891568556)), class = "data.frame", row.names = c(NA, 
+-100L))
+
+
+jplot <- function( x1, x2, lab1="", lab2="", draw.line=T, ... )
+{
+
+	plot( x1, x2,
+	      pch=19, 
+	      col=gray(0.6, alpha = 0.2), 
+	      cex=3.5,  
+	      bty = "n",
+	      xlab=lab1, 
+	      ylab=lab2, cex.lab=1.5,
+        ... )
+
+	if( draw.line==T ){ 
+		ok <- is.finite(x1) & is.finite(x2)
+		lines( lowess(x2[ok]~x1[ok]), col="red", lwd=3 ) }
+
+}
+
+
+```
+
+
+
+
+<br>
+<br>
+
+<div class="tip">
+
+<br>
+
+KEY TAKE-AWAYS:
+
+### A regression is a fancy average (ave of Y conditional on level of X).
+
+Formula for the regression:
+
+$Y = b_0 + b_1 X + e$ 
+
+$b_1 = cov(x,y) / var(x)$
+
+$\bar{y} = b_0 + b_1 \bar{x}$ 
+
+
+### Variance measures distances from data points to the mean. 
+
+* $y_i$ = a data point
+* $\bar{y}$ = the mean of Y
+* $y_i - \bar{y}$ = distance to the mean = a deviation
+* $var(y) =  \frac{ \sum{ ( deviations )^2 }}{n-1}$
+
+### Variance can be decomposed into an explained and residual component.  
+
+
+* $var(y) = \frac{ Total SS } { (n-1) } = \frac{ Explained SS } { (n-1) } + \frac{ Residual SS } { (n-1) }$
+
+Each sum of squares calculation has the same format:  $SS =  \sum{ ( \star )^2 }$
+Where the distance calculated in each case (the $\star$ above) is:
+
+  - Total SS (variance):  $y_i - \bar{y}$   `(deviations)`  
+  - Residual or Error SS: $y_i - \hat{y}$   `(residuals)`   
+  - Regression or Explained SS: $\hat{y} - \bar{y}$   `(gain in predictive accuracy)`  
+  
+We then calculate the "variance explained" by the model as:
+
+$R^2 = \frac{ Explained SS } { Total SS }$
+
+
+
+<br>
+
+</div>
+
+<br>
+
+
+# Effect of Caffeine on Heart Rate
+
+We are interested in understanding the effect that caffeine has on heart rate. We have designed a study with 100 participants and randomly assigned dosages of caffeine between 0 and 500 mg. We are now trying to determine whether caffeine raises heart rate significantly.
+
+The relationship looks as follows:
+
+
+```{r}
+# https://www.theodysseyonline.com/caffeine-affect-heart-rate
+
+set.seed( 1234 )
+
+caffeine <- runif( n=100, min=0, max=500 )
+
+heart.rate <- 68 + (9/100)*caffeine + rnorm(100,0,20) 
+heart.rate[ heart.rate < 40 ] <- mean(heart.rate)
+
+plot( caffeine, heart.rate, bty="n", 
+      pch=19, col=gray(0.5,0.5), cex=1.5 )
+
+```
+
+
+
+
+## DIY Regression
+
+
+It looks as though heart rate does increase with the level of caffeine administered. But by how much? 
+
+One simplistic way we can analyze the data is by splitting it into several ranges of treatment and calculating the average heart rate for each group:
+
+
+
+```{r}
+ave.caffeine <- NULL
+ave.heart <- NULL
+
+for( i in seq( from=0, to=450, by=50 ) )
+{
+   sub.heart <- heart.rate[ caffeine > i & caffeine < i+50 ]
+   sub.caffeine <- caffeine[ caffeine > i & caffeine < i+50 ]
+
+   ave.heart <- c( ave.heart, mean(sub.heart) )
+   ave.caffeine <- c( ave.caffeine, mean(c(i,i+50)) )
+
+}
+
+
+par( mar=c(4,0,0,0) )
+jplot( caffeine, heart.rate, lab1="Average Caffeine Consumed by Each Segment", 
+       lab2="", # lab2="Average Heart Rate by Segment", 
+       draw.line=F, xaxt="n", yaxt="n" )
+
+abline( v=seq( from=0, to=500, by=50 ), col="firebrick", lty=3 )
+
+points( ave.caffeine, ave.heart, pch=19, col="firebrick", cex=2, type="b" )
+text( ave.caffeine, ave.heart+2, round(ave.heart,0), cex=1.2, col="firebrick", pos=3 )
+
+text( ave.caffeine, 40, ave.caffeine, cex=1.3, col="black" )
+text( 125, 140, "Ave. Heart Rate by Group", col="firebrick", cex=1.5 )
+```
+
+
+
+
+```{r, eval=F}
+
+# Or alternatively, we could look at box and whisker plot of each group.
+
+
+caffeine.group <- cut( caffeine, seq( from=0, to=500, by=50 ) )
+
+boxplot( heart.rate ~ caffeine.group, 
+         las=2, frame.plot=F, outline=F, main="Heart Rate by Caffeine Intake",
+         col="steelblue", xaxt="n" )
+```
+
+## The Conditional Mean
+
+Either way, what we are doing here is basically a mathematically imprecise do-it-yourself regression model. Although this is a fairly blunt way to analyze the data, it is actually not too far off from our more mathematically elegant regression line:
+
+
+```{r}
+mod <- lm( heart.rate ~ caffeine )
+
+b0 <- coefficients( mod )["(Intercept)"]
+b1 <- coefficients( mod )["caffeine"]
+
+predicted.heart <- b0 + b1*ave.caffeine
+
+residual <- ave.heart - predicted.heart
+
+```
+
+
+```{r}
+jplot( caffeine, heart.rate, lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F )
+
+abline( v=seq( from=0, to=500, by=50 ), col="firebrick", lty=3 )
+
+points( ave.caffeine, ave.heart, pch=1, col="black", cex=2, type="b" )
+
+abline( lm( heart.rate ~ caffeine ), col="firebrick", lwd=2 )
+```
+
+
+This does demonstrate an important point, however. The regression model is a **conditional mean**: it gives you the average heart rate of a subject conditional on how much caffeine they consumed. 
+
+In other words, if you tell me the caffeine intake of the subject, I can give you a good guess of their heart rate. 
+
+```{r}
+jplot( caffeine, heart.rate, lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F )
+
+abline( v=seq( from=0, to=500, by=50 ), col="firebrick", lty=3 )
+
+points( ave.caffeine, ave.heart, pch=1, col="black", cex=2, type="b" )
+points( ave.caffeine, predicted.heart, pch=19, col="firebrick", cex=1 )
+
+
+abline( lm( heart.rate ~ caffeine ), col="firebrick", lwd=2 )
+
+text( ave.caffeine, ave.heart, round(ave.heart,0), pos=c(3,1,3,1,3,3,1,3,1,3), cex=1.2 )
+text( ave.caffeine, predicted.heart, round(predicted.heart,0), 
+      pos=c(1,3,1,3,1,1,3,1,3,1), cex=1.2, col="firebrick" )
+```
+
+<center> The models give us a guess for what the heart rate will be for subjects within a specific treatment group (level of caffeine). Both models return similar results. </center>
+
+
+```{r, results="asis"}
+data.frame( ave.caffeine, ave.heart=round(ave.heart,0), 
+            regression.model=round(predicted.heart,0) ) %>%
+  stargazer( summary=F, type="html" )
+```
+
+
+
+
+<br>
+<br>
+
+<div class="tip">
+
+<br>
+
+The regression line represents the average value of Y conditional on each level of X.
+
+In other words, a regression is just a fancy average. 
+
+<br>
+
+</div>
+
+<br>
+
+
+
+
+## Regression as a Prediction of Y
+
+Another way to think about a regression line is a set of predictions for where we expect Y to be based upon an observed value of X. I am guessing the value of Y based upon information I have on X. 
+
+If we have no information on an individual, then our best guess of their level of Y will be the population mean of Y. It is a very crude way to make a prediction, but it is far better than selecting a number at random.
+
+If we only have information about an individual regarding X, then the predicted value of Y conditional on X is our best guess of what the outcome measure might be for that individual. 
+
+The strength of our regression model is to some extend a measure of how much our prediction of the true value of Y for an individual improves over simply using the population mean. 
+
+```{r}
+jplot( caffeine, heart.rate, lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F )
+
+abline( v=seq( from=0, to=500, by=50 ), col="firebrick", lty=3 )
+
+points( ave.caffeine, predicted.heart, pch=19, col="firebrick", cex=1 )
+points( ave.caffeine, rep(mean(heart.rate),10), pch=19, col="steelblue", cex=1 )
+
+
+abline( lm( heart.rate ~ caffeine ), col="firebrick", lwd=2 )
+abline( h=mean(heart.rate), col="steelblue", lwd=2 )
+
+mean.heart.rate <- round( rep(mean(heart.rate),10), 0 )
+
+text( ave.caffeine, predicted.heart, round(predicted.heart,0), 
+      col="firebrick", pos=rep(c(1,3),each=5), cex=1.2 )
+text( ave.caffeine, mean.heart.rate, mean.heart.rate, 
+      pos=3, col="steelblue", cex=1.2 )
+
+text( 450, mean(heart.rate), "Mean of Y", pos=1, col="steelblue", cex=1.5 )
+```
+
+
+When we cover hypothesis testing, we will see that the null hypothesis in regression models is actually just that we can't improve our predictions about Y by using information on X. Using the population mean of Y to predict the outcome is just as good as using the regression model. 
+
+The quality of the regression is a function of the strength of the relationship between X and Y in the data.  If the correlation is weak, i.e. close to zero, then the regression will not do any better than just using the mean of Y as the best guess for where a random data point will fall. 
+
+If the correlation is strong, the regression provides a lot of information relative to just using the population mean. We will have more accurate predictions using the conditional mean (relative to X) rather than just the mean of Y. 
+
+
+<center>
+**Does the regression do a better job than the mean at predicting Y?**
+</center>
+
+```{r}
+
+par( mfrow=c(1,2) )
+
+hr1 <- 68 + (2/100)*caffeine + rnorm(100,0,20) 
+hr1[ hr1 < 40 ] <- mean(hr1)
+
+jplot( caffeine, hr1, lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F, main="Little Improvement Over Mean" )
+
+abline( lm(hr1 ~ caffeine), col="firebrick", lwd=3 )
+abline( h=mean(hr1), col="steelblue", lwd=3 )
+
+
+
+hr2 <- 68 + (30/100)*caffeine + rnorm(100,0,20) 
+hr2[ hr2 < 40 ] <- mean(hr2)
+
+jplot( caffeine, hr2, lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F, main="Big Improvement Over Mean" )
+
+abline( lm(hr2 ~ caffeine), col="firebrick", lwd=3 )
+abline( h=mean(hr2), col="steelblue", lwd=3 )
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+# The Regression Model
+
+### Formula for the Slope
+
+Our regression **line** can be written as:
+
+> $Y = b_0 + b_1 X$ 
+
+The regression **model** needs to include the residual *e*. 
+
+> $Y = b_0 + b_1 X + e$ 
+
+The slope of a regression line can be calculated as a ratio of the covariance of X and Y to the variance of X. 
+
+> $b_1 = cov(x,y) / var(x)$
+
+
+
+If you give it some thought, this is a pretty intuitive formula. When X varies by one unit, how much do we expect Y to covary? 
+
+
+### Formula for the Intercept
+
+Finding the intercept of the regression is a little tricky because after solving for $b_1$ we have three unknown variables (X, Y, and $b_0$ ) and only one equation. We need to draw upon the fact that the OLS regression line always passes through the mean of X and the mean of Y, giving us two known values. 
+
+> $\bar{y} = b_0 + b_1 \bar{x}$ 
+
+$b_1$ = cov(caffeine,heart.rate) / var(caffeine) = **`r round( cov(caffeine,heart.rate) / var(caffeine), 3 )`**
+
+
+$\bar{y}$ = `r round(mean(heart.rate),0)`
+
+$\bar{x}$ = `r round(mean(caffeine),0)` 
+
+
+`r round(mean(heart.rate),0)` = $b_0$ + `r round(b1,2)` $\cdot$ `r round(mean(caffeine),0)` 
+ = **`r round(b0,2)`**
+
+The regression model gives us a very clear estimate of the "average effect" of one mg of caffeine on heart rate. 
+
+```{r, results="asis"}
+mod <- lm( heart.rate ~ caffeine )
+
+stargazer( mod, header=F, type="html", omit.stat = c("adj.rsq", "f") )
+```
+
+
+
+### The Y-hat Calculation
+
+
+We use the notation $\hat{y}$ to represent predicted values of Y using the regression model. 
+
+
+Consequently, we will sometimes use $\hat{y}$ as shorthand for the set points that represents the regression line. 
+
+
+```{r}
+
+m.01 <- lm( heart.rate ~ caffeine )
+y.hat <- m.01$fitted.values
+
+jplot( caffeine, heart.rate, 
+       lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F, main="The Regression Line Represents Predicted Values of Y" )
+
+points( caffeine, y.hat, col="firebrick", pch=19, cex=1.5 )
+
+```
+
+
+
+
+We can calculate $\hat{y}$ for each input X in our model (caffeine in this case) using the regression formula now that we know $b_0$ and $b_1$. 
+
+```{r}
+b0 <- 71.470
+b1 <- 0.084
+X <- c(100,200,300)
+yhat <- b0 + b1*X
+
+data.frame( b0, b1, X, yhat ) %>% 
+  pander( caption="**yhat = 71.47 + (0.084)(X)**" )
+```
+
+
+
+
+
+
+# The Variance of Y
+
+Let's consider the study population before they received the treatment in order to examine the distribution of heart rates through the population - the variance of heart rate. 
+
+```{r}
+set.seed( 2345 )
+heart.rate.control <- 68 + (9/100)*0 + rnorm(100,0,20)  # no caffeine
+heart.rate.control[ heart.rate.control < 40 ] <- mean(heart.rate.control)
+
+y.hat <- mean(heart.rate.control)
+```
+
+
+
+The solid red line represents the population mean, and the dotted red lines fall one standard deviation from the mean in either direction. 
+
+What does a **standard deviation** actually mean, though? 
+
+
+
+```{r}
+d <- density( heart.rate.control ) # returns the density data 
+plot( d , bty="n", main="Distribution of Resting Heart Rates in Population", 
+      xlab="", yaxt="n", ylab="" )
+polygon( d, col=gray(0.5,0.5), border="gray" ) 
+abline( v=mean(heart.rate.control), col="firebrick", lwd=2 )
+abline( v=mean(heart.rate.control)+sd(heart.rate.control), col="firebrick", lty=2 )
+abline( v=mean(heart.rate.control)-sd(heart.rate.control), col="firebrick", lty=2 )
+```
+
+
+If we return to the scatterplot view of the data, we can present the same information using datapoints instead of a density plot. The solid red line represents the population mean, and the dotted red lines fall one standard deviation from the mean in either direction. 
+
+
+```{r}
+jplot( caffeine, heart.rate.control, 
+       lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F )
+
+y.hat <- mean( heart.rate.control )
+sd.y <-  sd( heart.rate.control )
+
+abline( h=y.hat, col="firebrick", lwd=2 )
+abline( h=c( y.hat+sd.y, y.hat-sd.y ), lty=2, col="firebrick" )
+```
+
+
+
+
+
+
+## The Standard Deviation
+
+In very simple (and not mathematically correct) terms, the standard deviation is the **"average" distance from each data point to the mean**. 
+
+```{r}
+jplot( caffeine, heart.rate.control, 
+       lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F, main="Distances Between Each Heart Rate and the Ave. Heart Rate" )
+
+y.hat <- mean(heart.rate.control)
+abline( h=y.hat, col="darkgray", lwd=2 )
+segments( x0=caffeine, y0=y.hat, y1=heart.rate.control, col="firebrick", lwd=2 )
+
+```
+
+
+We use the term "average" loosely because the standard deviation actually measures **squared deviations** from the mean to calculate variance, then take the **square root of the sum** to get the measures back to the original units. 
+
+The **standard deviation** would be a true average if we had used the absolute value of distances from the mean, but the intuition is the same.
+
+
+<br>
+
+<div class="tip">
+
+<br>
+
+The STANDARD deviation measures the TYPICAL or AVERAGE deviation.
+
+A DEVIATION is the distance between a data point and the mean.
+
+<br>
+
+</div>
+
+<br>
+
+Let's drill down to the first ten observations to examine this a little closer:
+
+$deviation_i = y_i - \bar{y}$
+
+
+```{r}
+this.order <- order( caffeine )
+caffeine <- caffeine[this.order]
+heart.rate.control <- heart.rate.control[this.order]
+
+
+jplot( 1:10, heart.rate.control[1:10], 
+       lab1="", lab2="Heart Rate", 
+       draw.line=F, ylim=c(30,120), xaxt="n", xlim=c(1,12),
+       main="")
+
+y <- heart.rate.control[1:10]
+y.bar <- mean(y)
+abline( h=y.bar, col="steelblue", lwd=3 )
+
+col.dev <- rep("darkgray",10)
+col.dev[9] <- "firebrick"
+
+segments( x0=1:10, y0=y.bar, y1=y, col=col.dev, lwd=3 )
+points( x=c(9,9), y=c(y.bar,y[9]), pch=19, col="firebrick", cex=1.5 )
+text( x=c(9,9), y=c(y.bar-3,y[9]+3), round(c(y.bar,y[9]),0), pos=c(1,3), col="firebrick", cex=2 )
+
+
+text( 4, 100, expression(deviation[i] == 30 ), col="darkgray", cex=3, pos=3 )
+text( 11.5, y.bar, expression(bar(y) == 63), pos=3, cex=2, col="steelblue" )
+
+text( 9, y.bar-15, expression(bar(y)), pos=1, cex=2.5, col="darkgray" )
+text( 9, y[9]+15, expression(y[i]), pos=3, cex=2.5, col="darkgray" )
+```
+
+Distance from the mean of Y for all ten cases:
+
+```{r}
+
+
+jplot( 1:10, heart.rate.control[1:10], 
+       lab1="", lab2="Heart Rate", 
+       draw.line=F, ylim=c(30,120), xaxt="n", xlim=c(1,12),
+       main="Deviations from the Mean of Y")
+
+y.hat <- mean(heart.rate.control[1:10])
+abline( h=y.hat, col="steelblue", lwd=2 )
+segments( x0=1:10, y0=y.hat, y1=heart.rate.control[1:10], col="firebrick", lwd=2 )
+
+position <- ifelse( heart.rate.control[1:10] > y.hat, 3, 1 )
+text( 1:10, heart.rate.control[1:10], 
+      round(heart.rate.control[1:10]-y.hat,0), 
+      pos=position, col="firebrick", cex=2 )
+text( 11.5, y.hat, expression(bar(Y)), pos=3, cex=2.5, col="steelblue" )
+```
+
+
+
+
+
+
+
+```{r}
+
+deviations <- round(heart.rate.control[1:10]-y.hat,0)
+
+y <- round(heart.rate.control[1:10],2)
+y.hat <- mean(y)
+
+d1 <- data.frame( ID=1:10, Heart_Rate=round(heart.rate.control[1:10],2), 
+            Mean_Y=round(y.hat,2),
+            Deviations=deviations, Devs_Squared=deviations^2 )
+
+d2 <- rbind( d1, c("SUM","-","-",0,round(sum(deviations^2),0)) ) 
+  
+d2 %>% pander()
+```
+
+
+### Variance as a Sum of Squared Deviations
+
+We calculate the variance as follows:
+
+$var(y) =  \frac{ \sum{ (y_i - \bar{y})^2 } } { (n-1) }$
+
+Note that this entire formula is organized around the deviations $y_i - \bar{y}$.
+
+Also note that in the formula we are dividing a sum by N, so the variance is an average of sorts:
+
+$var(y) =  \frac{ \sum{ \star } } { n }$
+
+
+Oddly, it's an average of squared deviations. 
+
+
+
+
+### The Mean as a Fulcrum
+
+Why don't we use the average of the deviations?
+
+The answer to this lies in the table above. Note that the sum of the deviations is zero. The average of zero is pretty meaningless. 
+
+More importantly, **why will the sum of the deviations always add to zero?**
+
+![](figures/seesaw.jpg)
+
+You can think about the mean as a seesaw fulcrum. You place the fulcrum in the exact spot that it will balance all of the weight on both sides of the levers. The mean is the geometric center of the data that balances the distance between observations on all sides. 
+
+```{r, fig.width=4, fig.height=4}
+
+par( mar=c(0,0,0,0) ) # , mfrow=c(1,2) )
+
+y <- c( 5, 16, 6, 14, 4, 15, 6, 13, 5, 16 ) 
+plot( y, 1:10, pch=19, xlim=c(0, 20 ), ylim=c(-3,15),
+      col=gray(0.5,0.5), cex=2, bty="n", axes=F, ylab="", xlab="" )
+segments( x0=mean(y), y0=1, y1=10, col="firebrick", lwd=2 )
+segments( x0=mean(y), x1=y, y0=1:10, lty=2, col="gray" )
+diff <- y - mean(y)
+pos.x <- ifelse( diff > 0, 4, 2 )
+text( y, 1:10, diff, pos=pos.x, col="gray", offset=1, cex=1.5 )
+text( mean(y), -1, expression(bar(y)), cex=2, col="firebrick" )
+text( mean(y), 12, expression(y[i]-bar(y)), cex=2, col="gray" )
+
+
+# x <- rnorm(1000)
+# y <- rnorm(1000)
+# par( mar=c(0,0,0,0) )
+# plot( x, y, pch=19, col=gray(0.6,0.3), bty="n", axes=F, xlab="", ylab="" )
+# points( mean(x), mean(y), pch=19, cex=2.5, col="firebrick" )
+```
+
+
+```{r}
+df <- data.frame( y, mean.y=mean(y), dev.y=y-mean(y) )
+
+df[1:6,] %>% 
+  rbind( c("","","**SUM=ZERO**") ) %>%
+  pander( caption="**Summing Deviations**")
+```
+
+
+Recall again the variance formula:
+
+$var(y) =  \frac{ \sum{ (y_i - \bar{y})^2 } } { (n-1) }$
+
+The reason we cannot measure variance use the average of the deviations (a more intuitive measure) is the deviations $y_i - \bar{y}$ are distances to the mean, and because the mean is the exact center of gravity of the data the sum of the deviations will mathematically always be zero. 
+
+Since squaring terms ensures they are always positive, the quickest fix to this problem is to use the sum of squared deviations $(y_i - \bar{y})^2$.
+
+<br>
+
+
+
+
+
+![](https://media0.giphy.com/media/oEnlkgqdspU1a/giphy.gif)
+
+<center>Lebron James finding the average of the basketball.</center>
+
+
+
+### Fixing Units: The Standard Deviation
+
+Since we have to square the deviations to ensure they are all positive values, we now have very odd units: heart-rate-squared. 
+
+When is the last time your doctor asked about your squared heart rate, your teacher cared about your squared test score, or your retirement advisor asked about your squared income? 
+
+The **standard deviation** applies the square root to variance to fix the interpretation problem:
+
+$stdev(y) =  \sqrt{ var(y) }$
+
+We are now back to our original units! 
+
+Again, when you hear the term "standard" you should think of "average" or "typical". 
+
+It's not exactly an average because you are taking squared roots of squared deviations (that's a mouthful), but compared to the mean of the absolute values of the deviations (another mouthful) the metrics are not that far off:
+
+**Standard Deviation:**  `r round(sd( heart.rate.control ),1)`
+
+**Average Absolute Values of Deviations:**  `r mean( abs( heart.rate.control - y.hat ) ) %>% round(1)`
+
+
+
+
+# R-Squared: Explaining Variance
+
+
+Now that we are comfortable with the idea of measuring deviations, and variance being the sum of the squared deviations, we are ready to tackle the idea of "explaining" variance. 
+
+It is important to first note that one nuance worth paying attention to is the subtle difference between the deviations from the mean that comprise the TOTAL VARIANCE calculation, and the residual terms that comprise the REGESSION or EXPLAINED VARIANCE calculation. 
+
+```{r, fig.height=5, fig.width=12}
+
+
+set.seed( 1234 )
+
+caffeine <- runif( n=100, min=0, max=500 )
+
+heart.rate <- 68 + (9/100)*caffeine + rnorm(100,0,20) 
+heart.rate[ heart.rate < 40 ] <- mean(heart.rate)
+
+
+y <- heart.rate
+y.bar <- mean( heart.rate )
+
+m.01 <- lm( heart.rate ~ caffeine )
+
+y.hat <- m.01$fitted.values
+
+
+par( mfrow=c(1,2) )
+
+# DEVIATIONS
+
+jplot( caffeine, heart.rate, 
+       lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F, main="DEVIATIONS: Distance from the Mean" )
+
+abline( h=y.bar, col="darkgray", lwd=2 )
+segments( x0=caffeine, y0=y.bar, y1=heart.rate, col="firebrick", lwd=2 )
+
+
+# RESIDUALS
+
+jplot( caffeine, heart.rate, 
+       lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F, main="RESIDUALS: Distance from the Regression" )
+
+abline( m.01, col="darkgray", lwd=2 )
+segments( x0=caffeine, y0=y.hat, y1=heart.rate, col="firebrick", lwd=2 )
+
+
+```
+
+
+
+The variance of the regression will always be smaller than the total variance because the regression line is chosen so it is closer to the data points. 
+
+
+## Sums of Squares
+
+What is actually happening here is the decomposition of the TOTAL variance into an EXPLAINED and a RESIDUAL component. 
+
+Before we start the calculations, note that TOTAL SS divided by (n-1) is actually just the variance of Y. We are working with Sums of Squares for the calculations, but they are conceptually almost identical to the variance of the dependent variable, just easier to calculate. 
+
+## Tabulating Sums of Square Deviations
+
+In order to see how we are able to divide the variance into an explained portion and an unexplained portion we need a trick:
+
+**Note that A - B + B - C is the same as A - C.**
+
+> **A - C  =  A - C**  
+> 
+> **A - B + B - C  =  A - C**  
+> 
+> **(A-B) + (B-C)  =  A - C**  
+
+
+
+
+
+Now take a look at the equations to calculate SUMS OF SQUARES:
+
+TOTAL SS = $\sum{ (y_i - \bar{y})^2 }$
+
+RESIDUAL SS = $\sum{ (y_i - \hat{y})^2 }$
+
+EXPLAINED SS = $\sum{ ( \hat{y} - \bar{y})^2 }$
+
+Recall that $\hat{y}$ represents the predicted values of Y, which is another way of saying the regression line. So what we are doing here is inserting the regression line between the mean of Y and the observed values of Y. 
+
+The trick to partitioning the variance is to split the deviation $(y_i - \bar{y})$ into two parts by inserting a point in the middle:
+
+```{r, fig.width=4, fig.height=2}
+par( mar=c(0,0,0,0) )
+plot( c(1,2,3), c(1,1,1), type="b", col="gray40", 
+      cex=2, bty="n", axes=F, ylim=c(0,2), xlim=c(0,4), pch=19 )
+text( 1, 1, expression(y[i]), cex=2, col="gray30", pos=1, offset=2 )
+text( 2, 1, expression(hat(Y)), cex=2, col="gray30", pos=3, offset=2 )
+text( 3, 1, expression(bar(Y)), cex=2, col="gray30", pos=1, offset=2 )
+```
+
+The regression line ($\hat{y}$) serves the same role as B: 
+
+A - B + B - C = A - C
+
+
+> $y_i - \hat{y} + \hat{y} - \bar{y} = y_i - \bar{y}$  
+> 
+> $(y_i - \hat{y}) + (\hat{y} - \bar{y}) = y_i - \bar{y}$  
+> 
+> $(RSS) + (ESS) = TOTAL \ SS$
+
+Ultimately this trick allows us to split the variance into explained (ESS) and unxplained residual (RSS) components. 
+
+
+### Explained Variance
+
+The statement above is the same as saying the TOTAL VARIANCE of Y can be decomposed into an EXPLAINED portion of the variance and an UNEXPLAINED portion of the variance. 
+
+Thus $R^2 =  Regression \ SS / Total SS$, or $R^2$ is measuring the explained portion of the variance of the dependent variable in the model. 
+
+Visually it would look something like this:
+
+```{r}
+
+y <- heart.rate
+y.bar <- mean( heart.rate )
+m.01 <- lm( heart.rate ~ caffeine )
+y.hat <- m.01$fitted.values
+
+
+jplot( caffeine, heart.rate, 
+       lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F, main="Partitioning the Variance of Y" )
+
+
+segments( x0=caffeine, y0=y, y1=y.bar, col="firebrick", lwd=2 )
+segments( x0=caffeine, y0=y.bar, y1=y.hat, col="steelblue", lwd=2 )
+
+abline( h=y.bar, col="steelblue", lwd=3 )
+abline( m.01, col="firebrick", lwd=3 )
+
+text( 350, 50, "Explained SS", col="steelblue", cex=2, pos=4 )
+text( 350, 60, "Residual SS", col="firebrick", cex=2, pos=4 )
+
+text( 480, y.bar, expression(bar(Y)), cex=1, col="steelblue", pos=3, offset=0.5 )
+text( 480, predict( m.01, data.frame(caffeine=480) ), 
+      expression(hat(Y)), cex=1, col="firebrick", pos=3, offset=0.5 )
+text( 480, 130, expression(y[i]), cex=1, col="gray40", pos=3, offset=1 )
+```
+
+
+<center>
+This models has an $R^2$ of 0.282, so the blue segments account for about 28% of the residuals.
+</center>
+
+
+
+<br>
+<br>
+
+
+<div class="tip">
+
+<br>
+
+PARTITIONING THE VARIANCE of our outcome Y means splitting it into EXPLAINED and UNEXPLAINED portions. 
+
+The total variance is calculated from DEVIATIONS of data points to the MEAN OF Y.
+
+We partition it by inserting the regression line between the data point and the mean.
+
+The UNEXPLAINED portion is calculated from the RESIDUALS, the distance between the regression line (the predicted values of Y) and observed values. 
+
+
+$R^2$ is the proportion of TOTAL VARIANCE OF Y accounted for by the regression. 
+
+<br>
+
+</div>
+
+<br>
+
+Note that we have a variance of both X and Y in our model. When we are explaining variance or partitioning variance, it is always with respect to the outcome. That is the variance we are trying to explain. 
+
+
+```{r}
+options( scipen=8 )
+```
+
+
+
+Total SS: `r round( sum( (heart.rate - mean(heart.rate) )^2 ), 0 )`
+
+Explained SS: `r round( sum( (y.hat - y.bar )^2 ), 0 )`
+
+Residual SS: `r round( sum( (heart.rate - y.hat )^2 ), 0 )`
+
+We will find these values in an ANOVA table:
+
+```{r}
+aov( m.01 ) %>% pander()
+```
+
+The caffeine Sum Sq here is the Explained portion, and the Residual Sum Sq is the unexplained portion. 
+
+The TOTAL SS can be tabulated by adding the Residual SS and Explained SS.
+
+
+## Residual Standard Error
+
+It's also worth noting that the Residual Standard Error in the regression model is just the standard deviation of the residuals. 
+
+$Residual \ Std \ Error =  \sqrt{ \frac{Residual SS}{ (n-1)} }$
+
+
+
+```{r, results="asis"}
+mod <- lm( heart.rate ~ caffeine )
+stargazer( mod, header=F, type="html", omit.stat = c("adj.rsq", "f") )
+```
+
+
+```{r}
+# RESIDUALS
+
+jplot( caffeine, heart.rate, 
+       lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F, main="RESIDUALS: Distance from the Regression" )
+
+abline( m.01, col="darkgray", lwd=2 )
+segments( x0=caffeine, y0=y.hat, y1=heart.rate, col="firebrick", lwd=2 )
+
+```
+
+
+
+
+<br>
+
+<div class="tip">
+
+<br>
+
+The Residual Standard Error measures the "average" residual in the model, or the typical amount we can expect to be wrong if we are predicting a level of Y using our regression model. 
+
+<br>
+
+</div>
+
+<br>
+
+<br>
+
+
+```{r, eval=F, echo=F}
+d1 <- data.frame( caffeine, heart.rate, 
+                  mean.heart.rate=pred.y$mean.hr, group="treatment" )
+d2 <- data.frame( caffeine=0, heart.rate=heart.rate.control, 
+                  mean.heart.rate=mean(heart.rate.control), group="control" )
+d3 <- rbind( d1, d2 )
+
+write.csv( d3, "data/caffeine.csv", row.names=F )
+
+```
+

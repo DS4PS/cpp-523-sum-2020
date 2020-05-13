@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Lab 03 - Control Variables</title>
+
+<script src="lab-03-instructions_files/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="lab-03-instructions_files/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="lab-03-instructions_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="lab-03-instructions_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="lab-03-instructions_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="lab-03-instructions_files/navigation-1.1/tabsets.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="labs.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Lab 03 - Control Variables</h1>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#lab-questions">Lab Questions</a><ul>
+<li><a href="#part-i"><strong>PART I</strong>:</a></li>
+<li><a href="#part-ii"><strong>PART II</strong>:</a></li>
+</ul></li>
+<li><a href="#submission-instructions">Submission Instructions</a><ul>
+<li><a href="#markdown-trouble">Markdown Trouble?</a></li>
+</ul></li>
+</ul>
+</div>
+
+<div id="cpp-523-program-eval-i" class="section level3">
+<h3>CPP 523: Program Eval I</h3>
+<p><br></p>
+<p>The goal of the assignment is to build intuition about what “control” variables are doing in a regression. In this model <strong>Class Size</strong> is the policy variable of interest. <strong>Teacher Quality</strong> and <strong>Socio-Economic Status</strong> are the controls.</p>
+<p>You will examine the unconditioned relationship between Class Size and Test Scores, then add control variables to remove the variance associated with the controls to see how our estimate of policy impact might change if we account for other factors.</p>
+<p>You will submit your solutions as an RMD document (specifically the HTML file created from the document). You can create a new RMarkdown file, or download the <strong>LAB-03 RMD template</strong>:</p>
+<p><a href="https://www.dropbox.com/s/l02e8uxvn2tide4/lab-03-TEMPLATE.rmd?dl=1"><img src="figures/download.png" /></a></p>
+<p><br></p>
+<div id="load-packages" class="section level4">
+<h4>Load Packages</h4>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>( pander )     <span class="co"># formatting tables</span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">library</span>( dplyr )      <span class="co"># data wrangling</span></a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="kw">library</span>( stargazer )  <span class="co"># regression tables</span></a></code></pre></div>
+</div>
+<div id="load-data" class="section level4">
+<h4>Load Data</h4>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">URL &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/DS4PS/cpp-523-fall-2019/master/labs/class-size-seed-1234.csv&quot;</span></a>
+<a class="sourceLine" id="cb2-2" title="2">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>( URL )</a></code></pre></div>
+<table style="width:47%;">
+<colgroup>
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">test</th>
+<th align="center">csize</th>
+<th align="center">tqual</th>
+<th align="center">ses</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">504</td>
+<td align="center">38</td>
+<td align="center">3.793</td>
+<td align="center">0.7947</td>
+</tr>
+<tr class="even">
+<td align="center">651.3</td>
+<td align="center">23</td>
+<td align="center">5.277</td>
+<td align="center">2.301</td>
+</tr>
+<tr class="odd">
+<td align="center">623.6</td>
+<td align="center">42</td>
+<td align="center">6.084</td>
+<td align="center">0.4609</td>
+</tr>
+<tr class="even">
+<td align="center">539</td>
+<td align="center">21</td>
+<td align="center">2.654</td>
+<td align="center">2.635</td>
+</tr>
+<tr class="odd">
+<td align="center">673.1</td>
+<td align="center">20</td>
+<td align="center">5.429</td>
+<td align="center">2.703</td>
+</tr>
+<tr class="even">
+<td align="center">584.4</td>
+<td align="center">46</td>
+<td align="center">5.506</td>
+<td align="center">0.09412</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>test</strong> - average classroom score on a standardized test<br />
+</li>
+<li><strong>csize</strong> - classroom size; number of students<br />
+</li>
+<li><strong>tqual</strong> - teacher quality evaluated by third party experts on a scale of 1 to 100</li>
+<li><strong>ses</strong> - socio economic status of students measured as median household income</li>
+</ul>
+</div>
+</div>
+<div id="lab-questions" class="section level1">
+<h1>Lab Questions</h1>
+<p><strong>Warmup</strong>: Draw a Ballantine Venn Diagram of Class Size, SES, Teacher Quality and Test Score. You do not have to submit your drawing, but it will be useful for answering questions below.</p>
+<div id="part-i" class="section level2">
+<h2><strong>PART I</strong>:</h2>
+<div id="question-1." class="section level3">
+<h3>Question 1.</h3>
+<p>Create a scatterplot between Class Size (x-axis) and Test Score (y-axis). This will serve as a visual representation of our baseline model of the relationship between Class Size and Test Score.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">plot</span>( dat<span class="op">$</span>csize, dat<span class="op">$</span>test, </a>
+<a class="sourceLine" id="cb3-2" title="2">      <span class="dt">xlab=</span><span class="st">&quot;Class Size&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Test Scores&quot;</span>,</a>
+<a class="sourceLine" id="cb3-3" title="3">      <span class="dt">main=</span><span class="st">&quot;Relationship Between Class Size and Test Scores&quot;</span> )</a>
+<a class="sourceLine" id="cb3-4" title="4"></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="kw">abline</span>( <span class="kw">lm</span>(test<span class="op">~</span>csize,<span class="dt">data=</span>dat), <span class="dt">col=</span><span class="st">&quot;firebrick&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span> )</a>
+<a class="sourceLine" id="cb3-6" title="6"></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="co"># CHANGE THE PLOT STYLE:</span></a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="co">#</span></a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="co"># pch=19             # change point style</span></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="co"># cex=1.5            # change point size</span></a>
+<a class="sourceLine" id="cb3-11" title="11"><span class="co"># col=&quot;firebrick&quot;    # change color</span></a>
+<a class="sourceLine" id="cb3-12" title="12"><span class="co"># bty=&quot;n&quot;            # remove bounding box</span></a></code></pre></div>
+</div>
+<div id="question-2." class="section level3">
+<h3>Question 2.</h3>
+<p>Regress Test Score on Teacher Quality while saving the residuals. Now create a scatterplot of Class Size and the residuals of Test Score. What happened to the strength of the relationship? Why?</p>
+<p><span class="math inline">\(test = b_0 + b_1 \cdot tqual + e1\)</span></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">model<span class="fl">.01</span> &lt;-<span class="st"> </span><span class="kw">lm</span>( test <span class="op">~</span><span class="st"> </span>tqual, <span class="dt">data=</span>dat )</a>
+<a class="sourceLine" id="cb4-2" title="2">e1.test.score &lt;-<span class="st"> </span>model<span class="fl">.01</span><span class="op">$</span>residual</a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="kw">plot</span>( dat<span class="op">$</span>csize, e1.test.score )</a></code></pre></div>
+</div>
+<div id="question-3." class="section level3">
+<h3>Question 3.</h3>
+<p>Regress Test Score on SES and save the residuals. Create a scatterplot of Class Size and the residuals of Test Score. What happened to the strength of the relationship? Why?</p>
+<p><span class="math inline">\(test = b_0 + b_1 \cdot ses + e2\)</span></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">model<span class="fl">.02</span> &lt;-<span class="st"> </span><span class="kw">lm</span>( test <span class="op">~</span><span class="st"> </span>ses, <span class="dt">data=</span>dat )</a>
+<a class="sourceLine" id="cb5-2" title="2">e2.test.score &lt;-<span class="st"> </span>model<span class="fl">.02</span><span class="op">$</span>residual</a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="kw">plot</span>( dat<span class="op">$</span>csize, e2.test.score )</a></code></pre></div>
+</div>
+<div id="question-4." class="section level3">
+<h3>Question 4.</h3>
+<p>These graphs demonstrate the effects of adding the control variables <strong>Teacher Quality</strong> and <strong>SES</strong> to the baseline model of the relationship between <strong>Class Size</strong> and <strong>Test Score</strong>. Conceptually, the control variable will improve a model to remove variance to make the estimate either more precise (smaller standard errors) or less bias (adjust the slope of the policy variable).</p>
+<p><strong>Q 4-1</strong>:</p>
+<p>Which control variable do you think is removing UNEXPLAINED portions of the outcome Test Scores? By removing the unexplained portions it will reduce the residuals in the full model.</p>
+<p><strong>Q 4-2</strong>:</p>
+<p>Which control variable is removing the EXPLAINED portion of the variance of test scores (the covariance of class size and test scores)? By removing the explained portion it will weaken the relationship between class size and test scores.</p>
+<p><br> <br></p>
+</div>
+</div>
+<div id="part-ii" class="section level2">
+<h2><strong>PART II</strong>:</h2>
+<p>Use the following regression table and graphs to answer the question.</p>
+<div id="question-5-1" class="section level3">
+<h3>Question 5-1</h3>
+<p>Based upon the correlation structure reported below, which control variable do you expect would change the slope of caffeine if removed from the model?</p>
+<p>Explain your reasoning.</p>
+</div>
+<div id="question-5-1-1" class="section level3">
+<h3>Question 5-1</h3>
+<p>Which would result in a larger standard error associated with caffeine if removed from the model?</p>
+<p>Explain your reasoning.</p>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+heart.rate
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+caffeine
+</td>
+<td>
+0.037
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.047)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+stress.index
+</td>
+<td>
+0.228
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.246)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+gym.time
+</td>
+<td>
+-1.440<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.062)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+116.022<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(2.982)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.873
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+11.016 (df = 96)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<p><img src="lab-03-instructions_files/figure-html/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><br><br></p>
+</div>
+</div>
+</div>
+<div id="submission-instructions" class="section level1">
+<h1>Submission Instructions</h1>
+<p>After you have completed your lab, knit your RMD file. Login to Canvas at <a href="http://canvas.asu.edu" class="uri">http://canvas.asu.edu</a> and navigate to the assignments tab in the course repository. Upload your RMD and your HTML files to the appropriate lab submission link.</p>
+<p>Remember to:</p>
+<ul>
+<li>name your files according to the convention: <strong>Lab-##-LastName.Rmd</strong></li>
+<li>show your solution, include your code.</li>
+<li>do not print excessive output (like a full data set).</li>
+<li>follow appropriate style guidelines (spaces between arguments, etc.).</li>
+</ul>
+<p>See <a href="https://google.github.io/styleguide/Rguide.xml">Google’s R Style Guide</a> for examples.</p>
+<hr />
+<p><br></p>
+<div id="markdown-trouble" class="section level2">
+<h2>Markdown Trouble?</h2>
+<p>If you are having problems with your RMD file, visit the <a href="https://ds4ps.org/cpp-526-fall-2019/labs/r-markdown-files.html"><strong>RMD File Styles and Knitting Tips</strong></a> manual.</p>
+<div id="notes-on-knitting" class="section level4">
+<h4>Notes on Knitting</h4>
+<p>Note that when you knit a file, it starts from a blank slate. You might have packages loaded or datasets active on your local machine, so you can run code chunks fine. But when you knit you might get errors that functions cannot be located or datasets don’t exist. Be sure that you have included chunks to load these in your RMD file.</p>
+<p>Your RMD file will not knit if you have errors in your code. If you get stuck on a question, just add <code>eval=F</code> to the code chunk and it will be ignored when you knit your file. That way I can give you credit for attempting the question and provide guidance on fixing the problem.</p>
+<p><br> <br></p>
+<hr />
+<p><br> <br></p>
+</div>
+</div>
+</div>
+
+
+<div class="footer">
+<div class="row"  align="center">
+
+  <br>
+  Labs designed by <a href=https:lecy.info target="_blank">Jesse D. Lecy</a><br>
+  Content licensed under Creative Commons: <a href=https://creativecommons.org/licenses/by-nc-sa/4.0/ target="_blank"> (CC BY-NC-SA 4.0)</a><br>
+  Source code is available on <a href=https://github.com/DS4PS/cpp-523-spr-2020/tree/master/labs target="_blank">GitHub</a><br>
+  <br>
+  CPP 523 <a href="https://ds4ps.org/cpp-523-spr-2020/" target="_blank">Foundations of Prog Eval I</a><br>
+  Part of the <a href=http://ds4ps.org/ms-prog-eval-data-analytics/ target="_blank">MS in Evaluation and Analytics</a><br>
+  @ <a href=https://asuonline.asu.edu/online-degree-programs/graduate/program-evaluation-and-data-analytics-ms/ target="_blank">Arizona State University</a><br>
+  <br>
+  Copyright &copy; 2020
+  <p style="font-size:70%;">Solutions may <b>NOT</> be posted online <br>
+  without violating ASU policies and copyright laws.</p>
+
+<br>
+<br>
+<br>
+<br>
+
+</div>
+</div>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

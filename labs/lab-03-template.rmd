@@ -1,0 +1,191 @@
+---
+title: 'Lab 03 - Control Variables'
+author: "Your Name"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    df_print: paged
+    theme: cerulean
+    highlight: haddock
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=F, warning=F, fig.align='center', fig.width=9 )
+```
+
+
+#### Load Packages
+
+```{r load-packages-chunk}
+library( pander )     # formatting tables
+library( dplyr )      # data wrangling
+library( stargazer )  # regression tables
+
+# some custom drawing functions 
+source( "https://raw.githubusercontent.com/DS4PS/sourcer-r/master/sourcer.R" )
+```
+
+
+#### Load Data
+
+```{r load-data-chunk}
+URL <- "https://raw.githubusercontent.com/DS4PS/cpp-523-fall-2019/master/labs/class-size-seed-1234.csv"
+dat <- read.csv( URL )
+```
+
+```{r preview-data-chunk, echo=F}
+head( dat[c("test","csize","tqual","ses")] ) %>% pander
+```
+
+* **test** - average classroom score on a standardized test  
+* **csize** - classroom size; number of students  
+* **tqual** - teacher quality evaluated by third party experts on a scale of 1 to 100 
+* **ses** - socio economic status of students measured as median household income  
+
+
+
+```{r, fig.width=10, fig.height=10, echo=F, eval=T}
+# make sure you have already loaded packages and functions in the chunk above
+# it includes this:
+# source( "https://raw.githubusercontent.com/DS4PS/sourcer-r/master/sourcer.R" )
+
+# pairs is a visual representation 
+# of a correlation plot 
+
+pairs( dat[ c("test","csize","tqual","ses") ],   # variables to include
+       lower.panel = panel.smooth,               # type of graph / text on bottom panels 
+       upper.panel = panel.cor )                 # type of graphs / text on top panels 
+```
+
+
+
+
+# Solutions
+
+
+
+
+### **PART I**:
+
+#### Question 1.
+
+Create a scatterplot between Class Size (x-axis) and Test Score (y-axis). This will serve as a visual representation of our baseline model of the relationship between Class Size and Test Score.
+
+```{r, eval=T}
+plot( dat$csize, dat$test, 
+      xlab="Class Size", ylab="Test Scores",
+      main="Relationship Between Class Size and Test Scores" )
+
+abline( lm(test~csize,data=dat), col="firebrick", lwd=2 )
+
+# CHANGE THE PLOT STYLE:
+#
+# pch=19             # change point style
+# cex=1.5            # change point size
+# col="firebrick"    # change color
+# bty="n"            # remove bounding box
+```
+
+
+#### Question 2.
+
+Regress Test Score on Teacher Quality while saving the residuals.  Now create a scatterplot of Class Size and the residuals of Test Score.  What happened to the strength of the relationship?  Why?
+
+$test = b_0 + b_1 \cdot tqual + e1$
+
+```{r, eval=T}
+model.01 <- lm( test ~ tqual, data=dat )
+e1.test.score <- model.01$residual
+plot( dat$csize, e1.test.score )
+```
+
+
+#### Question 3. 
+
+Regress Test Score on SES and save the residuals.  Create a scatterplot of Class Size and the residuals of Test Score.  What happened to the strength of the relationship?  Why?
+
+$test = b_0 + b_1 \cdot ses + e2$
+
+```{r, eval=T}
+model.02 <- lm( test ~ ses, data=dat )
+e2.test.score <- model.02$residual
+plot( dat$csize, e2.test.score )
+```
+
+
+#### Question 4.
+
+These graphs demonstrate the effects of adding the control variables **Teacher Quality** and **SES** to the baseline model of the relationship between **Class Size** and **Test Score**. Conceptually, the control variable will improve a model by removing variance in the DV to make the estimate either more precise (smaller standard errors) or less bias (adjust the slope of the policy variable).  
+
+**Q 4-1**: 
+
+Which control variable do you think is removing **UNEXPLAINED** portions of the outcome Test Scores? By removing the unexplained portions it will reduce the residuals in the full model. 
+
+**Q 4-2**: 
+
+Which control variable is removing the **EXPLAINED** portion of the variance of test scores (the covariance of class size and test scores)? By removing the explained portion it will weaken the relationship between class size and test scores. 
+
+
+<br>
+<br>
+
+
+
+### **PART II**:
+
+Use the following regression table and graphs to answer the question. 
+
+
+#### Question 5-1  
+
+Based upon the correlation structure reported below, which control variable do you expect would change the slope of caffeine if removed from the model? 
+
+Explain your reasoning. 
+
+
+#### Question 5-1  
+
+Which would result in a larger standard error associated with caffeine if removed from the model?
+
+Explain your reasoning. 
+
+
+```{r, echo=F, results="asis"}
+URL <- "https://raw.githubusercontent.com/DS4PS/cpp-523-fall-2019/master/labs/data/caffeine-heart-rate-w-controls.csv"
+dat.caffeine <- read.csv( URL )
+mod <- lm( heart.rate ~ caffeine + stress.index + gym.time, data=dat.caffeine )
+stargazer( mod, header=F, type="html", omit.stat = c("adj.rsq", "f") )
+```
+
+
+
+
+
+```{r, fig.width=10, fig.height=10, echo=F}
+# make sure you have already loaded packages and functions in the chunk above
+# it includes this:
+# source( "https://raw.githubusercontent.com/DS4PS/sourcer-r/master/sourcer.R" )
+
+
+pairs( dat.caffeine, lower.panel=panel.smooth, upper.panel=panel.cor)
+
+```
+
+
+
+<br><br>
+
+# Submission Instructions
+
+After you have completed your lab, knit your RMD file. Login to Canvas at <http://canvas.asu.edu> and navigate to the assignments tab in the course repository. Upload your RMD and your HTML files to the appropriate lab submission link.
+
+Remember to:
+
+* name your files according to the convention: **Lab-##-LastName.Rmd**
+* show your solution, include your code.
+* do not print excessive output (like a full data set).
+
+<br>
+<br>
+

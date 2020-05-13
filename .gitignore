@@ -1,0 +1,11 @@
+# OS or Editor folders
+.DS_Store
+node_modules
+
+# Jekyllg
+_site
+.sass-cache
+.jekyll-metadata
+
+# R files
+.Rhistory

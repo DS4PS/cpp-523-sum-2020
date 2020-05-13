@@ -1,0 +1,307 @@
+---
+title: "Dummy Variables"
+output:
+  html_document:
+    theme: readable
+    highlight: tango
+    toc: true
+    self_contained: false
+    number_sections: true
+    css: textbook.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=F, fig.width=9, fig.height=6, warning=F, message=F )
+```
+
+
+```{r}
+library( stargazer )
+library( pander )
+library( dplyr )
+library( knitr )
+library( kableExtra )
+```
+
+
+
+
+<br>
+<br>
+
+<div class="tip">
+
+<br>
+
+KEY TAKE-AWAYS:
+
+### A regression is a fancy average (ave of Y conditional on level of X).
+
+Formula for the regression:
+
+$Y = b_0 + b_1 X + e$ 
+
+$b_1 = cov(x,y) / var(x)$
+
+$\bar{y} = b_0 + b_1 \bar{x}$ 
+
+
+### Variance measures distances from data points to the mean. 
+
+* $y_i$ = a data point
+* $\bar{y}$ = the mean of Y
+* $y_i - \bar{y}$ = distance to the mean = a deviation
+* $var(y) =  \frac{ \sum{ ( deviations )^2 }}{n-1}$
+
+### Variance can be decomposed into an explained and residual component.  
+
+
+* $var(y) = \frac{ Total SS } { (n-1) } = \frac{ Explained SS } { (n-1) } + \frac{ Residual SS } { (n-1) }$
+
+Each sum of squares calculation has the same format:  $SS =  \sum{ ( \star )^2 }$
+Where the distance calculated in each case (the $\star$ above) is:
+
+  - Total SS (variance):  $y_i - \bar{y}$   `(deviations)`  
+  - Residual or Error SS: $y_i - \hat{y}$   `(residuals)`   
+  - Regression or Explained SS: $\hat{y} - \bar{y}$   `(gain in predictive accuracy)`  
+  
+We then calculate the "variance explained" by the model as:
+
+$R^2 = \frac{ Explained SS } { Total SS }$
+
+
+
+<br>
+
+</div>
+
+<br>
+
+
+
+
+
+```{r}
+
+set.seed( 99 )
+
+d1 <- rnorm( 400,75.5,10)  # suburban tfa
+d2 <- rnorm( 700,75,10)    # suburban reg
+d3 <- rnorm( 600,66,10)    # urban tfa
+d4 <- rnorm( 300,57,10)    # urban reg
+
+
+d1[ d1 > 100 ] <- mean(d1)
+d2[ d2 > 100 ] <- mean(d2)
+d3[ d3 > 100 ] <- mean(d3)
+d4[ d4 > 100 ] <- mean(d4)
+
+summary( c(d1,d3) )
+summary( c(d2,d4) )
+
+d <- c(d1,d2,d3,d4)
+
+summary(d)
+
+hist( d )
+
+
+
+suburban <- rep( c(1,0), times=c(1100,900) )
+urban <- rep( c(0,1), times=c(1100,900) )
+tfa <- rep( c(1,0,1,0), times=c(400,700,600,300) )
+regular <- rep( c(0,1,0,1), times=c(400,700,600,300) )
+
+suburban.tfa <- suburban*tfa
+urban.tfa <- urban*tfa
+suburban.reg <- suburban*regular
+urban.reg <- urban*regular 
+
+percentile <- d
+
+m1 <- lm( percentile ~ suburban.reg + suburban.tfa + urban.reg + urban.tfa - 1 )
+summary( m1 )
+
+
+m2 <- lm( percentile ~ tfa )
+summary( m2 )
+
+m3 <- lm( percentile ~ suburban )
+summary( m3 )
+
+
+m4 <- lm( percentile ~ suburban + tfa + suburban.tfa )
+summary( m4 )
+
+m4 <- lm( percentile ~ urban + regular + urban.reg )
+summary( m4 )
+
+m4 <- lm( percentile ~ urban + tfa + urban.tfa )
+summary( m4 )
+
+m4 <- lm( percentile ~ suburban + suburban.tfa + urban + urban.tfa - 1 )
+summary( m4 )
+
+
+```
+
+
+
+
+```{r, results="asis"}
+          
+stargazer( m4, type="text", digits=2,
+           intercept.bottom = FALSE,
+           omit.stat = c("ser","f","rsq","adj.rsq") )  # ,
+           # covariate.labels = c() )
+```
+
+
+```{r, eval=F}
+b0 <- rnorm(1000,60,10)
+summary( b0 )
+
+b1 <- b0 + rnorm(1000,0,5)
+
+b2
+
+
+
+suburban.tfa <- 80
+suburban.reg <- 80
+urban.tfa <- 75
+urban.reg <- 60
+
+
+d1 <- rnorm(800,75.5,10)  # suburban tfa
+d2 <- rnorm(1500,75,10) # suburban reg
+d3 <- rnorm(1200,66,10) # urban tfa
+d4 <- rnorm(500,57,10)  # urban reg
+
+suburban <- rep( c(1,0), times=c(2300,1700) )
+urban <- rep( c(0,1), times=c(2300,1700) )
+tfa <- rep( c(1,0,1,0), times=c(800,1500,1200,500) )
+regular <- rep( c(0,1,0,1), times=c(800,1500,1200,500) )
+
+
+
+
+d1 <- rnorm( 400,75.5,10)  # suburban tfa
+d2 <- rnorm( 700,75,10)    # suburban reg
+d3 <- rnorm( 600,66,10)    # urban tfa
+d4 <- rnorm( 300,57,10)    # urban reg
+
+
+
+
+d1[ d1 > 100 ] <- mean(d1)
+d2[ d2 > 100 ] <- mean(d2)
+d3[ d3 > 100 ] <- mean(d3)
+d4[ d4 > 100 ] <- mean(d4)
+
+summary( c(d1,d3) )
+summary( c(d2,d4) )
+
+d <- c(d1,d2,d3,d4)
+
+summary(d)
+
+hist( d )
+
+
+
+# library( scales )
+# y <- rescale( d, to=c(30,100) )
+
+
+suburban <- rep( c(1,0), times=c(1100,900) )
+urban <- rep( c(0,1), times=c(1100,900) )
+tfa <- rep( c(1,0,1,0), times=c(400,700,600,300) )
+regular <- rep( c(0,1,0,1), times=c(400,700,600,300) )
+
+suburban.tfa <- suburban*tfa
+urban.tfa <- urban*tfa
+suburban.reg <- suburban*regular
+urban.reg <- urban*regular 
+
+percentile <- d
+
+m1 <- lm( percentile ~ suburban.reg + suburban.tfa + urban.reg + urban.tfa - 1 )
+summary( m1 )
+
+
+m2 <- lm( percentile ~ tfa )
+summary( m2 )
+
+m3 <- lm( percentile ~ suburban )
+summary( m3 )
+
+
+m4 <- lm( percentile ~ suburban + tfa )
+summary( m4 )
+
+
+d1 <- rnorm( 400,75.5,10)  # suburban tfa
+d2 <- rnorm( 700,75,10)    # suburban reg
+d3 <- rnorm( 600,66,10)    # urban tfa
+d4 <- rnorm( 300,57,10)    # urban reg
+
+
+y <- rep( c(75,75,66,57), c(4,7,6,3) ) 
+
+suburban <- rep( c(1,0), times=c(11,9) )
+urban <- rep( c(0,1), times=c(11,9) )
+tfa <- rep( c(1,0,1,0), times=c(4,7,6,3) )
+regular <- rep( c(0,1,0,1), times=c(4,7,6,3) )
+suburban.tfa <- suburban*tfa
+urban.tfa <- urban*tfa
+suburban.reg <- suburban*regular
+urban.reg <- urban*regular 
+
+dat <- data.frame( y, d.sub=suburban, d.urb=urban, d.tfa=tfa, d.reg=regular,
+                   d.sub.tfa=suburban.tfa, d.sub.reg=suburban.reg, 
+                   d.urb.tfa=urban.tfa, d.urb.reg=urban.reg )
+
+dat
+
+
+
+```
+
+
+```{r}
+
+y <- rep( c(75,75,66,57), c(4,7,6,3) ) 
+
+suburban <- rep( c(1,0), times=c(11,9) )
+urban <- rep( c(0,1), times=c(11,9) )
+tfa <- rep( c(1,0,1,0), times=c(4,7,6,3) )
+regular <- rep( c(0,1,0,1), times=c(4,7,6,3) )
+
+suburban.tfa <- suburban*tfa
+urban.tfa <- urban*tfa
+suburban.reg <- suburban*regular
+urban.reg <- urban*regular 
+
+dat <- data.frame( y, d.sub=suburban, d.urb=urban, d.tfa=tfa, d.reg=regular,
+                   d.sub.tfa=suburban.tfa, d.sub.reg=suburban.reg, 
+                   d.urb.tfa=urban.tfa, d.urb.reg=urban.reg )
+
+dat
+
+
+
+```
+
+
+
+```{r}
+kable(dt) %>%
+  kable_styling("striped", full_width = F) %>%
+  column_spec(5:7, bold = T) %>%
+  row_spec(3:5, bold = T, color = "white", background = "#D7261E")
+```
+
+
+
+

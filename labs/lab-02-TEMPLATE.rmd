@@ -1,0 +1,295 @@
+---
+output:
+  html_document:
+    theme: readable
+    df_print: paged
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+# do not change this chunk
+knitr::opts_chunk$set(echo=F, fig.width=6, fig.height=4, warning=F, message=F )
+```
+
+# Lab 02 - Confidence Intervals
+
+**CPP 523**
+
+**YOUR NAME**
+
+---------------
+ 
+In this assignment you will be working with simulated data on class size and test scores.  There is also a variable for socio-economic status and teacher quality.  We would like to understand how the relationship between class size and test scores changes when other variables are considered.  We will be looking specifically at the confidence interval around the classroom size slope estimate.
+
+
+```{r}
+# do not change this chunk
+
+# load data
+URL <- "https://raw.githubusercontent.com/DS4PS/cpp-523-fall-2019/master/labs/class-size-seed-1234.csv"
+dat <- read.csv( URL )
+
+# load draw_ci function
+source( "https://raw.githubusercontent.com/DS4PS/sourcer-r/master/sourcer.R" )
+```
+
+
+
+
+
+
+
+We estimate the following models:
+
+$TestScore = b_0 + b_1 \cdot ClassSize + e_1 \ \ \ (Model \ 1)$
+
+$TestScore = b_0 + b_1 \cdot ClassSize + b_2 \cdot TeacherQuality + e_2  \ \ \ (Model \ 2)$
+
+
+$TestScore = b_0 + b_2 \cdot TeacherQuality + b_3 \cdot SES + e_3  \ \ \ (Model \ 3)$
+
+$TestScore = b_0 + b_1 \cdot ClassSize + b_3 \cdot SES + e_4  \ \ \ (Model \ 4)$
+
+$TestScore = B_0 + B_1 \cdot ClassSize + B_2 \cdot TeacherQuality + B_3 \cdot SES + \epsilon  \ \ \ (Model \ 5)$
+
+
+<br>
+
+
+
+```{r, results='asis', echo=F}
+# do not change this code 
+
+library( stargazer )
+
+m1 <- lm( test ~ csize, data=dat  ) 
+m2 <- lm( test ~ csize + tqual, data=dat )
+m3 <- lm( test ~ tqual + ses, data=dat ) 
+m4 <- lm( test ~ csize + ses, data=dat  )
+m5 <- lm( test ~ csize + tqual + ses, data=dat  )
+
+
+stargazer( m1, m2, m3, m4, m5, 
+           type = "html", digits=2,
+           dep.var.caption = "Dependent Variable: Test Scores",
+           # dep.var.labels = "",
+           dep.var.labels.include = FALSE,
+           omit.stat = c("rsq", "f", "ser"),
+           column.labels = c("Model 1", "Model 2", "Model 3", "Model 4", "Model 5"),
+           covariate.labels=c("Classroom Size",
+                              "Teacher Quality",
+                              "Socio-Economic Status",
+                              "Intercept"),
+           notes.label = "Standard errors in parentheses")
+```
+
+<br>
+
+
+
+
+
+# Lab-02 Questions:
+
+**Warm-up:** Interpret the slope associated with Class Size in Model 01. What does a slope of `r round(coef(m1)[2],2)` mean in this context? Is the negative sign a good thing or a bad thing?  
+
+**Answer**: 
+
+
+
+
+
+
+### Q (1)	
+
+What is the standard error associated with the slope on class size in Model 1?
+
+
+**Answer**: 
+
+
+
+
+
+
+
+### Q (2)	
+
+Calculate the 95% confidence interval around the class size coefficient in Model 1.  Is it statistically significant at this level?  How do you know?
+
+**Answer**
+
+
+
+
+
+**Visual**
+
+```{r}
+# add appropriate values for b1 and se from the regression table
+b1 <- -3
+se <- 0.25
+
+draw_ci( b1, se, plot.title="Model 1" )
+
+# for reference
+# here is the code for the draw_ci function:
+#   
+# upper.ci <- b1 + 1.96*se 
+# lower.ci <- b1 - 1.96*se
+# 
+# plot( c(lower.ci,upper.ci), c(1,1), 
+#       xlim=c(lower.ci-0.5,1), ylim=c(0,3),
+#       xlab="", ylab="", axes=F, bty="n",
+#       type="l", lwd=3, col="darkorange", 
+#       main="Model 1" )
+# points( b1, 1, col="darkorange", pch=19, cex=3 )
+# text( b1, 1, b1, pos=3, col="gray30", cex=1.5, offset=1 )
+# text( c(lower.ci,upper.ci), 1, round(c(lower.ci,upper.ci),2), 
+#       pos=c(2,4), cex=0.8, col="gray40")
+# abline( v=0, lty=2, lwd=2, col="gray40" )
+# axis( side=1, at=0, labels="B1=0" )
+```
+
+
+
+
+
+
+
+### Q (3)	
+
+Calculate the 95% confidence interval around the class size coefficient in Model 2.   Is it significant at this level? How do you know?
+
+**Answer**
+
+
+**Visual**
+
+```{r}
+# replace value with correct b1 and SE for the question
+b1 <- -3
+se <- 0.25
+
+# do not change code below 
+
+upper.ci <- b1 + 1.96*se 
+lower.ci <- b1 - 1.96*se
+plot( c(lower.ci,upper.ci), c(1,1), 
+      xlim=c(lower.ci-0.5,1), ylim=c(0,3),
+      xlab="", ylab="", axes=F, bty="n",
+      type="l", lwd=3, col="darkorange", 
+      main="Model 2" )
+points( b1, 1, col="darkorange", pch=19, cex=3 )
+text( b1, 1, b1, pos=3, col="gray30", cex=1.5, offset=1 )
+text( c(lower.ci,upper.ci), 1, round(c(lower.ci,upper.ci),2), 
+      pos=c(2,4), cex=0.8, col="gray40")
+abline( v=0, lty=2, lwd=2, col="gray40" )
+axis( side=1, at=0, labels="B1=0" )
+```
+
+
+
+
+
+
+
+### Q (4)	
+
+Calculate the 95% confidence interval around the class size coefficient in Model 4.  Is it significant at this level? How do you know?
+
+
+**Answer**
+
+
+**Visual**
+
+```{r}
+# replace value with correct b1 and SE for the question
+b1 <- -3
+se <- 0.25
+
+# do not change code below 
+
+
+upper.ci <- b1 + 1.96*se 
+lower.ci <- b1 - 1.96*se
+plot( c(lower.ci,upper.ci), c(1,1), 
+      xlim=c(lower.ci-0.5,1), ylim=c(0,3),
+      xlab="", ylab="", axes=F, bty="n",
+      type="l", lwd=3, col="darkorange", 
+      main="Model 4" )
+points( b1, 1, col="darkorange", pch=19, cex=3 )
+text( b1, 1, b1, pos=3, col="gray30", cex=1.5, offset=1 )
+text( c(lower.ci,upper.ci), 1, round(c(lower.ci,upper.ci),2), 
+      pos=c(2,4), cex=0.8, col="gray40")
+abline( v=0, lty=2, lwd=2, col="gray40" )
+axis( side=1, at=0, labels="B1=0" )
+```
+
+
+
+
+
+
+
+### Q (5)	
+
+Draw the three confidence intervals to see how they change as a result of the controls included in the model. 
+
+**Which model has the "largest" slope?** Note that the slope represents program impact, in this case how much test scores improve for as you reduce average class size by a student. So largest slope, or program effect size, is in absolute terms. A slope of -5, for example, means that test scores improve by 5 points when average class size falls by one student in a state. A slope of -3 means that test scores only improve by 3 points for the one-student reduction in class size. A slope of -3 is *larger* than -5 in mathematical terms, but when asked about slope size or program effects you should ignore the sign and compare absolute values. The intervention is about **reducing** class size, so we want a "large" negative slope in this context.
+
+**Which model has the smallest standard error?** How can you tell? 
+
+You can reference the above graphics or re-create them here.
+
+
+**Answer**
+
+ 
+
+
+
+
+
+
+
+
+### Q (6)	
+
+The covariance of class size and test scores is `r round(cov(dat$csize,dat$test),0)`, and the variance of class size is `r round(var(dat$csize),0)`.  Can you calculate the slope of class size in Model 4 with the formula cov(x,y)/var(x)?  Why or why not?
+
+**Answer**
+
+
+
+
+
+Pairs plot for reference for Q6.
+
+```{r, fig.width=10, fig.height=10, echo=F, eval=T}
+# do not change this code
+pairs( dat[c("test","csize","tqual","ses")], 
+       lower.panel=panel.smooth, upper.panel=panel.cor )
+```
+
+
+
+
+
+
+
+
+<br>
+<br>
+
+---
+
+<br>
+<br>
+
+
+
+
+
+

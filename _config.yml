@@ -1,0 +1,127 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole website.
+
+
+# GitHub Course Location 
+
+github_info:
+    username:          DS4PS 
+    branch:            master
+    website-repo:      cpp-523-spr-2020
+    course-repo:       cpp-523-spr-2020
+
+# Site subpath, e.g. /blog
+url :               "https://ds4ps.github.io"
+baseurl:            "/cpp-523-spr-2020"
+course_url:         "http://ds4ps.org/cpp-523-spr-2020/"
+
+
+# NAVIGATION BAR
+# set header color at assets/css/custom.css under default_nav and footer background-color
+
+# Header text on the left
+brand:
+    image:          # logo.svg  # e.g. logo.png, upload logo image file to /assets/img/ folder
+    text:           "Program Evaluation"    # if the above "logo:" image variable  is not set, this text logo is displayed instead
+    # in the default html file add extra fav icons to header for parts II and III
+
+# Main website top navigation bar
+header:
+- title: Syllabus
+  url: 
+- title: Course Schedule
+  url: schedule/
+- title: Resources 
+  url: resources/
+- title: Get Help
+  url: help/
+
+
+calendly:  'https://calendly.com/irene-tsapara/15min'
+
+
+
+
+
+
+
+# DO NOT EDIT THESE 
+
+# Permalink URLs structure, for permalink style options see: https://jekyllrb.com/docs/permalinks/
+permalink:          /:title/
+
+# Default author settings
+author:
+    name:       Jesse Lecy
+    github:     lecy   # Github username for avatar
+
+# Social icons displayed in footer
+social:
+    email:
+    website:
+    facebook:       
+    flickr:
+    dribbble:
+    github:
+    googleplus:
+    instagram:      
+    linkedin:       
+    pinterest:
+    twitter:        
+    vimeo:          
+    youtube:        
+
+# Twitter share button
+twitter_username:
+
+# Disqus comments shortname, requires Disqus account https://disqus.com/
+disqus:
+    shortname:      1234
+
+# Google analytics code, get your code here https://www.google.com/analytics/
+google_analytics:   UA-123960540-4
+
+# Google maps API key, get your key here: https://developers.google.com/maps/documentation/javascript/get-api-key
+google_maps_api_key:
+
+# Number of posts displayed on blog page
+paginate: 10
+
+# Blog path
+paginate_path:      "layouts/datasets/:num/"
+
+# Path to post content assets directory i.e post images, pdfs etc
+post_assets:        /assets/posts/
+
+post_css: /assets/css/posts
+
+# Build settings
+markdown:           kramdown
+highlighter:        rouge
+
+gems:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-gist
+  - jekyll-avatar
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+
+sass:
+  style:            compressed
+
+collections:
+  docs:
+    output: true
+
+
+markdown: kramdown
+kramdown:
+  parse_block_html: true
+
+
+
+

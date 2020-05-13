@@ -1,0 +1,327 @@
+---
+title: "The Standard Error"
+output:
+  html_document:
+    theme: readable
+    highlight: tango
+    toc: true
+    self_contained: false
+    number_sections: true
+    css: textbook.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=F, fig.width=9, fig.height=6, warning=F, message=F )
+```
+
+
+```{r}
+library( stargazer )
+library( pander )
+library( dplyr )
+```
+
+
+
+```{r, echo=F}
+dat <- 
+structure(list(caffeine = c(320.78657974489, 204.762143199332, 
+460.468665347435, 225.710971979424, 457.136312266812, 13.1775442278013, 
+170.969654223882, 128.038750728592, 388.565812492743, 148.027310613543, 
+128.729215008207, 235.667948145419, 35.1435731863603, 113.297758391127, 
+57.3732610791922, 39.9893616558984, 220.443549682386, 491.212779539637, 
+481.918572913855, 398.797751637176, 270.868101739325, 227.887853514403, 
+105.517098680139, 115.319474018179, 295.549898175523, 129.119025659747, 
+378.701823879965, 275.773034663871, 48.8126637646928, 75.2531978068873, 
+72.8928972966969, 495.28410541825, 13.0461587104946, 303.367173182778, 
+51.060299621895, 254.712800960988, 93.7106728088111, 253.610945539549, 
+192.587757366709, 294.332663528621, 460.372022702359, 291.778963059187, 
+406.451043440029, 383.766523795202, 303.781759459525, 266.891154809855, 
+142.739448696375, 62.0942353270948, 241.982037201524, 183.678396162577, 
+354.010452283546, 475.784285110421, 153.559489990585, 410.362537368201, 
+427.608042606153, 22.9700598865747, 431.889208150096, 238.07019344531, 
+60.8526171417907, 327.947845216841, 113.779274979606, 230.094960425049, 
+443.116803769954, 396.664506755769, 22.8902720846236, 33.8958110660315, 
+331.32565242704, 114.436748553999, 296.156467753462, 165.085852728225, 
+499.651512713172, 354.395903763361, 1.5848942566663, 384.866981068626, 
+100.115584325977, 344.749627634883, 374.926729826257, 119.163559516892, 
+476.483388920315, 292.391637456603, 399.729033815674, 467.301251250319, 
+38.296460872516, 331.800814950839, 493.717333651148, 126.165533089079, 
+19.7181096300483, 492.810985655524, 66.4253812283278, 88.0953661398962, 
+241.39740539249, 318.042521947064, 493.48953505978, 49.7673434438184, 
+346.841395949014, 0.654351082630455, 383.712967857718, 159.989772830158, 
+479.006422450766, 97.6987896719947), heart.rate = c(116.566391543331, 
+61.9338353686546, 123.636704242586, 86.1295876265869, 144.79442601178, 
+64.3170853884426, 52.8451284350571, 89.3601749949057, 110.060996342887, 
+80.9699310026113, 58.4546229083941, 72.4318220115224, 70.9104072569639, 
+98.959001175288, 65.8744392190261, 54.170053105323, 87.3166470670555, 
+122.09414688938, 119.919478062229, 130.07561484954, 121.712582002753, 
+85.648785490404, 103.466813405427, 78.4050236127545, 81.0712893220854, 
+62.6567803716679, 95.1443421410481, 97.3691619802898, 71.8451116666001, 
+78.7903436143205, 78.5392141931586, 126.867556609316, 63.7105187861475, 
+128.009994745085, 81.3493046955634, 67.0534350715073, 70.9009644688094, 
+101.142646109262, 77.111791521277, 101.389840707027, 118.121399259835, 
+120.329660335427, 91.5466756949411, 102.201369895008, 83.9865092454855, 
+69.4775465376213, 43.8671441590931, 77.4990622830763, 101.809687852049, 
+97.3142188504306, 72.0610843562775, 88.2270285919862, 58.9972702024013, 
+91.1591983711203, 109.888680197596, 81.9569739349399, 90.5693757190095, 
+87.3166470670555, 92.5532051769264, 109.821001481785, 64.2227207371593, 
+67.2353196088586, 101.880688403301, 105.861936864071, 84.5241397593696, 
+98.8525249174282, 80.8416407508655, 84.1137642627299, 121.33760277186, 
+64.8308836403586, 108.513367885528, 64.4662707746345, 73.8910854853889, 
+89.8141930496964, 58.511649744559, 83.427917103433, 110.633473156251, 
+87.3166470670555, 102.373287004409, 74.0408941870034, 84.7332324773358, 
+119.549805158076, 78.4817668706172, 95.7216662206359, 123.18490516061, 
+67.3128000090545, 87.3166470670555, 135.44141432096, 69.3644243566673, 
+68.6268075882925, 92.8761250728386, 111.942471434924, 120.935797479426, 
+91.0243689092499, 100.138417492221, 57.9731787356145, 96.5251789400834, 
+98.8573991276317, 94.1252020979882, 57.7206891568556)), class = "data.frame", row.names = c(NA, 
+-100L))
+
+
+jplot <- function( x1, x2, lab1="", lab2="", draw.line=T, ... )
+{
+
+	plot( x1, x2,
+	      pch=19, 
+	      col=gray(0.6, alpha = 0.2), 
+	      cex=3.5,  
+	      bty = "n",
+	      xlab=lab1, 
+	      ylab=lab2, cex.lab=1.5,
+        ... )
+
+	if( draw.line==T ){ 
+		ok <- is.finite(x1) & is.finite(x2)
+		lines( lowess(x2[ok]~x1[ok]), col="red", lwd=3 ) }
+
+}
+
+
+```
+
+
+
+
+# Effect of Caffeine on Heart Rate
+
+We are interested in understanding the effect that caffeine has on heart rate. We have designed a study with 100 participants and randomly assigned dosages of caffeine between 0 and 500 mg. We are now trying to determine whether caffeine raises heart rate significantly.
+
+The relationship looks as follows:
+
+
+```{r}
+set.seed( 1234 )
+caffeine <- runif( n=100, min=0, max=500 )
+heart.rate <- 68 + (9/100)*caffeine + rnorm(100,0,20) 
+heart.rate[ heart.rate < 40 ] <- mean(heart.rate)
+
+mod <- lm( heart.rate ~ caffeine )
+b0 <- coefficients( mod )["(Intercept)"]
+b1 <- coefficients( mod )["caffeine"]
+predicted.heart <- b0 + b1*ave.caffeine
+residual <- ave.heart - predicted.heart
+
+y.bar <- mean(heart.rate)
+```
+
+
+
+
+
+## Residual Standard Error
+
+It's also worth noting that the Residual Standard Error in the regression model is just the standard deviation of the residuals. 
+
+$Residual \ Std \ Error =  \sqrt{ \frac{Residual SS}{ (n-1)} }$
+
+
+
+```{r, results="asis"}
+mod <- lm( heart.rate ~ caffeine )
+stargazer( mod, header=F, type="html", omit.stat = c("adj.rsq", "f") )
+```
+
+
+```{r}
+# RESIDUALS
+
+jplot( caffeine, heart.rate, 
+       lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F, main="RESIDUALS: Distance from the Regression" )
+
+abline( m.01, col="darkgray", lwd=2 )
+segments( x0=caffeine, y0=y.hat, y1=heart.rate, col="firebrick", lwd=2 )
+
+```
+
+
+
+
+<br>
+
+<div class="tip">
+
+<br>
+
+The Residual Standard Error measures the "average" residual in the model, or the typical amount we can expect to be wrong if we are predicting a level of Y using our regression model. 
+
+<br>
+
+</div>
+
+<br>
+
+<br>
+
+
+```{r, eval=F, echo=F}
+d1 <- data.frame( caffeine, heart.rate, 
+                  mean.heart.rate=pred.y$mean.hr, group="treatment" )
+d2 <- data.frame( caffeine=0, heart.rate=heart.rate.control, 
+                  mean.heart.rate=mean(heart.rate.control), group="control" )
+d3 <- rbind( d1, d2 )
+
+write.csv( d3, "data/caffeine.csv", row.names=F )
+
+```
+
+
+
+
+
+# The Variance of X
+
+Let's consider the study population before they received the treatment in order to examine the distribution of heart rates through the population - the variance of heart rate. 
+
+
+
+```{r}
+d <- density( caffeine ) # returns the density data 
+plot( d , bty="n", main="Distribution of Caffeine Dosages", 
+      xlab="", yaxt="n", ylab="" )
+polygon( d, col=gray(0.5,0.5), border="gray" ) 
+abline( v=mean(caffeine), col="firebrick", lwd=2 )
+abline( v=mean(caffeine)+sd(caffeine), col="firebrick", lty=2 )
+abline( v=mean(caffeine)-sd(caffeine), col="firebrick", lty=2 )
+```
+
+
+
+
+
+
+## Sums of Squares
+
+What is actually happening here is the decomposition of the TOTAL variance into an EXPLAINED and a RESIDUAL component. 
+
+
+### Inserting the Regression Line
+
+**Note that A - B + B - C is the same as A - C.**
+
+Now take a look at the equations to calculate SUMS OF SQUARES:
+
+TOTAL SS = $\sum{ (y_i - \bar{y})^2 }$
+
+RESIDUAL SS = $\sum{ (y_i - \hat{y})^2 }$
+
+EXPLAINED SS = $\sum{ ( \hat{y} - \bar{y})^2 }$
+
+Recall that $\hat{y}$ represents the predicted values of Y, which is another way of saying the regression line. So what we are doing here is inserting the regression line between the mean of Y and the observed values of Y. 
+
+Now note the pattern here: 
+
+$y_i - \hat{y} + \hat{y} - \bar{y} = y_i - \bar{y}$  
+
+$(y_i - \hat{y}) + (\hat{y} - \bar{y}) = y_i - \bar{y}$  
+
+$(RSS) + (ESS) = TOTAL \ SS$
+
+
+Also note that TOTAL SS divided by (n-1) is the variance of Y, so the statement above is the same as saying the TOTAL VARIANCE of Y can be decomposed into an EXPLAINED portion of the variance and an UNEXPLAINED portion of the variance. 
+
+Thus $R^2 =  Regression \ SS / Total SS$, or $R^2$ is measuring the explained portion of the variance of the dependent variable in the model. 
+
+Visually it would look something like this:
+
+```{r}
+
+y <- heart.rate
+y.bar <- mean( heart.rate )
+m.01 <- lm( heart.rate ~ caffeine )
+y.hat <- m.01$fitted.values
+
+
+jplot( caffeine, heart.rate, 
+       lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F, main="Partitioning the Variance of Y" )
+
+
+segments( x0=caffeine, y0=y, y1=y.bar, col="firebrick", lwd=2 )
+segments( x0=caffeine, y0=y.bar, y1=y.hat, col="steelblue", lwd=2 )
+
+abline( h=y.bar, col="steelblue", lwd=3 )
+abline( m.01, col="firebrick", lwd=3 )
+
+text( 350, 50, "Explained SS", col="steelblue", cex=2, pos=4 )
+text( 350, 60, "Residual SS", col="firebrick", cex=2, pos=4 )
+
+
+```
+
+
+
+
+
+
+<br>
+
+<div class="tip">
+
+<br>
+
+PARTITIONING THE VARIANCE of our outcome Y means splitting it into EXPLAINED and UNEXPLAINED portions. 
+
+The total variance is calculated from DEVIATIONS of data points to the MEAN OF Y.
+
+We partition it by inserting the regression line between the data point and the mean.
+
+The UNEXPLAINED portion is calculated from the RESIDUALS, the distance between the regression line (the predicted values of Y) and observed values. 
+
+
+$R^2$ is the proportion of TOTAL VARIANCE OF Y accounted for by the regression. 
+
+<br>
+
+</div>
+
+<br>
+
+Note that we have a variance of both X and Y in our model. When we are explaining variance or partitioning variance, it is always with respect to the outcome. That is the variance we are trying to explain. 
+
+
+```{r}
+options( scipen=8 )
+```
+
+
+
+Total SS: `r round( sum( (heart.rate - mean(heart.rate) )^2 ), 0 )`
+
+Explained SS: `r round( sum( (y.hat - y.bar )^2 ), 0 )`
+
+Residual SS: `r round( sum( (heart.rate - y.hat )^2 ), 0 )`
+
+We will find these values in an ANOVA table:
+
+```{r}
+aov( m.01 ) %>% pander()
+```
+
+The caffeine Sum Sq here is the Explained portion, and the Residual Sum Sq is the unexplained portion. 
+
+The TOTAL SS can be tabulated by adding the Residual SS and Explained SS.
+
+
+
