@@ -8,13 +8,13 @@
 github_info:
     username:          DS4PS 
     branch:            master
-    website-repo:      cpp-523-spr-2020
-    course-repo:       cpp-523-spr-2020
+    website-repo:      cpp-523-sum-2020
+    course-repo:       cpp-523-sum-2020
 
 # Site subpath, e.g. /blog
 url :               "https://ds4ps.github.io"
-baseurl:            "/cpp-523-spr-2020"
-course_url:         "http://ds4ps.org/cpp-523-spr-2020/"
+baseurl:            "/cpp-523-sum-2020"
+course_url:         "http://ds4ps.org/cpp-523-sum-2020/"
 
 
 # NAVIGATION BAR
