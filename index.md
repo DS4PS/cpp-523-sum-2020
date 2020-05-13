@@ -46,7 +46,7 @@ textbooks:
 - title: 'Impact Evaluation in Practice'
   authors: 'Gertler, P. J., Martinez, S., Premand, P., Rawlings, L. B., & Vermeersch, C. M. J.'
   edition: 2011
-  link: https://siteresources.worldbank.org/EXTHDOFFICE/Resources/5485726-1295455628620/Impact_Evaluation_in_Practice.pdf
+  link: 'https://github.com/DS4PS/cpp-523-sum-2020/raw/master/pubs/Impact_Evaluation_in_Practice%20WB%20full%20text%20second%20edition.pdf'
   required: Free online
 - title: 'Real Stats: Using Econometrics for Political Science and Public Policy'
   authors: 'Bailey, M. A.'
