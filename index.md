@@ -23,7 +23,7 @@ info:
  discussion_board_url: 'https://ds4ps.org/cpp-523-spr-2020/help/'
 
 instructor:
--  name: Irene Tsapara, PhD
+-  name: David Schlinkert
    title: Professor
    email: irene.tsapara@asu.edu
    office_location: virtual
