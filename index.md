@@ -25,7 +25,7 @@ info:
 instructor:
 -  name: David Schlinkert
    title: Professor
-   email: irene.tsapara@asu.edu
+   email: david.schlinkert@asu.edu
    office_location: virtual
    website_url: 
    github_url: 'https://github.com/itsapara' 
