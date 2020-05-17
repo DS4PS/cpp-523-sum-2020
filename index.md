@@ -28,13 +28,13 @@ instructor:
    email: david.schlinkert@asu.edu
    office_location: virtual
    website_url: 
-   github_url: 'https://github.com/itsapara' 
+   github_url: 'https://github.com/Schlinkert' 
    twitter_url: 
    scholar_url: 
-   linked_in_url: 'https://www.linkedin.com/in/irene-tsapara-8a1a04b5/'
+   linked_in_url: 'https://www.linkedin.com/in/david-schlinkert-0207646b/'
    office_hours_time: By appointment
    office_hours_location:  Zoom
-   office_hours_app_url:  'https://calendly.com/irene-tsapara/15min'
+   office_hours_app_url:  'david.schlinkert@asu.edu'
    
 
 textbooks:
