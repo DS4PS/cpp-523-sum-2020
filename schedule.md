@@ -290,9 +290,9 @@ em {
 } 
 h2{
   font-size:calc(2em + 0.25vw) !important;
-  color: #337ab7;
+  color: #995c00;
   font-weight:300;
-  margin-top:60px !important;
+  margin-top:40px !important;
   margin-bottom:20px;
   } 
 
