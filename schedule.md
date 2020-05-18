@@ -215,7 +215,7 @@ summary( model.01 )
 
 -----
 
-**Due Friday**
+**Due Sun May 24**
 
 The first lab is meant as a review of some important regression formulas to either shake out the cobwebs if you have covered this material before, or get everyone on the same page if it is new. It will review the following topics:
 
@@ -243,8 +243,9 @@ This first lab is designed as a review (or getting up to speed) assignment to di
 
 For THIS ASSIGNMENT ONLY all of the work is **done by hand** so you can type your answers right into the Lab 01 word document. For future assignments we will be using R Markdown documents so that you can run models and submit the results directly. 
 
-
 Please show the steps for each calculation. You can check your results in R or on a calculator when you are done.
+
+If you have questions, please post them to the [Assignment Discussion Board](../help/).
 
 Save it using the naming convention:
 
@@ -252,9 +253,6 @@ Lab-##-LastName.doc
 
 And submit via Canvas. 
 
-Lab 01 is due Friday. You will, however, have a full week for subsequent labs. 
-
-If you have questions, please post them to the [Assignment Discussion Board](../help/).
 
 
 -----
@@ -272,15 +270,15 @@ If you have questions, please post them to the [Assignment Discussion Board](../
 
 <hr> 
 
-**Due Tuesday**
+**Take any time Saturday-Tuesday (May 23-26)**
 
-This mini-assessment consists of three multiple-choice questions. You have thirty minutes to complete from the time you start the assessment. 
+This mini-assessment consists of three multiple-choice questions. You have **30 minutes** to complete the assessment from the time you start the assessment. 
 
 The assessment covers the definition of a regression line, and the concept of sums of squares from the first chapter:
 
 [Building a regression model](https://ds4ps.org/cpp-523-spr-2020/lectures/caffeine.html)
 
-
+This first assessment is not graded. All others are worth 2 points each.
 
 
 <br>
