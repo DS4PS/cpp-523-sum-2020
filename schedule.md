@@ -269,6 +269,12 @@ If you have questions, please post them to the [Assignment Discussion Board](../
 
 **Due Tuesday**
 
+<hr>
+
+<a class="uk-button uk-button-default" href="https://canvas.asu.edu/courses/54984/quizzes/360064">Start the Mini-Assessment</a>
+
+<hr> 
+
 This mini-assessment consists of three multiple-choice questions. You have thirty minutes to complete from the time you start the assessment. 
 
 The assessment covers the definition of a regression line, and the concept of sums of squares from the first chapter:
@@ -276,11 +282,7 @@ The assessment covers the definition of a regression line, and the concept of su
 [Building a regression model](https://ds4ps.org/cpp-523-spr-2020/lectures/caffeine.html)
 
 
-<hr>
 
-<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/54984/quizzes/360064">Start the Mini-Assessment</a>
-
-<hr> 
 
 <br>
 
