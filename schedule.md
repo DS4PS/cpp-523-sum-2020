@@ -269,11 +269,7 @@ If you have questions, please post them to the [Assignment Discussion Board](../
 
 -----
 
-<br> 
-
 <a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/54984/assignments">Submit Lab-01</a> 
-
-<br> 
 
 -----
 
