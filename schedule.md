@@ -210,8 +210,6 @@ summary( model.01 )
 ## Lab 01
 
 
------
-
 <a class="uk-button uk-button-default" href="https://github.com/DS4PS/cpp-523-sum-2020/raw/master/labs/Lab-01-Regression-Review.docx">Lab-01 Instructions</a>
 
 -----
@@ -254,15 +252,15 @@ And submit via Canvas.
 
 Lab 01 is due Friday. You will, however, have a full week for subsequent labs. 
 
+If you have questions, please post them to the [Assignment Discussion Board](../help/).
 
------
 
 <a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/54984/assignments">Submit Lab-01</a> 
 
+
+<br> 
+
 -----
-
-
-If you have questions, please post them to the [Assignment Discussion Board](../help/).
 
 <br>
 
@@ -288,7 +286,30 @@ If you have questions, please post them to the [Assignment Discussion Board](../
 em {
     color: black;
 }
+li {
+     font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+     font-size:calc(0.85em + 0.25vw);
+     font-weight:300;
+     line-height:1.7;
+     -webkit-font-smoothing:antialiased;
+     -moz-osx-font-smoothing:grayscale;
+     margin-left:1%;
+     margin-right:0%;
+    }  
+h2{
+  font-size:calc(2em + 0.25vw) !important;
+  color: #337ab7;
+  font-weight:300;
+  margin-top:60px !important;
+  margin-bottom:20px;
+  } 
 
+h3{
+  font-size:calc(1.4em + 0.25vw);
+  font-weight:300;
+  margin-top:20px !important;
+  margin-bottom:10px;} 
+  
 ul {
   list-style-type:none;
   margin: 0;
