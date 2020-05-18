@@ -50,7 +50,7 @@ Please note the organizatin of assignments for class.
 
 <br>
 
-Labs are due Friday, mini assessments covering the previous lab are on Tuesday. 
+**Labs are due Saturday**, mini assessments covering the previous lab are on Tuesday. 
 
 Get started early on labs so you have time to ask questions on the discussion board if you get stuck. 
 
