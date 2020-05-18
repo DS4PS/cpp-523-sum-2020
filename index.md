@@ -13,7 +13,7 @@ info:
  course_title: Foundations of Program Evaluation Part I
  course_number: CPP 523 
  course_level: Graduate 
- course_website: 'https://canvas.asu.edu/courses/41574'
+ course_website: 'https://canvas.asu.edu/courses/54984/'
  course_start_end_dates: May 18 to June 26, 2020 
  course_prerequisites: College Level Intro. to Stats 
  class_meets_when:  Asynchronous  
