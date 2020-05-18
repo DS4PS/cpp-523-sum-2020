@@ -14,7 +14,7 @@ info:
  course_number: CPP 523 
  course_level: Graduate 
  course_website: 'https://canvas.asu.edu/courses/41574'
- course_start_end_dates: Jan 13 to March 03, 2020 
+ course_start_end_dates: May 18 to June 26, 2020 
  course_prerequisites: College Level Intro. to Stats 
  class_meets_when:  Asynchronous  
  class_meets_where:  'https://asu.zoom.us/j/293038379'
@@ -261,55 +261,17 @@ As students are all aware, ASU Online courses are typically offered on a seven a
 
 Please note: the course instructor may from time to time adjust assigned readings or adjust the due dates for assignment. The basic course content approach and learning objectives will not change, but slight modifications are possible if circumstances warrant an adjustment.
 
-## Couse Schedule
+## [Couse Schedule](/schedule/)
 
-### Unit 1 - Regression Review
+* Unit 1 - Regression Review
+* Unit 2 - Effects: Size and Confidence 
+* Unit 3 - Control Variables 
+* Unit 4 - Omitted Variable Bias
+* Unit 5 - Dummy Variables 
+* Unit 6 - Specification
+* Review for Final Exam
 
-**Regression Mechanics: Variance, Slopes and Residuals**
-- Using Regression Models to Estimate Program Effects&quot; Read 417-431, Skim 431-455
-- Lewis-Beck pp 9-25
-- Lab #1 – Regression Review
-
-### Unit 2 - Effects: Size and Confidence 
-
-**Hypothesis Testing: Standard Errors, Confidence Intervals, and p-values**
-- Skim The New Statistics, CH3: Confidence Intervals; CH4: Error Bars and p-values.
-- Lewis-Beck pp 30-54
-- Lab #2 - Confidence Intervals
-
-### Unit 3 - Control Variables 
-
-**Control Variables &amp; Partitioned Regressions**
-- Baily CH5: Section 5.1-Multivariate OLS
-- Lab #3 - Partitioned Regression
-
-### Unit 4 - Omitted Variable Bias
-
-**Omitted Variable Bias**
-- Baily Section 5.2-Omitted Variable Bias
-- Lab #4 – Omitted Variable Bias
-
-### Unit 5 - Dummy Variables 
-
-**Model Specification**
-- Baily CH6: Dummy Variables; CH7: Transforming Variables
-- Lab #5 – Omitted Variable Bias
-
-### Unit 6 - Specification
-
-**Model Specification**
-- Baily CH7: Transforming Variables
-- Lab #6 – More Model Specification
-
-**Seven Sins of Regression Analysis** 
-- Readings posted on Course Shell
-
-### Unit 7
-
-**Review for Final**
-- Practice final exam 
-
-### Final Exam
+Visit the [schedule page](/schedule/) for details. 
 
 <br>
 <br>
