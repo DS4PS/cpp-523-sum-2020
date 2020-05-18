@@ -135,12 +135,6 @@ The fences are three back-ticks. These look like quotation marks, but are actual
 
 # Week 1 - Nuts and Bolts of Regression Models
 
-
-
-## Unit Overview 
-
-### Description 
-
 This section provides a review of the basic building blocks of a bivariate regression model:
 
 * sample variance and standard deviation 
@@ -150,27 +144,11 @@ This section provides a review of the basic building blocks of a bivariate regre
 * the "error term" or "residual"
 * standard errors 
 
-
-### Learning Objectives
+**Learning Objectives:**
 
 Once you have completed this section you will be able to conceptually understand what a regression slope represents (the conditional mean), the formulas for regression coefficients, and the tabulation of residuals. 
 
-### Reading
-
-#### Required:
-
-
-Reichardt, C. S., & Bormann, C. A. (1994). Using regression models to estimate program effects. Handbook of practical program evaluation, 417-455. [ [pdf](../pubs/Estimating%20Program%20Effects%20Using%20Regression%20Models.pdf) ]
-
-
-#### For reference:
-
-Diez, D. M., Barr, C. D., & Cetinkaya-Rundel, M. (2012). OpenIntro statistics (pp. 174-175). OpenIntro. [CH-08 Introduction to Linear Regression](/pubs/openintro-statistics-sample.pdf)
-
-Multiple Regression overview chapter [[pdf](../pubs/Multiple%20Regression.pdf)]
-
-
-## Regression Review
+**Review:**
 
 Test your baseline knowledge of regression models model with the [regression review handout](../handouts/Regression-Review-Self-Test.pdf). 
 
@@ -185,11 +163,19 @@ This review will be useful to benchmark your knowledge about regression models, 
 * "Explained" variance 
 
 <br>
-<br>
+
+**Readings:**
+
+Reichardt, C. S., & Bormann, C. A. (1994). Using regression models to estimate program effects. Handbook of practical program evaluation, 417-455. [ [pdf](../pubs/Estimating%20Program%20Effects%20Using%20Regression%20Models.pdf) ]
+
+**For reference:**
+
+Diez, D. M., Barr, C. D., & Cetinkaya-Rundel, M. (2012). OpenIntro statistics (pp. 174-175). OpenIntro. [CH-08 Introduction to Linear Regression](/pubs/openintro-statistics-sample.pdf)
+
+Multiple Regression overview chapter [[pdf](../pubs/Multiple%20Regression.pdf)]
 
 
-
-## Lecture Materials
+## Lecture 
 
 Is caffeine good for you? [ [link](https://www.hsph.harvard.edu/news/hsph-in-the-news/coffee-depression-women-ascherio-lucas/) ]
 
@@ -197,11 +183,9 @@ Is caffeine good for you? [ [link](https://www.hsph.harvard.edu/news/hsph-in-the
 
 *Before we can understand causal impact we must first create a regression model that tells us about the RELATIONSHIP between caffeine intake and heart rate. We will then add nuance to our understanding of when the relationship can be interpretted as casual, and when it is simply correlational.*
 
-Lecture: [ [Building a regression model](../lectures/caffeine.html) ]
+LECTURE: [ [Building a regression model](../lectures/caffeine.html) ]
 
-
-
-### Data Used in this Section
+**Data Used in this Section**
 
 Caffeine and Heart Rates based off of this [caffeine study](https://www.theodysseyonline.com/caffeine-affect-heart-rate):
 
