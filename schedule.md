@@ -65,19 +65,19 @@ You are encouraged to build your own library of sources you find useful and keep
 
 ## Getting Help
 
-Computer geeks are sometimes portrayed as anti-social and cloistered, but in reality data analysis is a very social activity and analytics projects are almost always collaborative. 
-
 Learning how to seek help and use discussion boards will accelerate learning and facilitate collaboration. Social coding tools like GitHub use these features extensively. 
 
 We are going to throw a lot at you, but also provide a lot of support. Over these first couple of weeks feel free to reach out for anything you might need. 
 
 If you find something confusing let us know (likely others will find it confusing as well). 
 
-* You can schedule a Zoom call to do a screen share if you want to walk through anything. 
 * You can post a question to the homework [discussion board](../help/).  
+* You can schedule a Zoom call to do a screen share if you want to walk through anything. 
 * Or you can request a walk-through of a problem. The instructor will provide an example with the solution. 
 
-As a general rule of thumb, if you are stuck on the math or code for a problem, need clarification about what the question is asking, want to make sure you understand a formula, or are having similar issues then the help discussion page is the easiest and quickest way to get help. If you are confused about concepts or having a hard time even formulating your question then virtual office hours are your best option.
+As a general rule of thumb, if you are stuck on the math or code for a problem, need clarification about what the question is asking, want to make sure you understand a formula, or are having similar issues then the help discussion page is the easiest and quickest way to get help. 
+
+If you are confused about concepts or having a hard time even formulating your question then virtual office hours are your best option.
 
 Note that the discussion board is hosted by the GitHub issues feature. It is a great forum because:
 
@@ -91,21 +91,14 @@ Please preview your responses before posting to ensure proper formatting. Note t
 ```
 # your code here
 lm( y ~ x1 + x2 )
-```
-````
 
-The fences are three back-ticks. These look like quotation marks, but are actually the character at the top left of your keyboard (if you have a US or European keyboard). 
-
-GitHub does not have a native math rendering language (RMD documents, on the other hand, [support formulas](https://www.calvin.edu/~rpruim/courses/s341/S17/from-class/MathinRmd.html)). So you have two options, type formulas as regular text and use code formatting to make them clear (this option is usually sufficient). Or you can type your formula in a formula editor and copy and paste an image of the nicely-formatted example.  
-
-````
-```
+# formulas
 y = b0 + b1•X1 + b2•X2 + e
-
 b1 = cov(x,y) / var(x)
 ```
 ````
 
+The fences are three back-ticks. These look like quotation marks, but are actually the character at the top left of your keyboard. 
 
 
 
