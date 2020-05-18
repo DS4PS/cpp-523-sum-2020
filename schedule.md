@@ -207,7 +207,7 @@ summary( model.01 )
 
 
 
-## Lab 01
+## Lab 01 - Due Friday
 
 -----
 
@@ -261,6 +261,26 @@ If you have questions, please post them to the [Assignment Discussion Board](../
 <a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/54984/assignments">Submit Lab-01</a> 
 
 -----
+
+
+## Mini-Assessment 01 - Due Tuesday 
+
+
+This mini-assessment consists of three multiple-choice questions. You have thirty minutes to complete from the time you start the assessment. 
+
+The assessment covers the definition of a regression line, and the concept of sums of squares from the first chapter:
+
+[Building a regression model](https://ds4ps.org/cpp-523-spr-2020/lectures/caffeine.html)
+
+
+<hr>
+
+<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/41574/quizzes/291355">Start the Mini-Assessment</a>
+
+<hr> 
+
+<br>
+
 
 <br>
 <br>
