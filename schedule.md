@@ -293,14 +293,90 @@ The assessment covers the definition of a regression line, and the concept of su
 # Week 2 - Effect Size and Confidence Intervals 
 
 ## Overview 
+
+This week covers the topic of building confidence intervals around our estimates of program impact. We use the CIs to conduct hypothesis-testing to see if our program has the impact we expected. 
+
+* Confidence intervals are built using standard errors 
+* Standard errors are creaed from residuals 
+* Residuals are generated through regression models (as we learned last week). 
+
+**Learning Objectives:**
+
+Once you have completed this section you should be able to build a confidence interval around a slope estimate of program impact, and interpret a table with several regressions. 
+
+
+**Assigned Reading:**
+
+There are no assigned readings this week. 
+
+
+**Key Take-Aways:**
+
+The lecture notes in this section cover the mechanics of standard errors and confidence intervals. These two important topics can be summed up in these animations of the sampling distribution of the mean.
+
+Our model estimate for the slope is our best guess of the real statistic. It will always be pretty good, but not exact.
+
+![](https://github.com/lecy/regression-simulations/raw/master/GIFS/reg_sample_orange.gif)
+
+<br>
+
+If we would repeatedly draw samples from a population and calculate slope estimates over and over, they would look like the distribution on the right. The "standard error" describes the average amount all of these guesses (statistics) are off from the true slope. 
+
+![](https://raw.githubusercontent.com/lecy/regression-simulations/master/GIFS/samp-dist-of-slope-50.gif)
+
+<br>
+
+If we create 95% confidence intervals around these guesses, we can see that approximately 95 out of 100 of the CIs will contain the true slope (set to 3 here). 
+
+![](https://raw.githubusercontent.com/lecy/regression-simulations/master/GIFS/confidence-interval-of-slope.gif)
+
+
+<br>
+<br>
+
+
 ## Lecture
+
+Please review the following lecture notes:
+
+* [Variance and Covariance](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-01-variance-covariance-slope.pdf)
+* [Partitioning the Variance of Y](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-02-partitioning-variance.pdf)
+* [Standard Errors](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-03-standard-errors.pdf)
+* [Confidence Intervals](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-04-confidence-intervals.pdf)
+* [Effect Size](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-05-program-impact.pdf)
+
+You might find this summary of notation helpful [**pdf**](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/handouts/Common-Statistics-Notation.pdf)
+
+
+
+
 ## Lab 02
-## Mini-Assessment 
 
-
-<br>
 <hr>
-<br>
+<a class="uk-button uk-button-default" href="https://ds4ps.org/cpp-523-spr-2020/labs/lab-02-class-size-confidence-intervals.html">Lab-02 Instructions</a>
+<hr>
+
+
+This lab introduces a case study on education policy that we will be using for the remainder of the semester to demonstrate the importance and impact of control variables, and consequences of their omissions.
+
+You will need the formula for confidence intervals, and the concept of visual hypothesis-testing with coefficient plots. 
+
+* [Confidence Intervals](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-04-confidence-intervals.pdf)
+* [Effect Size (+hypothesis tests)](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-05-program-impact.pdf)
+
+
+When you are complete:
+
+<a class="uk-button uk-button-primary" href="{{page.canvas.assignment_url}}">SUBMIT LAB</a>
+
+
+
+<br><br>
+<hr>
+<br><br>
+
+
+
 
 
 
