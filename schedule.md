@@ -215,7 +215,7 @@ summary( model.01 )
 
 -----
 
-**Due Sun May 24**
+**Due Sat May 23**
 
 The first lab is meant as a review of some important regression formulas to either shake out the cobwebs if you have covered this material before, or get everyone on the same page if it is new. It will review the following topics:
 
@@ -270,9 +270,9 @@ And submit via Canvas.
 
 <hr> 
 
-**Take any time Saturday-Tuesday (May 23-26)**
+**Opens Saturday, Closes Tues at Midnight (May 23-26)**
 
-This mini-assessment consists of three multiple-choice questions. You have **30 minutes** to complete the assessment from the time you start the assessment. 
+This mini-assessment consists of three multiple-choice questions. You have **30 minutes** to complete the assessment from the time you start the assessment. You can take it any time over the 4 days it is open.
 
 The assessment covers the definition of a regression line, and the concept of sums of squares from the first chapter:
 
