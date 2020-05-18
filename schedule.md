@@ -12,6 +12,17 @@ Submit Button - <a class="uk-button uk-button-primary" href="{{page.canvas.assig
 -->
 
 
+-----------------------
+
+* TOC
+{:toc}
+
+-----------------------
+
+<br>
+
+
+
 <div class = "uk-container uk-container-small">
   
 <br><br>
