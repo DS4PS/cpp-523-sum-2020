@@ -21,7 +21,7 @@ Submit Button - <a class="uk-button uk-button-primary" href="{{page.canvas.assig
 <br><br>
 <br><br>
 
-**CONTENTS:**
+**COURSE CONTENT:**
 
 -----------------------
 
@@ -284,6 +284,9 @@ The assessment covers the definition of a regression line, and the concept of su
 
 
 <br>
+<hr>
+<br>
+
 
 
 
@@ -296,6 +299,10 @@ The assessment covers the definition of a regression line, and the concept of su
 
 
 <br>
+<hr>
+<br>
+
+
 
 # Week 3 - Control Variables 
 
@@ -305,6 +312,10 @@ The assessment covers the definition of a regression line, and the concept of su
 ## Mini-Assessment 
 
 <br>
+<hr>
+<br>
+
+
 
 # Week 4 - Omitted Variable Bias 
 
@@ -314,6 +325,10 @@ The assessment covers the definition of a regression line, and the concept of su
 ## Mini-Assessment 
 
 <br>
+<hr>
+<br>
+
+
 
 
 # Week 5 - Dummy Variables 
@@ -324,6 +339,10 @@ The assessment covers the definition of a regression line, and the concept of su
 ## Mini-Assessment 
 
 <br>
+<hr>
+<br>
+
+
 
 
 # Week 6 - Specification 
@@ -334,6 +353,10 @@ The assessment covers the definition of a regression line, and the concept of su
 ## Mini-Assessment 
 
 <br>
+<hr>
+<br>
+
+
 
 
 # Review Material 
@@ -342,7 +365,10 @@ The assessment covers the definition of a regression line, and the concept of su
 ## Measurement Error 
 ## Seven Deadly Sins of Regression 
 
-<br> 
+<br>
+<hr>
+<br>
+
 
 
 # Final Exam
