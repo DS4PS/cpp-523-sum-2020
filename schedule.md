@@ -19,14 +19,13 @@ Submit Button - <a class="uk-button uk-button-primary" href="{{page.canvas.assig
 
 
 
-# Welcome
-
+# Semester Overview 
 
 
 These courses are designed to be interactive, and a lot of learning occurs by practicing the technical jargon from the field and learning how to talk about data and models. 
 
 
-
+<br>
 
 ## Course Cadence 
 
@@ -46,9 +45,19 @@ The mini assessments typically consist of three multiple-choice or matching ques
 
 **Mini-assessments open on Saturday and close Tuesday at 11:59pm (AZ time).** You have 30 minutes to complete an assessment once they start. You can take it at any time Sat-Tues.
 
+
+
 <br>
 
+## Tips for Success
 
+**There is no way to learn and retain all of this material in one course!!!** It is completely normal for this material to not click the first time you see it. We will try to repeat concepts and build on them through the semester, and the Evaluation sequence in this program (CPP 523, 524, and 525) provide a lot of reinforcement learning. 
+
+You are investing in a skill-set that you will build over time. It is not expected that you digest all material covered in the class this semester, but you are encouraged to add it to your personal library for future reference. 
+
+
+
+<br>
 
 ## Getting Help
 
