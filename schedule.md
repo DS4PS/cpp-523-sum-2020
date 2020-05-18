@@ -207,7 +207,9 @@ summary( model.01 )
 
 
 
-## Lab 01 - Due Friday
+## Lab 01 
+
+**Due Friday**
 
 -----
 
@@ -263,8 +265,9 @@ If you have questions, please post them to the [Assignment Discussion Board](../
 -----
 
 
-## Mini-Assessment 01 - Due Tuesday 
+## Mini-Assessment 01
 
+**Due Tuesday**
 
 This mini-assessment consists of three multiple-choice questions. You have thirty minutes to complete from the time you start the assessment. 
 
@@ -283,7 +286,7 @@ The assessment covers the definition of a regression line, and the concept of su
 
 
 
-# Week 2
+# Week 2 - Effect Size and Confidence Intervals 
 
 ## Overview 
 ## Lecture
@@ -293,7 +296,7 @@ The assessment covers the definition of a regression line, and the concept of su
 
 <br>
 
-# Week 3
+# Week 3 - Control Variables 
 
 ## Overview 
 ## Lecture
@@ -302,7 +305,7 @@ The assessment covers the definition of a regression line, and the concept of su
 
 <br>
 
-# Week 4
+# Week 4 - Omitted Variable Bias 
 
 ## Overview 
 ## Lecture
@@ -312,7 +315,7 @@ The assessment covers the definition of a regression line, and the concept of su
 <br>
 
 
-# Week 5
+# Week 5 - Dummy Variables 
 
 ## Overview 
 ## Lecture
@@ -322,7 +325,7 @@ The assessment covers the definition of a regression line, and the concept of su
 <br>
 
 
-# Week 6
+# Week 6 - Specification 
 
 ## Overview 
 ## Lecture
@@ -332,8 +335,13 @@ The assessment covers the definition of a regression line, and the concept of su
 <br>
 
 
+# Exam Review 
+
+
 
 # Final Exam
+
+Exam can be taken online 
 
 <br>
 <br>
