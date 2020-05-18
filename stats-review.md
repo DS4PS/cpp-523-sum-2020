@@ -81,9 +81,8 @@ If you want to invest in a textbook, these are some texts that present this cont
 
 **There is no way to learn and retain all of this material in one course!!!** It is completely normal for this material to not click the first time you see it. We will try to repeat concepts and build on them through the semester, and the Evaluation sequence in this program (CPP 523, 524, and 525) provide a lot of reinforcement learning. 
 
-You are investing in a skill-set that you will build over time. I will reference material throughout the semester that you can add to your reference library for this purpose. 
+You are investing in a skill-set that you will build over time. It is not expected that you digest all material covered in the class this semester, but you are encouraged to add it to your personal library for future reference. 
 
-I will also add books, articles, tutorials and reference sheets to the [Resources](/resources/) page, but I suggest you create your own catalog to do the same! 
 
 
 
