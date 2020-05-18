@@ -20,10 +20,10 @@ title: 'Stats Review'
 ## Stats Review
 
 
-*OpenIntro Statistics* is an excellent resource for a clear chapter on regression analysis [pdf](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/pubs/openintro-statistics-sample.pdf). 
+*OpenIntro Statistics* is an excellent resource for a clear chapter on regression analysis:
 
-- Chapter 8 - Linear Regression 
-- *Diez, D. M., Barr, C. D., & Cetinkaya-Rundel, M. (2012). OpenIntro Statistics.*
+*Diez, D. M., Barr, C. D., & Cetinkaya-Rundel, M. (2012). OpenIntro Statistics.*
+Chapter 8 - Linear Regression [pdf](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/pubs/openintro-statistics-sample.pdf). 
 
 <br>
 
@@ -85,6 +85,47 @@ You are investing in a skill-set that you will build over time. I will reference
 
 I will also add books, articles, tutorials and reference sheets to the [Resources](/resources/) page, but I suggest you create your own catalog to do the same! 
 
+
+
 <br>
 <br>
+
+-----
+
+<br>
+<br>
+
+
+</div>
+
+
+<br>
+<br>
+
+<style> 
+body {
+   font-family: "Roboto", sans-serif;
+}
+ 
+p.italic {
+  font-style: italic;
+  color: black !important;
+}
+td {
+  text-align: left;
+}
+td.i {
+  text-align: center;
+}
+iframe {
+  align: middle;
+}
+em {
+  color: black !important;
+}
+article {
+  padding-left:20%;
+}
+</style>
+
 
