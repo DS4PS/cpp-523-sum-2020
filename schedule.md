@@ -275,12 +275,65 @@ The assessment covers the definition of a regression line, and the concept of su
 
 <hr>
 
-<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/41574/quizzes/291355">Start the Mini-Assessment</a>
+<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/54984/quizzes/360064">Start the Mini-Assessment</a>
 
 <hr> 
 
 <br>
 
+
+
+# Week 2
+
+## Overview 
+## Lecture
+## Lab 02
+## Mini-Assessment 
+
+
+<br>
+
+# Week 3
+
+## Overview 
+## Lecture
+## Lab 03
+## Mini-Assessment 
+
+<br>
+
+# Week 4
+
+## Overview 
+## Lecture
+## Lab 04
+## Mini-Assessment 
+
+<br>
+
+
+# Week 5
+
+## Overview 
+## Lecture
+## Lab 05
+## Mini-Assessment 
+
+<br>
+
+
+# Week 6
+
+## Overview 
+## Lecture
+## Lab 06
+## Mini-Assessment 
+
+<br>
+
+
+
+# Final Exam
 
 <br>
 <br>
