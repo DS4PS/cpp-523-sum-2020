@@ -51,9 +51,13 @@ The mini assessments typically consist of three multiple-choice or matching ques
 
 ## Tips for Success
 
-**There is no way to learn and retain all of this material in one course!!!** It is completely normal for this material to not click the first time you see it. We will try to repeat concepts and build on them through the semester, and the Evaluation sequence in this program (CPP 523, 524, and 525) provide a lot of reinforcement learning. 
+**There is no way to learn and retain all of this material in one course.** 
 
-You are investing in a skill-set that you will build over time. It is not expected that you digest all material covered in the class this semester, but you are encouraged to add it to your personal library for future reference. 
+It is completely normal for this material to not click the first time you see it. We will try to repeat concepts and build on them through the semester, and the Evaluation sequence in this program (CPP 523, 524, and 525) offer reinforcement. 
+
+You are investing in a skill-set that you will build over time. You will find some material organized for quick reference on the [Resources](../resources/) page. 
+
+You are encouraged to build your own library of sources you find useful and keep them for future reference. 
 
 
 
