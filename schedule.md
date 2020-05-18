@@ -164,7 +164,6 @@ This review will be useful to benchmark your knowledge about regression models, 
 * Slope 
 * "Explained" variance 
 
-<br>
 
 **Readings:**
 
