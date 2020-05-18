@@ -209,6 +209,7 @@ summary( model.01 )
 
 ## Lab 01
 
+-----
 
 <a class="uk-button uk-button-default" href="https://github.com/DS4PS/cpp-523-sum-2020/raw/master/labs/Lab-01-Regression-Review.docx">Lab-01 Instructions</a>
 
@@ -255,23 +256,17 @@ Lab 01 is due Friday. You will, however, have a full week for subsequent labs.
 If you have questions, please post them to the [Assignment Discussion Board](../help/).
 
 
-<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/54984/assignments">Submit Lab-01</a> 
+-----
 
+<br> 
+
+<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/54984/assignments">Submit Lab-01</a> 
 
 <br> 
 
 -----
 
 <br>
-
-
-
-
-
-
-
------
-
 <br>
 <br>
 
@@ -285,17 +280,7 @@ If you have questions, please post them to the [Assignment Discussion Board](../
 <style>
 em {
     color: black;
-}
-li {
-     font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-     font-size:calc(0.85em + 0.25vw);
-     font-weight:300;
-     line-height:1.7;
-     -webkit-font-smoothing:antialiased;
-     -moz-osx-font-smoothing:grayscale;
-     margin-left:1%;
-     margin-right:0%;
-    }  
+} 
 h2{
   font-size:calc(2em + 0.25vw) !important;
   color: #337ab7;
@@ -309,22 +294,7 @@ h3{
   font-weight:300;
   margin-top:20px !important;
   margin-bottom:10px;} 
-  
-ul {
-  list-style-type:none;
-  margin: 0;
-  padding: 0;
-  font-size:calc(0.75em + 0.25vw);
-  line-height:1.2;
-}
-
-ul a {
-  color: rgba(229,144,42,.7);
-  font-size:calc(0.75em + 0.25vw);
-  line-height:1.2;
-  text-decoration: none;
-  font-weight: normal;
-} 
+   
 
 ul a:hover {
   color: #337ab7;
@@ -355,28 +325,4 @@ ul a:hover {
     font-weight: bold;
 }
 
-.collapsible {
-  background-color: #fff;
-  color: #444;
-  cursor: pointer;
-  padding: 18px;
-  width: 20%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
-}
-
-.active, .collapsible:hover {
-  background-color: #ccc;
-}
-
-.active, .collapsible:hover {
-  background-color: #ccc;
-}
-
-.content {
-  display: none;
-  overflow: hidden;
-}
 </style>
