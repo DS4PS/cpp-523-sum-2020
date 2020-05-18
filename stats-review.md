@@ -23,11 +23,11 @@ title: 'Stats Review'
 *OpenIntro Statistics* is an excellent resource for a clear chapter on regression analysis:
 
 *Diez, D. M., Barr, C. D., & Cetinkaya-Rundel, M. (2012). OpenIntro Statistics.*
-Chapter 8 - Linear Regression [pdf](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/pubs/openintro-statistics-sample.pdf). 
+[Chapter 8 - Linear Regression](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/pubs/openintro-statistics-sample.pdf). 
 
 <br>
 
-The **Teacups, Giraffes & Statistics** site has nice explanations of variance, covariance, and the standard error [ [link](https://tinystats.github.io/teacups-giraffes-and-statistics/) ]. 
+The [**Teacups, Giraffes & Statistics**](https://tinystats.github.io/teacups-giraffes-and-statistics/) site has nice explanations of variance, covariance, and the standard error. 
 
 ![](assets/img/teacup-giraffe-heights.png)
 
@@ -49,17 +49,6 @@ If you need a refresher on stats, you can try one of the free online statistics 
 
 
 
-### Sampling Distributions
-
-<br>
-
-![](https://www.stat.auckland.ac.nz/~wild/WPRH/AnimGifs/Dots_1samp300_600.gif)
-
-<br>
-
-
-
-
 ## Build Your Library
 
 
@@ -77,11 +66,7 @@ If you want to invest in a textbook, these are some texts that present this cont
 * [Discovering Statistics in R](https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469) as a comprehensive guide to using R for a variety of statistical models 
 * [Real Stats: Using Econometrics for Political Science and Public Policy](https://www.amazon.com/Real-Stats-Econometrics-Political-Science/dp/0199981949) for material that presents regression models from a causal and evaluation perspective
 
-## Tips for Success
 
-**There is no way to learn and retain all of this material in one course!!!** It is completely normal for this material to not click the first time you see it. We will try to repeat concepts and build on them through the semester, and the Evaluation sequence in this program (CPP 523, 524, and 525) provide a lot of reinforcement learning. 
-
-You are investing in a skill-set that you will build over time. It is not expected that you digest all material covered in the class this semester, but you are encouraged to add it to your personal library for future reference. 
 
 
 
