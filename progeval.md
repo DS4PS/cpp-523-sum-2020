@@ -15,9 +15,13 @@ title: 'Program Evaluation'
 <br>
 <br>
 
-## Evidence-Based Practices 
+![](https://image.shutterstock.com/image-vector/banner-evaluation-concept-assessment-analysis-260nw-1339409468.jpg)
 
-![](https://physics.aps.org/assets/73b0590c-2226-44f6-852a-fa23e6ef3b76/e86_2.png) 
+
+<br>
+<br>
+
+## Evidence-Based Practices 
 
 What does it mean to live in an evidence-based world? How do we become more data-driven? 
 
@@ -89,7 +93,6 @@ Interpretation of evidence and translation to practice is a critical skill set t
 <br>
 <br>
 
-![](https://image.shutterstock.com/image-vector/banner-evaluation-concept-assessment-analysis-260nw-1339409468.jpg)
 
 <br>
 
