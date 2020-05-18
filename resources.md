@@ -7,7 +7,15 @@ title: Resources
   
 <br><br>
 
-## Handouts 
+## Getting Started with R
+
+The [R Overview](../r-overview/) page provides background on installing R and RStudio and using markdown to create data-driven documents. 
+
+## Stats Review 
+
+For a refresher on core stats concepts that serve as pre-requisites to this course, visit the [stats review page](../stats-review/). 
+
+## Course Handouts 
 
 * Regression Review Assessment  [ [pdf](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/handouts/Regression-Review-Self-Test.pdf) ]
 * Common Statistics Notation [ [pdf](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/handouts/Common-Statistics-Notation.pdf) ] 
@@ -19,7 +27,9 @@ title: Resources
 * A Taxonomy of Control Variables [ [pdf](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/taxonomy-of-control-variables.pdf) ]  
 
 
-## Regression Tutorial for R
+## Regression Tutorials for R
+
+The following provide useful tutorials that offer R syntax for common regression techniques. 
 
 * UC Business Analytics [ [link](https://uc-r.github.io/linear_regression) ]
 * By Manny Gimond [ [link](http://mgimond.github.io/Stats-in-R/regression.html) ]
@@ -49,7 +59,7 @@ title: Resources
 * xtable: formatting tables 
 
 
-## Reference Books
+## Reference Texts
 
 * Intro to Stats review in R [ [teacup giraffe textbook](https://tinystats.github.io/teacups-giraffes-and-statistics/) ]
 * [OpenIntro Statistics](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/pubs/openintro-statistics-sample.pdf)
