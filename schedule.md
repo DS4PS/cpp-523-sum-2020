@@ -12,6 +12,17 @@ Submit Button - <a class="uk-button uk-button-primary" href="{{page.canvas.assig
 -->
 
 
+
+
+
+
+<div class = "uk-container uk-container-small">
+  
+<br><br>
+<br><br>
+
+**CONTENTS:**
+
 -----------------------
 
 * TOC
@@ -20,13 +31,6 @@ Submit Button - <a class="uk-button uk-button-primary" href="{{page.canvas.assig
 -----------------------
 
 <br>
-
-
-
-<div class = "uk-container uk-container-small">
-  
-<br><br>
-<br><br>
 
 
 
