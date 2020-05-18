@@ -335,8 +335,13 @@ The assessment covers the definition of a regression line, and the concept of su
 <br>
 
 
-# Exam Review 
+# Review Material 
 
+## Control Variables 
+## Measurement Error 
+## Seven Deadly Sins of Regression 
+
+<br> 
 
 
 # Final Exam
