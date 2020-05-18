@@ -209,14 +209,13 @@ summary( model.01 )
 
 ## Lab 01 
 
-**Due Friday**
-
 -----
 
 <a class="uk-button uk-button-default" href="https://github.com/DS4PS/cpp-523-sum-2020/raw/master/labs/Lab-01-Regression-Review.docx">Lab-01 Instructions</a>
 
 -----
 
+**Due Friday**
 
 The first lab is meant as a review of some important regression formulas to either shake out the cobwebs if you have covered this material before, or get everyone on the same page if it is new. It will review the following topics:
 
@@ -267,13 +266,13 @@ If you have questions, please post them to the [Assignment Discussion Board](../
 
 ## Mini-Assessment 01
 
-**Due Tuesday**
-
 <hr>
 
 <a class="uk-button uk-button-default" href="https://canvas.asu.edu/courses/54984/quizzes/360064">Start the Mini-Assessment</a>
 
 <hr> 
+
+**Due Tuesday**
 
 This mini-assessment consists of three multiple-choice questions. You have thirty minutes to complete from the time you start the assessment. 
 
