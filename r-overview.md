@@ -16,9 +16,6 @@ title: 'R Overview'
 
 
 
-
-## Introducing R 
-
 <br>
 <br>
 
