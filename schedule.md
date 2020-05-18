@@ -135,6 +135,8 @@ The fences are three back-ticks. These look like quotation marks, but are actual
 
 # Week 1 - Nuts and Bolts of Regression Models
 
+## Overview 
+
 This section provides a review of the basic building blocks of a bivariate regression model:
 
 * sample variance and standard deviation 
