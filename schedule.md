@@ -150,23 +150,9 @@ Reichardt, C. S., & Bormann, C. A. (1994). Using regression models to estimate p
 
 #### For reference:
 
-Diez, D. M., Barr, C. D., & Cetinkaya-Rundel, M. (2012). OpenIntro statistics (pp. 174-175). OpenIntro. [[**CH-08 Introduction to Linear Regression**](/pubs/openintro-statistics-sample.pdf)]
+Diez, D. M., Barr, C. D., & Cetinkaya-Rundel, M. (2012). OpenIntro statistics (pp. 174-175). OpenIntro. [CH-08 Introduction to Linear Regression](/pubs/openintro-statistics-sample.pdf)
 
-Multiple Regression overview chapter [ [pdf](../pubs/Multiple%20Regression.pdf) ]
-
-
-### Lab Preview 
-
-Lab-01 Regression Review covers the following topics:
-
-* Regression slopes 
-* Intercept 
-* Residuals 
-* Explained variance 
-
-Reference material for the lab:  
-
-Lewis-Beck, C., & Lewis-Beck, M. (2015). Applied regression: An introduction (Vol. 22). Sage publications. [[pdf](https://github.com/DS4PS/cpp-523-ssum-2020/raw/master/pubs/Applied%20Regression%20Lewis-Beck.pdf)]
+Multiple Regression overview chapter [[pdf](../pubs/Multiple%20Regression.pdf)]
 
 
 ## Regression Review
@@ -223,7 +209,15 @@ summary( model.01 )
 
 ## Lab 01
 
-This lab will review the following topics:
+
+-----
+
+<a class="uk-button uk-button-default" href="https://github.com/DS4PS/cpp-523-sum-2020/raw/master/labs/Lab-01-Regression-Review.docx">Lab-01 Instructions</a>
+
+-----
+
+
+The first lab is meant as a review of some important regression formulas to either shake out the cobwebs if you have covered this material before, or get everyone on the same page if it is new. It will review the following topics:
 
 * Calculating a bivariate regression slope (**`b1`**)
 * Basic interpretation of the slope
@@ -233,9 +227,6 @@ This lab will review the following topics:
   - regression (or explained) sum of squares 
 * R-squared: the measure of variance explained 
 
------
-
-This first lab is meant as a review of some important regression formulas to either shake out the cobwebs if you have covered this material before, or get everyone on the same page if it is new. 
 
 The lecture notes needed for the lab are available on the course shell:
 
@@ -246,13 +237,12 @@ And the first chapter from Lewis-Beck serves as a reference for specific formula
 Lewis-Beck, C., & Lewis-Beck, M. (2015). Applied regression: An introduction (Vol. 22). Sage publications. [ [pdf](/pubs/Applied%20Regression%20Lewis-Beck.pdf) ]
 
 
------
+<hr>
 
 This first lab is designed as a review (or getting up to speed) assignment to direct your attention on a handful of important regression formulas we will use this semester. For the most part we will rely on the computer the do the math for us, but these formulas are important for our conceptual understanding of the regressions, so there is value in working through a simple example (five data points) by hand. 
 
-For THIS ASSIGNMENT ONLY all of the work is **done by hand** so you can type your answers right into the Lab 01 word document:
+For THIS ASSIGNMENT ONLY all of the work is **done by hand** so you can type your answers right into the Lab 01 word document. For future assignments we will be using R Markdown documents so that you can run models and submit the results directly. 
 
-<a class="uk-button uk-button-default" href="https://github.com/DS4PS/cpp-523-sum-2020/raw/master/labs/Lab-01-Regression-Review.docx">Lab-01 Instructions</a>
 
 Please show the steps for each calculation. You can check your results in R or on a calculator when you are done.
 
@@ -262,14 +252,15 @@ Lab-##-LastName.doc
 
 And submit via Canvas. 
 
-<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/54984/assignments">Submit Lab-01</a> 
-
 Lab 01 is due Friday. You will, however, have a full week for subsequent labs. 
 
 
 -----
 
-For future assignments we will be using R Markdown documents so that you can run models and submit the results directly. 
+<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/54984/assignments">Submit Lab-01</a> 
+
+-----
+
 
 If you have questions, please post them to the [Assignment Discussion Board](../help/).
 
