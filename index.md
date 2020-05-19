@@ -34,7 +34,7 @@ instructor:
    linked_in_url: 'https://www.linkedin.com/in/david-schlinkert-0207646b/'
    office_hours_time: By appointment
    office_hours_location:  Zoom
-   office_hours_app_url:  'david.schlinkert@asu.edu'
+   office_hours_app_url:  'mailto:david.schlinkert@asu.edu'
    
 
 textbooks:
