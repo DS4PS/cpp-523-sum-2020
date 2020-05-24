@@ -34,6 +34,8 @@ header:
   url: schedule/
 - title: Resources 
   url: resources/
+- title: Review Sessions 
+  url: review/
 - title: Get Help
   url: help/
 
