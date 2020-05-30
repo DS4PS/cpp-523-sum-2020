@@ -368,6 +368,20 @@ When you are complete:
 <a class="uk-button uk-button-primary" href="{{page.canvas.assignment_url}}">SUBMIT LAB</a>
 
 
+<br>
+
+## Mini Assessment 02 
+
+
+This mini-assessment tests your understanding of the interpretation of [statistical significance using confidence intervals](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-05-program-impact.pdf).
+
+
+![](assets/img/ci-and-significance.png)
+
+<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/54984/quizzes/360059">Start the Mini-Assessment</a>
+
+<br>
+
 
 <br><br>
 <hr>
@@ -380,14 +394,115 @@ When you are complete:
 
 # Week 3 - Control Variables 
 
-## Overview 
-## Lecture
-## Lab 03
-## Mini-Assessment 
+
+## Overview
+
+This lecture introduces you to two distinctive types of control variables, and how the different ways they change our models. We will also start using Ballentine Venn Diagrams to compare models. 
+
+**Learning Objectives**
+
+Once you have completed this section you will be able to explain how adding specific control variables to a model (or leaving them out) will impact (1) the slopes and (2) the standard error of your model. 
+
+"Bivariate regression" means 2 variables:  
+
+```
+Y = b0 + b1•X + e
+```
+
+"Multiple regression" or "Multivariate regression" means one DV and multiple independent variables: 
+
+```
+Y = b0 + b1•X1 + b2•X2 + e
+```
+
+In the lecture notes X1 will always be the **policy variable**, or intervention of interest. The additional variables X2, X3, X4, etc. are all "control variables" that are meant to improve models. 
+
+
+**Recommended Reading:** 
+
+Skim: [Multiple Regression](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/pubs/Multiple%20Regression.pdf)
+
+Baily CH5: Section 5.1-Multivariate OLS
+
+Bailey, M. A. (2016). Real Stats: Using Econometrics for Political Science and Public Policy. Oxford University Press.
+
 
 <br>
-<hr>
+
+
+
+
+## Lecture Material
+
+[Lecture 06 on Control Variables](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-06-control-variables.pdf)
+
 <br>
+
+**Additional Material:**
+
+Nice explanation of the importance of control variables as competing hypotheses:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/pcObydOsMXc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+Tufte, E. R. (1974). *Data analysis for politics and policy.* Prentice Hall. [CH4 Multiple Regression](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/pubs/Multiple%20Regression.pdf)
+
+<br>
+
+
+
+
+
+
+
+
+
+
+## Lab 03
+
+<hr>
+
+<a class="uk-button uk-button-default" href="https://ds4ps.org/cpp-523-spr-2020/labs/lab-03-instructions.html">Lab-03 Instructions</a>
+
+<hr>
+
+
+This lab introduces the important role of control variables in our models. They can be used to reduce standard errors of the model and thus increase model efficiency, or they can be used to to adjust slopes in the model. The lab draws on material from the lecture 06 notes. 
+
+* [Control Variables](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-06-control-variables.pdf)
+
+I have provided the code for the regression models and scatterplots. This lab focuses on interpretation of results. You do need to create an RMD document, and knit an HTML file to submit your results. 
+
+When you are complete:
+
+<a class="uk-button uk-button-primary" href="{{page.canvas.assignment_url}}">SUBMIT LAB</a>
+
+
+<br><br>
+<hr>
+<br><br>
+
+
+
+
+## Mini Assessment 03 
+
+
+This mini-assessment tests your understanding of the interpretation of [statistical significance using confidence intervals](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-05-program-impact.pdf).
+
+
+![](assets/img/ci-and-significance.png)
+
+<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/54984/quizzes/360063">Start the Mini-Assessment</a>
+
+<br>
+
+
+<br><br>
+<hr>
+<br><br>
+
+
+
 
 
 
