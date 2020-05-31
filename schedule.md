@@ -797,6 +797,7 @@ This week introduces the concept of specification bias, problems that arise when
 
 Outliers, non-linearities, and other data problems need to be addressed if the model is to accurately describe the data and provide meaningful inferences. 
 
+![](https://raw.githubusercontent.com/DS4PS/cpp-523-sum-2020/master/assets/img/anscombe-specification-bias.png)
 
 **Specification Bias**
 
@@ -818,7 +819,13 @@ Quadratic specification:
 Y = b0 + b1(X) + b2(X^2) + e
 ```
 
-![](../assets/img/quadratic-models.png)
+![](assets/img/quadratic-models.png)
+
+![](/assets/img/quadratic-models.png)
+
+![](/../assets/img/quadratic-models.png)
+
+![](https://raw.githubusercontent.com/DS4PS/cpp-523-sum-2020/master/assets/img/quadratic-models.png)
 
 
 **Log Regression Models**
@@ -873,6 +880,7 @@ As a result, the model that minimizes squared error terms will be disproportiona
 
 When they occur in the extremes of X they bias the slope. When they occur near the mean of X they bias the intercept, and in doing so also increase standard errors. 
 
+![](https://raw.githubusercontent.com/DS4PS/cpp-523-sum-2020/master/assets/img/outlier-impact.png)
 
 **Learning Objectives**
 
