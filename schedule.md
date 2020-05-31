@@ -821,12 +821,6 @@ Y = b0 + b1(X) + b2(X^2) + e
 
 ![](assets/img/quadratic-models.png)
 
-![](/assets/img/quadratic-models.png)
-
-![](/../assets/img/quadratic-models.png)
-
-![](https://raw.githubusercontent.com/DS4PS/cpp-523-sum-2020/master/assets/img/quadratic-models.png)
-
 
 **Log Regression Models**
 
