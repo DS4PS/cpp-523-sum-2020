@@ -476,30 +476,32 @@ When you are complete:
 
 <a class="uk-button uk-button-primary" href="{{page.canvas.assignment_url}}">SUBMIT LAB</a>
 
-
-<br><br>
-<hr>
-<br><br>
-
-
-
-
-## Mini Assessment 03 
-
-
-This mini-assessment tests your understanding of the interpretation of [statistical significance using confidence intervals](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-05-program-impact.pdf).
-
-
-![](assets/img/ci-and-significance.png)
-
-<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/54984/quizzes/360063">Start the Mini-Assessment</a>
-
+<br>
 <br>
 
 
+
+## Mini Assessment 03
+
+This mini-assessment tests your understanding of the differences between the two types of control variables (those correlated with the policy or intervention, i.e. classroom size and socio-economic status, and those that are uncorrelated with the policy but correlated with the outcome, i.e. teacher quality).
+
+![](assets/img/two-types-of-controls.png)
+
+[Control Variables](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-06-control-variables.pdf)
+
+These differences are summarized on some of the review notes for the final exam: 
+
+[Taxonomy of Control Variables](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/taxonomy-of-control-variables.pdf) 
+
+<br>
+
+<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/54984/quizzes/360063">Start the Mini-Assessment</a>
+
+
 <br><br>
 <hr>
 <br><br>
+
 
 
 
@@ -508,42 +510,410 @@ This mini-assessment tests your understanding of the interpretation of [statisti
 
 # Week 4 - Omitted Variable Bias 
 
-## Overview 
-## Lecture
-## Lab 04
-## Mini-Assessment 
+
+
+
+## Overview
+
+This week introduces the concept of omitted variable bias, and how it can impact our inferences in observational studies. 
+
+**Learning Objectives**
+
+Once you have completed this section you should be able to:
+
+* identify variables the have the potential to cause omitted variable bias 
+* calculate the size of bias that results from omitting a variable from a study 
+
+**Required Reading:**
+
+'Crack baby' study ends with unexpected but clear result [ [link](https://www.inquirer.com/philly/health/20130721__Crack_baby__study_ends_with_unexpected_but_clear_result.html) ]
+
+* *A 1989 study in Philadelphia found that nearly one in six newborns at city hospitals had mothers who tested positive for cocaine. Troubling stories were circulating about the so-called crack babies. They had small heads and were easily agitated and prone to tremors and bad muscle tone, according to reports, many of which were anecdotal. Worse, the babies seemed aloof and avoided eye contact. Some social workers predicted a lost generation - kids with a host of learning and emotional deficits who would overwhelm school systems and not be able to hold a job or form meaningful relationships. The "crack baby" image became symbolic of bad mothering, and some cocaine-using mothers had their babies taken from them or, in a few cases, were arrested.*  
+
+The study in the article was commissioned because of anedcotal evidence of a strong relationship between exposure to crack in the womb and poor development of a child, cognitively and socially. 
+
+**If crack was the policy variable in this study, what was the omitted variable?** 
+
+**How did the understanding of the DIRECT impact of crack on child development change once the omitted variable was added to the models?** 
+
+**When are omitted variables a problem? What makes a variable a competing hypothesis?**  
 
 <br>
-<hr>
 <br>
+
+
+
+
+
+## Lecture
+
+Lecture Notes: **Omitted Variable Bias** [ [pdf](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-07-omitted-variable-bias.pdf) ]  [ [example](https://ds4ps.org/cpp-523-spr-2020/lectures/walk-through/omitted-variable-bias-example.html) ]
+
+Lecure Notes: **A Taxonomy of Control Variables** [ [pdf](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/taxonomy-of-control-variables.pdf) ]  
+
+<br>
+
+![](lectures/figures/taxonomy-of-controls-01.png)  
+
+<br>
+
+![](lectures/figures/taxonomy-of-controls-02.png)  
+
+<br>
+<br>
+
+
+
+
+
+## Lab 04
+
+This lab examines the impact of omitted variable bias on our inferences. 
+
+[Omitted Variable Bias](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-07-omitted-variable-bias.pdf) 
+
+[Example of How to Calculate Bias](https://ds4ps.org/cpp-523-spr-2020/lectures/walk-through/omitted-variable-bias-example.html)  [ [PDF](https://www.dropbox.com/s/10bl6z9rhbirp1t/omitted-variable-bias-example.pdf?dl=1) ]
+
+A lab solutions RMD template has been provided. Submit your knitted files via Canvas. 
+
+<a class="uk-button uk-button-default" href="https://ds4ps.org/cpp-523-spr-2020/labs/lab-04-instructions.html">Lab-04 Instructions</a>
+
+When you are complete:
+
+<a class="uk-button uk-button-primary" href="{{page.canvas.assignment_url}}">SUBMIT LAB</a>
+
+**Omitted Variable Bias Calculations:**
+
+What happens when we omitt SES from the Classroom Size model?
+
+```
+# full regression:   TS = B0 + B1*CS + B2*SES
+# naive regression:  TS = b0 + b1*CS
+```
+
+*Recall when ***B1** is used for the slope it represents the **correct** slope and **b1** represents the slope that comes from an incomplete model or from a small sample and thus will likely be biased.*
+
+Calculations for bias: 
+
+```r
+URL <- "https://raw.githubusercontent.com/DS4PS/cpp-523-fall-2019/master/labs/class-size-seed-1234.csv"
+dat <- read.csv( URL )
+
+
+# naive regression in the example: TS = b0 + b1*CS
+m.naive <- lm( test ~ csize, data=dat  )
+summary( m.naive )
+
+# Coefficients:
+# ----------------------------------
+#             Estimate Std. Error t value Pr(>|t|)    
+# (Intercept) 738.3366     4.8788  151.34   <2e-16 ***
+# csize        -4.2221     0.1761  -23.98   <2e-16 ***
+# ----------------------------------
+
+
+# full regression: TS = B0 + B1*CS + B2*SES
+m.full <- lm( test ~ csize + ses, data=dat  )
+summary( m.full )
+
+# Coefficients:
+# ----------------------------------
+#             Estimate Std. Error t value Pr(>|t|)    
+# (Intercept)  665.289     76.574   8.688   <2e-16 ***
+# csize         -2.671      1.632  -1.637    0.102    
+# ses           16.344     17.098   0.956    0.339    
+# ----------------------------------
+
+
+# auxiliary regression to get a1:  SES = a0 + a1*CS
+m.auxiliary <- lm( ses ~ csize, data=dat )
+summary( m.auxiliary )
+
+# lm(formula = ses ~ csize, data = dat)
+# Coefficients:
+# ----------------------------------
+#              Estimate Std. Error t value Pr(>|t|)    
+# (Intercept)  4.469458   0.009033   494.8   <2e-16 ***
+# csize       -0.094876   0.000326  -291.0   <2e-16 ***
+# ----------------------------------
+
+
+# b1 = B1 + bias
+# b1 - B1 = bias
+b1 <- -4.22
+B1 <- -2.67
+b1 - B1
+
+# bias = a1*B2
+a1 <- -0.0949
+B2 <- 16.34
+a1*B2
+```
+
+
+<br>
+<br>
+
+
+
+
+## Mini-Assessment 04
+
+<br>
+<br>
+
+This mini-assessment tests your understanding of the interpretation of the impact of control variables on statistical significance.
+
+Note that the lecture on control variables covers cases where we add variables to a model:
+
+```
+Y = b0 + b1 X1 + e  # add controls
+>>>
+Y = b0 + b1(X1) + b2(X2) + b3(X3) + e
+```
+And the lecture on omitted variable bias is the **exact same concepts**, but now in reverse: 
+
+```
+Y = b0 + b1(X1) + b2(X2) + b3(X3) + e  # full model
+>>>
+Y = b0 + b1 X1 + e  # omit variables
+```
+We are interested in how these operations impact (1) **the slope** of our policy variable and (2) **the standard errors** (i.e. confidence intervals) of our policy variable. Statistical significance is determined by the combination of slope and SE. 
+
+
+<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/54984/quizzes">Start the Mini-Assessment</a>
+
+
+
+
+<br><br>
+<hr>
+<br><br>
+
 
 
 
 
 # Week 5 - Dummy Variables 
 
-## Overview 
-## Lecture
-## Lab 05
-## Mini-Assessment 
+## Overview
+
+This week introduces modeling group differences within the data using dummy variables and interaction terms.
+
+**Dummy variables** are binary 0/1 variables where 1 means the observation belongs to a group, 0 means the observation does not. We need one dummy variable for each level of a categorical variable. 
+
+`y = b0 + b1(X) + b2(D) + e`
+
+**Interactions** are created by multiplying a covariate by a dummy variable. 
+
+`y = b0 + b1(X) + b2(D) + b3(X)(D) + e`
+
+Adding dummy variables to models allows us to test several hypotheses about differences between groups. 
+
+**Learning Objectives:**
+
+Once you have completed this section you will be able to run and interpret regression models with dummy variables and interaction effects. 
 
 <br>
+<br>
+
+
+
+## Lecture
+
+**Groups in Regression Models**
+
+
+[Hypothesis-Testing With Groups Part-01](https://ds4ps.org/cpp-523-spr-2020/lectures/dummy-variables.html) 
+
+[Hypothesis-Testing With Groups Part-02](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/hypotheses-tests-with-dummy-variables.pdf) 
+
+
+**Lab Preview** 
+
+[Practice Questions](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/handouts/Regression%20with%20Interaction%20Effects.pdf)
+
+[SOLUTIONS](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/handouts/Regression-with-Interaction-Effects-SOLUTIONS.pdf)
+
+<br>
+<br>
+
+
+
+
+
+
+## Lab 05 
+
 <hr>
+<a class="uk-button uk-button-default" href="https://ds4ps.org/cpp-523-spr-2020/labs/lab-05-instructions.html">Lab-05 Instructions</a>
+<hr>
+
+This lab examines tests your understanding of constructing groups and conducting hypothesis tests using dummy variables. 
+
+When you are complete:
+
+<a class="uk-button uk-button-primary" href="{{page.canvas.assignment_url}}">SUBMIT LAB</a>
+
+<br>
 <br>
 
 
 
 
-# Week 6 - Specification 
+## Mini-Assessment 05
+
+This mini-assessment tests your understanding of the interpretation of dummy variables in regression models. 
+
+```r
+# test of group means
+y = b0 + b1(female) + e
+
+# test of slope differences
+y = b0 + b1(X) + b2(female) + b3(female•X) + e
+```
+
+<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/41574/quizzes/306569">Start the Mini-Assessment</a>
+
+<br><br>
+<hr>
+<br><br>
+
+
+
+
+
+
+
+
+
+
+
+# Week 6 - Specification Bias
 
 ## Overview 
+
+This week introduces the concept of specification bias, problems that arise when you run a regression without actually looking at the data to ensure your model makes sense. 
+
+Outliers, non-linearities, and other data problems need to be addressed if the model is to accurately describe the data and provide meaningful inferences. 
+
+
+**Specification Bias**
+
+Specification bias refers to incorrect slopes that arise from using an improper functional form for your model (for example, trying to model the relationship between X and Y with a straight line when a non-linearity is present), or situations where highly-leveraged outliers shift the slope. 
+
+There are lots of reasons why the relationship between X and Y might not be linear. In ecology and in finance there are many processes that can lead to exponential growth. In economics it is very common to experience diminishing returns to investment, or diminishing marginal utility as more of a good is consumed (the 10th piece of cake eaten in one sitting is less enjoyable than the 1st piece). 
+
+We use **quadratic regression equations** to allow the model to capture non-linear relationships. 
+
+Linear specification: 
+
+```
+Y = b0 + b1(X) + e
+```
+
+Quadratic specification: 
+
+```
+Y = b0 + b1(X) + b2(X^2) + e
+```
+
+![](../assets/img/quadratic-models.png)
+
+
+**Log Regression Models**
+
+In certain circumstances the log transformations can be used to simplify regression models when: 
+
+1. We want to model rates of growth instead of changes in levels. 
+2. Our data is highly-skewed and we want to mitigate the impact of outliers. 
+
+In these instances, depending upon the variable(s) of interest, we can use one of the following log regression models: 
+
+```
+# log-linear model
+# one-unit change in X is associated with a b1 % change in Y
+log(Y) = b0 + b1(X) + e
+
+# linear-log model
+# a 1% change in X is associated with a b1 unit change in Y
+Y = b0 + b1(log(X)) + e
+
+# log-log model
+# a 1% change in X is associated with a b1 % change in Y (an elasticity)
+log(Y) = b0 + b1(log(X)) + e
+```
+
+The log is a simple transformation in R:
+
+```
+log.x <- log( x )
+```
+
+**Outliers**
+
+Outliers that occur near the min or max of X have the biggest impact on slopes because they will generate the largest residual term. The OLS regression technique tries to minimize squared residuals (sum of squared errors or SSE), so larger residuals have outsized influence.
+
+For example, increase the size of a residual and note how much it then increases the SSE in the model:
+
+```
+2:  2^2 = 4
+4:  4^2 = 16  (twice as large, 4 times as much influence)
+
+2:  2^2 = 4
+6:  6^2 = 36  (three times as large, 9 times as much influence)
+
+2:  2^2 = 4
+8:  8^2 = 64  (four times as large, 16 times as much influence)
+```
+
+As a result, the model that minimizes squared error terms will be disproportionately impacted by outliers.
+
+When they occur in the extremes of X they bias the slope. When they occur near the mean of X they bias the intercept, and in doing so also increase standard errors. 
+
+
+**Learning Objectives**
+
+Once you have completed this section you will be able to:
+
+* Diagnose specification bias when it occurs 
+* Be able to identify outliers and conduct sensitivity analysis to check their impact 
+* Specify a quadratic model for non-linear relationships 
+* Interpret a logged regression 
+
+<br>
+<br>
+
+
+
 ## Lecture
+
+Specification Bias I [ [html](https://ds4ps.org/cpp-523-spr-2020/lectures/specification-bias.html) ]  
+Specification Bias II [ [pdf](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-09-specification.pdf) ]  
+
+For this lab you will run and interpret a quadratic regression and a logged regression model. 
+
+<br>
+<br>
+
+
+
 ## Lab 06
-## Mini-Assessment 
+
+
+This lab gives you a chance to practice non-linear regression models. 
+
+<a class="uk-button uk-button-default" href="https://ds4ps.org/cpp-523-spr-2020/labs/lab-06-instructions.html">Lab-06 Instructions</a>
+
+When you are complete:
+
+<a class="uk-button uk-button-primary" href="{{page.canvas.assignment_url}}">SUBMIT LAB</a>
 
 <br>
-<hr>
 <br>
+
+
+
 
 
 
