@@ -828,6 +828,8 @@ In certain circumstances the log transformations can be used to simplify regress
 1. We want to model rates of growth instead of changes in levels. 
 2. Our data is highly-skewed and we want to mitigate the impact of outliers. 
 
+[wine example](https://ds4ps.org/cpp-528-spr-2020/labs/lab-05-tutorial.html#log-transformations)
+
 In these instances, depending upon the variable(s) of interest, we can use one of the following log regression models: 
 
 ```
@@ -1019,7 +1021,13 @@ Measurement Error in the IV:
 
 # Final Exam
 
-Details coming soon.  
+Dates coming soon.  
+
+The final exam is on Canvas. You have 4 hours to complete it once it is started.
+
+You are allowed to look back over your notes and use a calculator for help with math.
+
+You are NOT allowed to work together on the final exam. Do NOT discuss questions after you have take it.
 
 <br>
 <br>
@@ -1031,6 +1039,15 @@ Details coming soon.
 
 <br>
 <br>
+<br>
+
+
+
+
+
+
+
+
 
 <style>
 em {
