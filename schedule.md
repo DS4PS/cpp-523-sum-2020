@@ -432,7 +432,7 @@ Bailey, M. A. (2016). Real Stats: Using Econometrics for Political Science and P
 
 
 
-## Lecture Material
+## Lecture 
 
 [Lecture 06 on Control Variables](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-06-control-variables.pdf)
 
