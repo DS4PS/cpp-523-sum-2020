@@ -910,8 +910,44 @@ When you are complete:
 <a class="uk-button uk-button-primary" href="{{page.canvas.assignment_url}}">SUBMIT LAB</a>
 
 <br>
+
+## Mini-Assessment 06
+
+
+This mini assessment covers material from the [Taxonomy of Controls](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/taxonomy-of-control-variables.pdf).
+
+And on Measurement Error. See the animated simulations below for examples of the effects of measurement error in the DV versus IVs. And see questions 3 and 4 on the review sheet for the same examples explained as Venn diagrams. 
+
+[Review Questions](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/handouts/Review%20Material%20for%20the%20Final%20Exam%20-%20SOLUTIONS.pdf)  
+
+This mini assessment should give you an idea of the types of questions you might expect on the final exam. 
+
+<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/41574/quizzes/291349">Mini Assessment 05</a>
+
+**THE IMPACT OF MEASUREMENT ERROR**
+
+**Measurement Error in the DV:**
+
+*Increase in standard errors. No slope bias.* 
+
+![](assets/img/measurement-error-in-dv-large.gif) 
+
 <br>
 
+**Measurement Error in the IV:**
+
+*Attenuation of the slope (tilts toward zero), but also a decrease in standard errors that offset the shift of the slope toward zero.*
+
+
+![](https://github.com/lecy/regression-simulations/raw/master/GIFS/measurement%20error%20iv.gif) 
+
+<br>
+
+![](https://github.com/lecy/regression-simulations/raw/master/GIFS/measurement%20error%20iv%202.gif) 
+
+<br><br>
+<hr>
+<br><br>
 
 
 
@@ -920,19 +956,70 @@ When you are complete:
 
 # Review Material 
 
-## Control Variables 
-## Measurement Error 
-## Seven Deadly Sins of Regression 
+Please post questions on the discussion board if you are not sure of the correct solutions for questions on lectures or practice exams. 
+
+## Practice Exams
+
+[Exam Review with Solutions](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/handouts/Review%20Material%20for%20the%20Final%20Exam%20-%20SOLUTIONS.pdf) 
+
+[Practice Exam](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/handouts/Practice%20Exam.pdf)  
 
 <br>
-<hr>
+
+## Useful Summaries or Examples
+
+[Taxonomy of Control Variables](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/taxonomy-of-control-variables.pdf)  
+
+[Indirect Effects Example](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/handouts/indirect-effect-example.pdf)  
+
+
+**The Seven Deadly Sins of Regression**
+
+Concise summary of the seven most common issues that will corrupt your regression inferences [ [pdf](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/handouts/Seven-Sins-of-Regression-Analysis.pdf) ]  
+
+* Selection 
+* Omitted variable bias 
+* Measurement error 
+* Specification 
+* Group Heterogeneity 
+* Multi-collinearity 
+* Simultenaeity 
+
+Some longer notes: Seven Sins of Regression [ [pdf](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-10-seven-sins-of-regression.pdf) ] 
+
 <br>
+
+**Measurement Error**
+
+Measurement Error in the DV:
+
+*Increase in standard errors. No slope bias.* 
+
+![](assets/img/measurement-error-in-dv-large.gif) 
+
+<br>
+
+Measurement Error in the IV:
+
+*Attenuation of the slope (tilts toward zero), but also a decrease in standard errors that offset the shift of the slope toward zero.*
+
+
+![](https://github.com/lecy/regression-simulations/raw/master/GIFS/measurement%20error%20iv.gif) 
+
+<br>
+
+![](https://github.com/lecy/regression-simulations/raw/master/GIFS/measurement%20error%20iv%202.gif) 
+
+<br><br>
+<hr>
+<br><br>
+
 
 
 
 # Final Exam
 
-Exam can be taken online 
+Details coming soon.  
 
 <br>
 <br>
