@@ -21,6 +21,8 @@
 <script src="lab-05-instructions_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="lab-05-instructions_files/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="lab-05-instructions_files/navigation-1.1/tabsets.js"></script>
+<link href="lab-05-instructions_files/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="lab-05-instructions_files/pagedtable-1.1/js/pagedtable.js"></script>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -142,7 +144,7 @@ h6 {
 }
 </style>
 
-<link rel="stylesheet" href="textbook.css" type="text/css" />
+<link rel="stylesheet" href="lab-instructions.css" type="text/css" />
 
 
 
@@ -632,6 +634,7 @@ Observations
 <p>This model only allows us to test three contrasts where A represents the omitted group:</p>
 <p><img src="figures/dummy-hypotheses.png" /></p>
 <p>To test for differences between minority male and minority female salaries one of those groups must be constructed as the reference group.</p>
+<p>For more details see the lecture notes on <a href="https://github.com/DS4PS/cpp-523-sum-2020/raw/master/lectures/hypotheses-tests-with-dummy-variables.pdf">using dummy variables for hypothesis-testing</a>.</p>
 <p>Recall that the hypothesis test for salary differences are constructed as follows where <span class="math inline">\(wages_i\)</span> represents the average wage of people in group i:</p>
 <p><span class="math inline">\(NULL: wages_{white women} = wages_{white men}\)</span></p>
 <p><br></p>
@@ -656,41 +659,42 @@ Observations
 <h1>Lab Questions</h1>
 <div id="question-1" class="section level3">
 <h3>Question 1</h3>
-<p><strong>What group does the intercept represent in Model 1? What group does the intercept represent in Model 2?</strong></p>
+<p><strong>Q1a</strong>: What group does the intercept represent in Model 1?<br />
+<strong>Q1b</strong>: What group does the intercept represent in Model 2?</p>
 </div>
 <div id="question-2" class="section level3">
 <h3>Question 2</h3>
-<p><strong>What is the average salary of a white male?</strong></p>
-<p><strong>Question 2-a: Show how you determine this value using coefficients from Model 01.</strong></p>
-<p><strong>Question 2-b: Show how you determine this value using coefficients from Model 02.</strong></p>
+<p><strong>Q2a</strong>: What is the average salary of a white male?</p>
+<p><strong>Q2b</strong>: Show how you determine this value using coefficients from Model 01.</p>
+<p><strong>Q2c</strong>: Show how you determine this value using coefficients from Model 02.</p>
 </div>
 <div id="question-3" class="section level3">
 <h3>Question 3</h3>
-<p><strong>What is the average salary of a white female?</strong></p>
-<p><strong>Question 2-a: Show how you determine this value using coefficients from Model 01.</strong></p>
-<p><strong>Question 2-b: Show how you determine this value using coefficients from Model 02.</strong></p>
+<p><strong>Q3a</strong>: What is the average salary of a white female?</p>
+<p><strong>Q3b</strong>: Show how you determine this value using coefficients from Model 01.</p>
+<p><strong>Q3c</strong>: Show how you determine this value using coefficients from Model 02.</p>
 </div>
 <div id="question-4" class="section level3">
 <h3>Question 4</h3>
-<p><strong>What is the average salary of a minority female?</strong></p>
-<p><strong>Question 2-a: Show how you determine this value using coefficients from Model 01.</strong></p>
-<p><strong>Question 2-b: Show how you determine this value using coefficients from Model 02.</strong></p>
+<p><strong>Q4a</strong>: What is the average salary of a minority female?</p>
+<p><strong>Q4b</strong>: Show how you determine this value using coefficients from Model 01.</p>
+<p><strong>Q4c</strong>: Show how you determine this value using coefficients from Model 02.</p>
 </div>
 <div id="question-5" class="section level3">
 <h3>Question 5</h3>
-<p><strong>The coefficient a1 is statistically significant. Which hypothesis test does that coefficient represent?</strong></p>
+<p><strong>Q5</strong>: The coefficient a1 is statistically significant. Which hypothesis test does that coefficient represent?</p>
 </div>
 <div id="question-6" class="section level3">
 <h3>Question 6</h3>
-<p><strong>The coefficient a2 is NOT statistically significant. Which hypothesis test does that coefficient represent?</strong></p>
+<p><strong>Q6</strong>: The coefficient a2 is NOT statistically significant. Which hypothesis test does that coefficient represent?</p>
 </div>
 <div id="challenge-questions" class="section level3">
 <h3>Challenge Questions</h3>
 <p>You do not have to submit answers for these, but they are useful exercises.</p>
 <p><br></p>
-<p><strong>Q7: Write down a regression that would allow you to test the hypothesis whether minority male salaries are different (statistically) than minority female salaries. Which coefficient would tell you the answer?</strong></p>
+<p><strong>Q7</strong>: Write down a regression that would allow you to test the hypothesis whether minority male salaries are different (statistically) than minority female salaries. Which coefficient would tell you the answer?</p>
 <p><br></p>
-<p><strong>Q8: What happens if you run a model with no intercept? What do coefficients represent now? What hypothesis is being tested for each coefficient?</strong></p>
+<p><strong>Q8</strong>: What happens if you run a model with no intercept? What do coefficients represent now? What hypothesis is being tested for each coefficient?</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># regression with no intercept and all levels of gender </span></a>
 <a class="sourceLine" id="cb3-2" title="2"><span class="co"># add a -1 to suppress the intercept</span></a>
 <a class="sourceLine" id="cb3-3" title="3">m3 &lt;-<span class="st"> </span><span class="kw">lm</span>( salary <span class="op">~</span><span class="st"> </span>male <span class="op">+</span><span class="st"> </span>female <span class="op">-</span><span class="st"> </span><span class="dv">1</span>  )</a>
@@ -796,7 +800,7 @@ Observations
 </tr>
 </table>
 <p><br></p>
-<p><strong>Q9: Can you run the following model Why or why not?</strong></p>
+<p><strong>Q9</strong>: Can you run the following model Why or why not?</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co"># regression with no intercept and all categorical variables </span></a>
 <a class="sourceLine" id="cb4-2" title="2">m4 &lt;-<span class="st"> </span><span class="kw">lm</span>( salary <span class="op">~</span><span class="st"> </span>male <span class="op">+</span><span class="st"> </span>female <span class="op">+</span><span class="st"> </span>white <span class="op">+</span><span class="st"> </span>minority <span class="op">-</span><span class="st"> </span><span class="dv">1</span>  )</a>
 <a class="sourceLine" id="cb4-3" title="3"></a>
@@ -809,7 +813,7 @@ Observations
 <a class="sourceLine" id="cb4-10" title="10">                                <span class="st">&quot;d4: minority&quot;</span>) )</a></code></pre></div>
 <p><br> <br></p>
 <p>The really hard one:</p>
-<p><strong>Q10: What hypothesis does a3 test? If we can calculate a minority female salary from a0 + a1 + a2, why do we even need a3?</strong></p>
+<p><strong>Q10</strong>: What hypothesis does a3 test? If we can calculate a minority female salary from a0 + a1 + a2, why do we even need a3?</p>
 <p><br></p>
 <hr />
 <p><br></p>
@@ -820,27 +824,115 @@ Observations
 <p>After you have completed your lab submit via Canvas. Login to the ASU portal at <a href="http://canvas.asu.edu" class="uri">http://canvas.asu.edu</a> and navigate to the assignments tab in the course repository. Upload your file to the appropriate lab submission link. You can use an RMD file or an MS Word file for this assingment.</p>
 <p>Remember to name your files according to the convention: <strong>Lab-##-LastName.xxx</strong></p>
 <p><br> <br></p>
-<style>
-.footer {
-  background-color:#726e6e;
-  height:200px;
-  color:white;
-  padding: 20px 3px 20px 3px;
-  position: absolute; 
-  min-width:100%;
-  max-width:100%;
-  margin:0px;
-  width:100%;
-}
-</style>
-<div class="footer">
-<div class="row" align="center">
-<p><br></p>
-<p>Designed by <a href=https://github.com/lecy target="_blank">Jesse Lecy</a><br> Part of <a href=http://ds4ps.org/ms-prog-eval-data-analytics/ target="_blank">Eval &amp; Analytics</a><br> Page powered by <a href=http://jekyllrb.com target="_blank">Jekyll</a></p>
 </div>
+
+
+<div class="footer">
+<div class="row"  align="center">
+
+  <br>
+  Labs designed by <a href=https:lecy.info target="_blank">Jesse Lecy</a><br>
+  Content licensed under Creative Commons: <a href=https://creativecommons.org/licenses/by-nc-sa/4.0/ target="_blank"> (CC BY-NC-SA 4.0)</a><br>
+  Source code is available on <a href=https://github.com/DS4PS/cpp-523-spr-2020/tree/master/labs target="_blank">GitHub</a><br>
+  <br>
+  CPP 523 <a href="https://ds4ps.org/cpp-523-spr-2020/" target="_blank">Foundations of Prog Eval I</a><br>
+  Part of the <a href=http://ds4ps.org/ms-prog-eval-data-analytics/ target="_blank">MS in Evaluation and Analytics</a><br>
+  @ <a href=https://asuonline.asu.edu/online-degree-programs/graduate/program-evaluation-and-data-analytics-ms/ target="_blank">Arizona State University</a><br>
+  <br>
+  Copyright &copy; 2020
+  <p style="font-size:70%;">Solutions may <b>NOT</b> be posted online <br>
+  without violating ASU policies and copyright laws.</p>
+
+<br>
+<br>
+<br>
+<br>
+
 </div>
 </div>
 
+
+
+
+<style>
+
+blockquote {
+    padding: 11px 22px;
+    margin: 0 0 22px;
+    font-size: 18px;
+    border-left: 5px solid lightgray;
+}
+
+.footer {
+  color:white;
+  min-height: 450px !important;
+  background-color: #696969;
+  padding-bottom: 3em;
+  padding-top: 3em;
+  margin: auto;
+}
+
+.footer a {
+  color: orange;
+}
+
+.footer body{
+     font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+     font-size:calc(1.5em + 0.25vw);
+     font-weight:300;line-height:1.65;
+     -webkit-font-smoothing:antialiased;
+     -moz-osx-font-smoothing:grayscale;
+     margin-left:20%;
+     margin-right:20%
+}
+
+footer.body{
+     font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+     font-size:calc(1.5em + 0.25vw);
+     font-weight:300;line-height:1.65;
+     -webkit-font-smoothing:antialiased;
+     -moz-osx-font-smoothing:grayscale;
+     margin-left:20%;
+     margin-right:20%
+}
+
+.footerFloatOuter {
+	width: 25%;
+	float: left;
+}
+
+.footerFloatInner1 {
+	width: 20%;
+	float: left;
+	align: left;
+	margin-left: 0px;
+}
+
+.footerFloatInner2 {
+	width: 50%;
+	float: left;
+	text-align: left;
+}
+
+
+
+.footer ul li {
+	font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:calc(0.55em + 0.25vw) !important;
+  font-weight:300;
+  line-height:1.2 !important;
+  color: #FFF;
+	text-transform: uppercase;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+</style>
 
 
 
