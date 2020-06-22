@@ -14,15 +14,14 @@ output:
       after_body: 'footer.html'
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo=T, fig.width=9, fig.height=6, warning=F, message=F )
-```
+
 
 #### CPP 523: Program Eval I
 
 <br>
 
-```{r}
+
+```r
 library( stargazer )
 library( pander )
 library( dplyr )
@@ -32,36 +31,7 @@ library( dplyr )
 
 # Case Study
 
-```{r, echo=F}
-# set.seed( 1234 )
-# 
-# female <- sample( c(0,1), 1000, T )
-# minority <- sample( c(0,1), 1000, T )
-# salary <- 90000 + 3000*female + 500*minority + 7000*female*minority + rnorm(1000,0,10000)
-# 
-# male <- 1 - female 
-# white <- 1 - minority
-# 
-# white.male <- white * male 
-# white.female <- white * female 
-# minority.male <- minority * male
-# minority.female <- minority * female 
-# 
-# sum( white.male + white.female + minority.male + minority.female )
 
-# dat <- data.frame( salary, female, male, minority, white, 
-#                    white.male, white.female, minority.male, minority.female,
-#                    stringsAsFactors=FALSE )
-
-# write.csv( dat, "data/engineer-salaries.csv", row.names=F )
-
-URL <- "https://raw.githubusercontent.com/DS4PS/cpp-523-fall-2019/master/labs/data/engineer-salaries.csv"
-dat <- read.csv( URL, stringsAsFactors=F )
-
-salary <- dat$salary
-minority <- dat$minority
-female <- dat$female 
-```
 
 
 This questions examines hypothetical data used to study the pay gap at Google. First read the news excerpts below:
@@ -104,7 +74,8 @@ The data below represents (hypothetical) analysis of salaries for Level 1 Engine
 
 I have created two identical models by inverting the dummies (female -> male and minority -> white). Use the models to answer the questions about salary descrimination below. 
 
-```{r, results="asis"}
+
+```r
 m1 <- lm( salary ~ female + minority + female*minority, data=dat )
 m2 <- lm( salary ~ male + white + male*white, data=dat )
 
@@ -119,8 +90,37 @@ stargazer( m1, m2, type="html", digits=0,
                                 "b1: male",
                                 "b2: white",
                                 "b3: male x white") )
-
 ```
+
+
+<table style="text-align:center"><tr><td colspan="3" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left"></td><td colspan="2"><em>Dependent variable:</em></td></tr>
+<tr><td></td><td colspan="2" style="border-bottom: 1px solid black"></td></tr>
+<tr><td style="text-align:left"></td><td colspan="2">salary</td></tr>
+<tr><td style="text-align:left"></td><td>(1)</td><td>(2)</td></tr>
+<tr><td colspan="3" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">a0/b0: Constant</td><td>89,788<sup>***</sup></td><td>100,719<sup>***</sup></td></tr>
+<tr><td style="text-align:left"></td><td>(609)</td><td>(606)</td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td></tr>
+<tr><td style="text-align:left">a1: female</td><td>3,739<sup>***</sup></td><td></td></tr>
+<tr><td style="text-align:left"></td><td>(866)</td><td></td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td></tr>
+<tr><td style="text-align:left">a2: minority</td><td>748</td><td></td></tr>
+<tr><td style="text-align:left"></td><td>(898)</td><td></td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td></tr>
+<tr><td style="text-align:left">a3: female x minority</td><td>6,444<sup>***</sup></td><td></td></tr>
+<tr><td style="text-align:left"></td><td>(1,245)</td><td></td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td></tr>
+<tr><td style="text-align:left">b1: male</td><td></td><td>-10,183<sup>***</sup></td></tr>
+<tr><td style="text-align:left"></td><td></td><td>(895)</td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td></tr>
+<tr><td style="text-align:left">b2: white</td><td></td><td>-7,192<sup>***</sup></td></tr>
+<tr><td style="text-align:left"></td><td></td><td>(863)</td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td></tr>
+<tr><td style="text-align:left">b3: male x white</td><td></td><td>6,444<sup>***</sup></td></tr>
+<tr><td style="text-align:left"></td><td></td><td>(1,245)</td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td></tr>
+<tr><td colspan="3" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">Observations</td><td>1,000</td><td>1,000</td></tr>
+<tr><td colspan="3" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left"><em>Note:</em></td><td colspan="2" style="text-align:right"><sup>*</sup>p<0.1; <sup>**</sup>p<0.05; <sup>***</sup>p<0.01</td></tr>
+</table>
 
 
 ### Notes on Interpretation
@@ -275,8 +275,8 @@ You do not have to submit answers for these, but they are useful exercises.
 
 **Q8**: What happens if you run a model with no intercept? What do coefficients represent now? What hypothesis is being tested for each coefficient?
 
-```{r, results="asis"}
 
+```r
 # regression with no intercept and all levels of gender 
 # add a -1 to suppress the intercept
 m3 <- lm( salary ~ male + female - 1, data=dat  )
@@ -287,13 +287,27 @@ stargazer( m3, type="html", digits=0,
            covariate.labels = c("c1: male", "c2: female") )
 ```
 
+
+<table style="text-align:center"><tr><td colspan="2" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left"></td><td><em>Dependent variable:</em></td></tr>
+<tr><td></td><td colspan="1" style="border-bottom: 1px solid black"></td></tr>
+<tr><td style="text-align:left"></td><td>salary</td></tr>
+<tr><td colspan="2" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">c1: male</td><td>90,133<sup>***</sup></td></tr>
+<tr><td style="text-align:left"></td><td>(462)</td></tr>
+<tr><td style="text-align:left"></td><td></td></tr>
+<tr><td style="text-align:left">c2: female</td><td>97,179<sup>***</sup></td></tr>
+<tr><td style="text-align:left"></td><td>(446)</td></tr>
+<tr><td style="text-align:left"></td><td></td></tr>
+<tr><td colspan="2" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">Observations</td><td>1,000</td></tr>
+<tr><td colspan="2" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left"><em>Note:</em></td><td style="text-align:right"><sup>*</sup>p<0.1; <sup>**</sup>p<0.05; <sup>***</sup>p<0.01</td></tr>
+</table>
+
 <br> 
 
 
 **Q9**: Can you run the following model Why or why not?
 
-```{r, results="asis", eval=F}
 
+```r
 # regression with no intercept and all categorical variables 
 m4 <- lm( salary ~ male + female + white + minority - 1, data=dat  )
 
